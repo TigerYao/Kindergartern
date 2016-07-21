@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler"/>
+    </data>
+    <RelativeLayout
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:layout_gravity="left|center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:minWidth="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="@{clickHandler.onClickReturn}"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/icon_fanhui" />
+
+        <TextView
+            android:gravity="right|center"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1.0"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:onClick="@{clickHandler.onClickForgetPsw}"
+            android:text="忘记密码？"
+            android:textColor="@color/s_color16"
+            android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/s_color16"
+            android:textSize="@dimen/s_size14"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</layout>

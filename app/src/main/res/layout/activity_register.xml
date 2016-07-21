@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.register.RegisterClickHandler" />
+
+        <variable
+            name="isRight"
+            type="boolean" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:orientation="vertical"
+        android:transitionName="register"
+        tools:context="com.junbaole.kindergartern.presentation.register.RegisterActivity">
+
+        <include
+            layout="@layout/titlebar_layout"
+            bind:clickHandler="@{clickHandler}" />
+
+        <include
+            android:id="@+id/phoneNum"
+            layout="@layout/fragment_register_step_one"
+            bind:clickHandler="@{clickHandler}"
+            bind:isRight="@{isRight}" />
+
+    </LinearLayout>
+</layout>

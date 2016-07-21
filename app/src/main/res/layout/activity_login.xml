@@ -1,0 +1,197 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.login.LoginClickHandler" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        tools:context="com.junbaole.kindergartern.presentation.login.LoginActivity">
+
+        <include
+            bind:clickHandler="@{clickHandler}"
+            layout="@layout/titlebar_layout" />
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="left|center_vertical"-->
+        <!--android:minWidth="50dp"-->
+        <!--android:onClick="@{clickHandler.onClickReturn}"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@mipmap/icon_fanhui" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:layout_marginRight="12dp"-->
+        <!--android:layout_weight="1.0"-->
+        <!--android:gravity="right|center"-->
+        <!--android:onClick="@{clickHandler.onClickForgetPsw}"-->
+
+        <!--android:text="忘记密码？"-->
+        <!--android:textColor="@color/s_color16"-->
+        <!--android:textSize="14sp" />-->
+        <!--</LinearLayout>-->
+
+        <!-- Login progress -->
+        <ProgressBar
+            android:id="@+id/login_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="12dp">
+
+            <LinearLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="@string/title_activity_login"
+                        android:textColor="@color/s_color16"
+                        android:textSize="25sp"
+                        android:transitionName="login" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="25dp"
+                        android:text="手机号码"
+                        android:textColor="@color/s_color16"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/prompt_phone"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:minHeight="40dp"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/s_color16"
+                        android:textColorHint="#2d4833"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/s_color16" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:text="密码"
+                        android:textColor="@color/s_color16"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@id/title"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/prompt_password"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:minHeight="40dp"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/s_color16"
+                        android:textColorHint="#2d4833"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_below="@id/password"
+                        android:background="@color/s_color16" />
+
+                    <CheckBox
+                        android:id="@+id/displayPsw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/password"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="15dp"
+                        android:button="@null"
+                        android:checked="false"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="显示"
+                        android:textColor="@color/s_color16"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.6"
+                    android:background="@mipmap/button_yellow_z"
+                    android:onClick="@{clickHandler.login}"
+                    android:text="@string/action_sign_in_short"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

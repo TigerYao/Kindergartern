@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+   <data>
+       <variable
+           name="clickHandler"
+           type="com.junbaole.kindergartern.presentation.main.MainClickHandler"></variable>
+   </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionName="main_activity"
+        tools:context=".presentation.main.MainActivity">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_marginBottom="45dp"></FrameLayout>
+
+
+        <RadioGroup
+            android:id="@+id/main_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@mipmap/bql_icon_bgt"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+
+            <RadioButton
+                android:id="@+id/tab1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.2"
+                android:background="@drawable/main_tab_home"
+                android:button="@null"
+                android:checked="true"
+                android:drawablePadding="3dp"
+                android:drawableTop="@mipmap/bql_icon_riji"
+                android:gravity="center|bottom"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
+                android:text="宝贝日记"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/tab2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.2"
+                android:background="@drawable/main_tab_home"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@mipmap/bql_icon_faxian"
+                android:gravity="center|bottom"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
+                android:text="发现"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/tab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center|bottom"
+                android:onClick="@{clickHandler.onClickCamera}"
+                android:src="@drawable/main_tab_xiangji_selector"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/tab4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.2"
+                android:background="@drawable/main_tab_home"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@mipmap/bql_icon_tongxunlu"
+                android:gravity="center|bottom"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
+                android:text="通讯录"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/tab5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.2"
+                android:background="@drawable/main_tab_home"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@mipmap/bql_icon_me"
+                android:gravity="center|bottom"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
+                android:text="我"
+                android:textColor="#000"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+    </RelativeLayout>
+</layout>
