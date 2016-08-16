@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="sendMessage"
+            type="com.junbaole.kindergartern.data.model.SendMessageInfo" />
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.send.SendClickHandler" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:toggle="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context="com.junbaole.kindergartern.presentation.send.SendActivity">
+
+        <include
+            android:id="@+id/action_bar_title"
+            layout="@layout/titlebar_layout"
+            bind:clickHandler="@{clickHandler}" />
+
+        <EditText
+            android:id="@+id/message_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:hint="写下这一刻的想法"
+            android:minLines="4"
+            android:text="@{sendMessage.content}" />
+
+        <GridView
+            android:id="@+id/img_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:clipChildren="true"
+            android:gravity="center"
+            android:horizontalSpacing="3dip"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="5"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="3dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/ripple_item_selector"
+                android:drawableLeft="@mipmap/icon_weizhi_kong"
+                android:drawablePadding="5dp"
+                android:drawableRight="@mipmap/icon_xz_hui"
+                android:gravity="center_vertical"
+                android:onClick="@{clickHandler.onClickLocation}"
+                android:padding="12dp"
+                android:text="@string/send_msg_local_tip" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/setttings_private"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/ripple_item_selector"
+                    android:drawableLeft="@mipmap/icon_shuikeyikan"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{clickHandler.onClickProtect}"
+                    android:padding="12dp"
+                    android:text="@string/send_msg_open_tip" />
+
+                <com.zcw.togglebutton.ToggleButton
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    toggle:borderWidths="1px"
+                    toggle:offBorderColor="@color/black_20"
+                    toggle:offColor="@color/light_blue_500"
+                    toggle:onColor="@color/green_500"
+                    toggle:spotColor="@color/white"></com.zcw.togglebutton.ToggleButton>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
