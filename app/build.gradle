@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+
+    signingConfigs {
+        try {
+            release {
+                keyAlias releasekey_keyAlias
+                keyPassword releasekey_keyPassword
+                storeFile file("${releasekey_storefile}")
+                storePassword releasekey_storePassword
+            }
+            debug {
+                keyAlias releasekey_keyAlias
+                keyPassword releasekey_keyPassword
+                storeFile file("${releasekey_storefile}")
+                storePassword releasekey_storePassword
+            }
+        } catch (ex) {
+            keyAlias releasekey_keyAlias
+            keyPassword releasekey_keyPassword
+            storeFile file("${releasekey_storefile}")
+            storePassword releasekey_storePassword
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.junbaole.kindergartern"
+        minSdkVersion 10
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            zipAlignEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile project(':convenientbanner')
+    //https://github.com/afollestad/material-dialogs
+    compile project(':commons')
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile project(':ToggleButtonLib')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.google.code.gson:gson:2.6.1'
+    compile 'com.qiniu:qiniu-android-sdk:7.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.facebook.fresco:fresco:0.11.0'
+}

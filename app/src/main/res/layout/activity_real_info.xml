@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="parentInfo"
+            type="com.junbaole.kindergartern.data.model.ParentAuthVO" />
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.register.RealInfoClickHandler" />
+    </data>
+
+    <LinearLayout xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        tools:context="com.junbaole.kindergartern.presentation.register.RealInfoActivity">
+
+        <include
+            android:id="@+id/title_bar"
+            layout="@layout/titlebar_layout"
+            bind:clickHandler="@{clickHandler}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_register_title"
+                    android:text="@string/mobile_num" />
+
+                <EditText
+                    android:id="@+id/real_phone"
+                    style="@style/style_register_value"
+                    android:background="@null"
+                    android:hint="请输入您的手机号码"
+                    android:text="@{parentInfo.phone_num}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    style="@style/style_register_title"
+                    android:text="@string/parents_name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingRight="12dp">
+
+                    <EditText
+                        android:id="@+id/real_parentName"
+                        style="@style/style_register_value"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:hint="请输入您的姓名" />
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/icon_xiala_down" />-->
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    style="@style/style_register_title"
+                    android:text="@string/relation_ship_parents" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:onClick="@{clickHandler.onClickRelationShip}"
+                    android:paddingRight="12dp">
+
+                    <TextView
+                        android:id="@+id/relationship"
+                        style="@style/style_register_value"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:hint="请选择"
+                        android:text="" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_xiala_down" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    style="@style/style_register_title"
+                    android:text="@string/baby_name" />
+
+                <EditText
+                    android:id="@+id/baby_name"
+                    style="@style/style_register_value"
+                    android:background="@null"
+                    android:hint="您宝宝的姓名" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    style="@style/style_register_title"
+                    android:text="@string/school" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:onClick="@{clickHandler.onClickShoolList}"
+                    android:paddingRight="12dp">
+
+                    <TextView
+                        android:id="@+id/school_name"
+                        style="@style/style_register_value"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:hint="您宝宝的学校名称" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_xiala_down" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white" />
+
+                <Button
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.6"
+                    android:background="@mipmap/button_yellow_z"
+                    android:onClick="@{clickHandler.onClickSave}"
+                    android:text="@string/save"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

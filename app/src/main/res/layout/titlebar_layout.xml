@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler" />
+
+        <variable
+            name="builder"
+            type="com.junbaole.kindergartern.presentation.base.TitleBuilder" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:minWidth="50dp"
+            android:visibility="@{builder.isLeftlayoutVisible?View.VISIBLE:View.GONE}">
+
+            <ImageView
+                android:id="@+id/title_left_img"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left|center_vertical"
+                android:minWidth="50dp"
+                android:onClick="@{clickHandler.onClickReturn}"
+                android:scaleType="center"
+                android:src="@mipmap/icon_fanhui"
+                android:visibility="@{builder.isVisibleLeftImg?View.VISIBLE:View.GONE}" />
+
+            <TextView
+                android:id="@+id/title_left_lable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:minWidth="50dp"
+                android:gravity="center"
+                android:onClick="@{clickHandler.onClickLeftText}"
+                android:text="@{builder.leftLable}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_size14"
+                android:visibility="@{builder.isVisibleLeftLable?View.VISIBLE:View.GONE}" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_pagename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{builder.mTitle}"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:minWidth="50dp"
+            android:visibility="@{builder.isRightLayoutVisible?View.VISIBLE:View.GONE}">
+
+            <ImageView
+                android:id="@+id/title_right_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:minWidth="50dp"
+                android:onClick="@{clickHandler.onClickRightImg}"
+                android:scaleType="center"
+                android:visibility="@{builder.isVisibleRightImg?View.VISIBLE:View.GONE}" />
+
+            <TextView
+                android:id="@+id/title_right_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginRight="12dp"
+                android:gravity="right|center"
+                android:minWidth="50dp"
+                android:onClick="@{clickHandler.onClickForgetPsw}"
+                android:text="@{builder.rightLable}"
+                android:textColor="@color/s_color16"
+                android:textSize="14sp"
+                android:visibility="@{builder.isVisisbleRightLable?View.VISIBLE:View.GONE}" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
