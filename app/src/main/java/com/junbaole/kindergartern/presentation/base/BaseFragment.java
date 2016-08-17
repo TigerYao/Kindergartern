@@ -1,5 +1,11 @@
 package com.junbaole.kindergartern.presentation.base;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.domain.SendPhoneEvent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.domain.SendPhoneEvent;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,10 +28,23 @@ public class BaseFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public MaterialDialog materialProgressBar;
 
     public BaseFragment() {
         // Required empty public constructor
+
+    }
+
+    protected void showDialog() {
+        if (!materialProgressBar.isShowing()) {
+            materialProgressBar.show();
+        }
+    }
+
+    protected void dismissDialog() {
+        if (materialProgressBar.isShowing()) {
+            materialProgressBar.dismiss();
+        }
     }
 
     /**
@@ -55,6 +68,8 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        materialProgressBar = new MaterialDialog.Builder(getContext()).title("正在加载数据,请稍后!")
+                .progress(true, 0).build();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -64,7 +79,7 @@ public class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         TextView textView = new TextView(getActivity());
         textView.setText(R.string.hello_blank_fragment);
         return textView;
@@ -77,7 +92,7 @@ public class BaseFragment extends Fragment {
     }
 
     @Subscribe
-    public void onMainEvent(SendPhoneEvent event){
+    public void onMainEvent(SendPhoneEvent event) {
 
     }
 }

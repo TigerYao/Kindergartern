@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.utils.amaputils.AmapQueryUtils;
+import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
 import com.junbaole.kindergartern.databinding.FragmentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
@@ -46,7 +47,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
 
     public HomeFragment() {
         // Required empty public constructor
-
+        super();
     }
 
     /**
@@ -81,9 +82,9 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        homeBinding.contentList.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        homeBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new RecorderAdapter();
-        homeBinding.contentList.setAdapter(mAdapter);
+        homeBinding.swipeTarget.setAdapter(mAdapter);
         new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable("宝宝日记", "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi).build();
         homeBinding.headerHome.setWeekday(getWeekDay());
         homeBinding.swipeToLoadLayout.setRefreshEnabled(false);
@@ -95,6 +96,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         new AmapQueryUtils().queryWeather(mActivity);
+        showDialog();
         mActivity.secondActionManager.getCommonts(mActivity.userInfo.id, 0,false);
     }
 
@@ -111,8 +113,11 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     }
 
     @Subscribe
-    public void onDataRefresh() {
-
+    public void onDataRefresh(DiaryEvent event) {
+        dismissDialog();
+        if(!event.isOk){
+            homeBinding.swipeToLoadLayout.setLoadingMore(false);
+        }
     }
 
     String weeks[] = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};

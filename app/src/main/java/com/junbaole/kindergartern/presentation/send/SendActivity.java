@@ -10,6 +10,7 @@ import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
+import com.junbaole.kindergartern.data.utils.event.LocationEvent;
 import com.junbaole.kindergartern.databinding.ActivitySendBinding;
 import com.junbaole.kindergartern.presentation.adapter.ShooleListAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
@@ -49,7 +50,7 @@ public class SendActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void onGetImgs(ArrayList<ImageInfo> imgs) {
+    public void onGetImgsList(ArrayList<ImageInfo> imgs) {
         mAdapter.setDatas(imgs);
     }
 
@@ -70,10 +71,10 @@ public class SendActivity extends BaseActivity {
     MaterialDialog dialog;
 
     @Subscribe
-    public void showShoolList(final ArrayList<PoiItem> list) {
+    public void showShoolList(LocationEvent event) {
         if (dialog == null || !dialog.isShowing())
             dialog = new MaterialDialog.Builder(this)
-                    .title("显示当前位置").adapter(new ShooleListAdapter(list) {
+                    .title("显示当前位置").adapter(new ShooleListAdapter(event.locations) {
                         @Override
                         public void clickItem(PoiItem poiItem) {
                             mSendMessageInfo.location_name = poiItem.getTitle();

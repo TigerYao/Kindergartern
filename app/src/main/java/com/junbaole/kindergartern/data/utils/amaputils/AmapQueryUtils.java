@@ -1,6 +1,8 @@
 package com.junbaole.kindergartern.data.utils.amaputils;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
@@ -10,6 +12,7 @@ import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearchQuery;
 import com.junbaole.kindergartern.data.utils.activity.AppInfo;
+import com.junbaole.kindergartern.data.utils.event.LocationEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +31,8 @@ public class AmapQueryUtils implements PoiSearch.OnPoiSearchListener, WeatherSea
     }
     public void queryKeyWords(Context ctx) {
         PoiSearch.Query query = new PoiSearch.Query(AppInfo.getLocationName(ctx), AppInfo.getCityCode(ctx));
-        query.setPageNum(1);
+        query.setPageNum(0);
+        Log.i("tag",AppInfo.getLocationName(ctx)+"??"+AppInfo.getCityCode(ctx));
         query.setPageSize(25);
         PoiSearch poiSearch = new PoiSearch(ctx, query);
         poiSearch.setOnPoiSearchListener(this);
@@ -44,7 +48,9 @@ public class AmapQueryUtils implements PoiSearch.OnPoiSearchListener, WeatherSea
 
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
-        EventBus.getDefault().post(poiResult.getPois());
+        LocationEvent event = new LocationEvent();
+        event.locations = poiResult.getPois();
+        EventBus.getDefault().post(event);
     }
 
     @Override

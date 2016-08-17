@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
@@ -57,7 +59,7 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         final SendImgsViewHolder holder = onCreateViewHolder();
-        holder.draweeView.setImageURI(getItem(position));
+        Glide.with(ctx).load(getItem(position)).into(holder.draweeView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,12 +103,12 @@ public class SendImgsAdapter extends BaseAdapter {
     }
 
     class SendImgsViewHolder {
-        SimpleDraweeView draweeView;
+        ImageView draweeView;
         View itemView;
 
         public SendImgsViewHolder(final View itemView) {
             this.itemView = itemView;
-            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.my_image_view);
+            draweeView = (ImageView) itemView.findViewById(R.id.my_image_view);
 
         }
     }

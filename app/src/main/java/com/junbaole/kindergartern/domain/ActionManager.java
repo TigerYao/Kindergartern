@@ -12,6 +12,7 @@ import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
 import com.junbaole.kindergartern.data.utils.SharedPreferenceUtil;
+import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
 import com.junbaole.kindergartern.network.RetrofitServer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -215,11 +216,12 @@ public class ActionManager {
         CallBackListener callBackListener = new CallBackListener<String>() {
             @Override
             public void onSuccess(String s) {
-                Log.i("tag===", s);
+                EventBus.getDefault().post(new DiaryEvent(true));
             }
 
             @Override
             public void onFail(String failReason) {
+                EventBus.getDefault().post(new DiaryEvent(false));
                 Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         };

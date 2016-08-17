@@ -1,9 +1,8 @@
 package com.junbaole.kindergartern.presentation.base;
 
-import android.app.Activity;
-import android.view.View;
-
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
+
+import android.view.View;
 
 /**
  * Created by liangrenwang on 16/6/7.
@@ -24,10 +23,10 @@ public class BaseTitleClickHandler {
 
     }
 
-    public void onClickRightImg(View view){
+    public void onClickRightImg(View view) {
 
     }
 
-    public void onClickLeftText(View view){}
+    public void onClickLeftText(View view) {}
 
 }

@@ -3,6 +3,7 @@ package com.junbaole.kindergartern.widget.ImageSelectorView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 public class MyAdapter extends CommonAdapter<ImageInfo> {
 
@@ -35,8 +37,8 @@ public class MyAdapter extends CommonAdapter<ImageInfo> {
             helper.getView(R.id.id_item_check).setVisibility(View.GONE);
             return;
         }
-        final SimpleDraweeView mImageView = helper.getView(R.id.id_item_image);
-        mImageView.setImageURI(item.getImgUri());
+        final ImageView mImageView = helper.getView(R.id.id_item_image);
+        Glide.with(ctx).load(item.getImgUri()).into(mImageView);
         final CheckBox mSelect = helper.getView(R.id.id_item_check);
         mSelect.setVisibility(View.VISIBLE);
         mImageView.setColorFilter(null);

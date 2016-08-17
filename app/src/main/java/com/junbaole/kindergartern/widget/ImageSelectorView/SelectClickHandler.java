@@ -33,8 +33,6 @@ public class SelectClickHandler extends BaseTitleClickHandler {
     public void onClickSure(View view) {
         ArrayList<ImageInfo> datas = ((ImageSelectorActivity) mActivity).mAdapter.mSelectedImage;
         if(datas!=null&&datas.size()>0){
-            Intent intent = new Intent(mActivity, SendActivity.class);
-            mActivity.startActivity(intent);
             EventBus.getDefault().post(datas);
             mActivity.finish();
         }

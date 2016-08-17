@@ -2,14 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/id_item_image"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        fresco:placeholderImage="@drawable/pictures_no"
+        android:background="@drawable/pictures_no"
         android:scaleType="centerCrop" />
 
     <CheckBox
