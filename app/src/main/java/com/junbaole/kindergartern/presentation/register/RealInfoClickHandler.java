@@ -1,30 +1,24 @@
 package com.junbaole.kindergartern.presentation.register;
 
-import android.app.Activity;
-import android.database.DataSetObserver;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.utils.StringUtils;
+import com.junbaole.kindergartern.presentation.adapter.ShooleListAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
 
-import java.util.ArrayList;
-
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by TigerYao on 16/7/23.
@@ -36,14 +30,14 @@ public class RealInfoClickHandler extends BaseTitleClickHandler {
 
     public RealInfoClickHandler(BaseActivity mActivity, ParentAuthVO parentAuthVO) {
         super(mActivity);
-        realInfoActivity = (RealInfoActivity) mActivity;
+        realInfoActivity = (RealInfoActivity)mActivity;
         this.parentAuthVO = parentAuthVO;
         init();
     }
 
     public void onClickSave(View view) {
         if (isOk()) {
-            ((RealInfoActivity) mActivity).actionManager.parentAuth(parentAuthVO);
+            ((RealInfoActivity)mActivity).actionManager.parentAuth(parentAuthVO);
         }
     }
 
@@ -57,7 +51,6 @@ public class RealInfoClickHandler extends BaseTitleClickHandler {
     public void onClickShoolList(View view) {
         realInfoActivity.actionManager.getShoolList("");
     }
-
 
     private boolean isOk() {
         if (isNull(realInfoActivity.realInfoBinding.realPhone)) {
@@ -81,11 +74,10 @@ public class RealInfoClickHandler extends BaseTitleClickHandler {
         return true;
     }
 
-
     private boolean isNull(TextView editText) {
         if (TextUtils.isEmpty(editText.getText()) || StringUtils.isBlank(editText.getText().toString())) {
             editText.setError("请输入内容");
-            Toast.makeText(realInfoActivity,"不能为空",Toast.LENGTH_LONG).show();
+            Toast.makeText(realInfoActivity, "不能为空", Toast.LENGTH_LONG).show();
             return true;
         }
         return false;
@@ -98,55 +90,20 @@ public class RealInfoClickHandler extends BaseTitleClickHandler {
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        ((RealInfoActivity) mActivity).realInfoBinding.relationship.setText(text);
-                        parentAuthVO.rel_type = which+1;
+                        ((RealInfoActivity)mActivity).realInfoBinding.relationship.setText(text);
+                        parentAuthVO.rel_type = which + 1;
                         dialog.dismiss();
                     }
                 }).build();
     }
 
-    public void showShoolList(final ArrayList<ShooleInfo> list) {
-        new MaterialDialog.Builder(mActivity)
-                .title("选择学校").adapter(new ShooleListAdapter(list), new MaterialDialog.ListCallback() {
-            @Override
-            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                realInfoActivity.realInfoBinding.schoolName.setText(list.get(which).name);
-                parentAuthVO.shcool_id = list.get(which).id;
-                dialog.dismiss();
-            }
-        }).show();
-    }
+//    public void showShoolList(final ArrayList<ShooleInfo> list) {
+//        new MaterialDialog.Builder(mActivity)
+//                .title("选择学校").adapter(new ShooleListAdapter(list),new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)).show();
+//    }
 
 }
 
-class ShooleListAdapter extends BaseAdapter {
 
-    ArrayList<ShooleInfo> mList;
 
-    public ShooleListAdapter(ArrayList<ShooleInfo> list) {
-        this.mList = list;
-    }
 
-    @Override
-    public int getCount() {
-        return mList.size();
-    }
-
-    @Override
-    public ShooleInfo getItem(int i) {
-        return mList.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return mList.get(i).id;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        view = LayoutInflater.from(viewGroup.getContext()).inflate(android.R.layout.simple_list_item_1, null);
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
-        textView.setText(getItem(i).name);
-        return view;
-    }
-}

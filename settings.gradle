@@ -1,1 +1,1 @@
-include ':app', ':convenientbanner', ':sharelibrary', ':core', ':commons', ':ToggleButtonLib'
+include ':app', ':convenientbanner', ':sharelibrary', ':ToggleButtonLib'

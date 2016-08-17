@@ -6,13 +6,14 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.junbaole.kindergartern.data.utils.activity.AppInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by yaohu on 16/7/26.
  */
-public abstract class AmapLocationUtil implements AMapLocationListener {
+public  class AmapLocationUtil implements AMapLocationListener {
 
     private AMapLocationClient mLocationClient;
     private AMapLocationClientOption mLocationOption;
@@ -22,6 +23,7 @@ public abstract class AmapLocationUtil implements AMapLocationListener {
         this.mCtx = context;
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
+        mLocationClient = new AMapLocationClient(context);
 //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
 //设置是否返回地址信息（默认返回地址信息）
@@ -52,4 +54,10 @@ public abstract class AmapLocationUtil implements AMapLocationListener {
     }
 
 
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        AppInfo.setCityCode(mCtx,aMapLocation.getCityCode());
+        AppInfo.setCityName(mCtx,aMapLocation.getCity());
+        AppInfo.setLocationName(mCtx,aMapLocation.getAddress());
+    }
 }

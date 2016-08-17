@@ -10,6 +10,8 @@ import com.junbaole.kindergartern.data.utils.StringUtils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;

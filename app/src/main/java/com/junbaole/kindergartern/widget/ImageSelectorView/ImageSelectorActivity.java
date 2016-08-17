@@ -53,7 +53,7 @@ public class ImageSelectorActivity extends BaseActivity {
             public void call(Subscriber<? super ArrayList<ImageInfo>> subscriber) {
                 Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                 Cursor c = MediaStore.Images.Media.query(getContentResolver(), baseUri,
-                        new String[] { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME });
+                        new String[] { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME});
                 if (c != null && c.getCount() > 0) {
                     int columnIndex = c.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
                     int columnDataIndex = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);

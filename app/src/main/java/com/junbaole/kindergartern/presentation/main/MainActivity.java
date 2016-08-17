@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.utils.amaputils.AmapLocationUtil;
 import com.junbaole.kindergartern.databinding.ActivityMainBinding;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
 import com.junbaole.kindergartern.presentation.base.BaseFragmentActivity;
@@ -16,7 +17,7 @@ import com.junbaole.kindergartern.presentation.home.HomeFragment;
 import com.junbaole.kindergartern.presentation.personal.PersonalFragment;
 
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity{
 
     ActivityMainBinding mainBinding;
     MainClickHandler mainClickHandler;
@@ -60,4 +61,9 @@ public class MainActivity extends BaseFragmentActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new AmapLocationUtil(this);
+    }
 }

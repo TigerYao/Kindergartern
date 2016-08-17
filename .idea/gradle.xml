@@ -12,9 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ToggleButtonLib" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/convenientbanner" />
-            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/sharelibrary" />
           </set>
         </option>
@@ -23,9 +21,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ToggleButtonLib" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/convenientbanner" />
-            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/sharelibrary" />
           </set>
         </option>

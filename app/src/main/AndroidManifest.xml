@@ -58,9 +58,7 @@
         <activity android:name=".presentation.register.RealInfoActivity" />
         <activity android:name=".presentation.register.SchoolAddressActivity" />
         <activity android:name=".widget.ImageSelectorView.ImageSelectorActivity" />
-        <activity
-            android:name=".presentation.send.SendActivity"
-            android:launchMode="singleTask" />
+        <activity android:name=".presentation.send.SendActivity" />
         <activity android:name=".presentation.send.DisplayImgsActivity" />
         <activity android:name=".presentation.messagedetail.MessageDetailActivity" />
         <activity
@@ -102,7 +100,9 @@
         <service
             android:name=".presentation.server.UpLoadImgService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".presentation.LocationActivity"></activity>
     </application>
 
 </manifest>

@@ -40,7 +40,7 @@ public class RealInfoActivity extends BaseActivity {
 
     @Subscribe
     public void onCallBackShoole(ArrayList<ShooleInfo> shooleInfos) {
-        clickHandler.showShoolList(shooleInfos);
+//        clickHandler.showShoolList(shooleInfos);
     }
 
     @Subscribe
