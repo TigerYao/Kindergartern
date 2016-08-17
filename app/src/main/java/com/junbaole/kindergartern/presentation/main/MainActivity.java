@@ -1,12 +1,5 @@
 package com.junbaole.kindergartern.presentation.main;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.utils.amaputils.AmapLocationUtil;
 import com.junbaole.kindergartern.databinding.ActivityMainBinding;
@@ -16,12 +9,16 @@ import com.junbaole.kindergartern.presentation.contact.ContactListFragment;
 import com.junbaole.kindergartern.presentation.home.HomeFragment;
 import com.junbaole.kindergartern.presentation.personal.PersonalFragment;
 
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.widget.RadioGroup;
 
-public class MainActivity extends BaseFragmentActivity{
+public class MainActivity extends BaseFragmentActivity {
 
     ActivityMainBinding mainBinding;
     MainClickHandler mainClickHandler;
-    private static final int[] ITEM_DRAWABLES = {R.mipmap.icon_videov_tc, R.mipmap.icon_camera_tc, R.mipmap.icon_image_tc};
+    AmapLocationUtil mAmapLocationUtil;
+    private static final int[] ITEM_DRAWABLES = { R.mipmap.icon_videov_tc, R.mipmap.icon_camera_tc, R.mipmap.icon_image_tc };
 
     @Override
     public int getFragmentContentId() {
@@ -36,6 +33,7 @@ public class MainActivity extends BaseFragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAmapLocationUtil = new AmapLocationUtil(this);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         onAfterCreate();
         mainClickHandler = new MainClickHandler(this);
@@ -64,6 +62,6 @@ public class MainActivity extends BaseFragmentActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        new AmapLocationUtil(this);
+        mAmapLocationUtil.start();
     }
 }
