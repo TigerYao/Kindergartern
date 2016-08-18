@@ -1,15 +1,18 @@
 package com.junbaole.kindergartern.presentation.send;
 
-import java.util.ArrayList;
-
-import org.greenrobot.eventbus.Subscribe;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.amap.api.services.core.PoiItem;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
+import com.junbaole.kindergartern.data.utils.activity.AppInfo;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
+import com.junbaole.kindergartern.data.utils.amaputils.AmapLocationUtil;
 import com.junbaole.kindergartern.data.utils.event.LocationEvent;
 import com.junbaole.kindergartern.databinding.ActivitySendBinding;
 import com.junbaole.kindergartern.presentation.adapter.ShooleListAdapter;
@@ -18,10 +21,9 @@ import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.junbaole.kindergartern.presentation.server.UpLoadImgService;
 import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
 
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 public class SendActivity extends BaseActivity {
 
@@ -45,8 +47,16 @@ public class SendActivity extends BaseActivity {
                 .TitleBuilderLableColor(0, 0, R.color.white).build();
         mSendMessageInfo = new SendMessageInfo();
         mSendBinding.setSendMessage(mSendMessageInfo);
+        if (AppInfo.latLonPoint != null) {
+            mSendMessageInfo.location.latitude = (long)AppInfo.getLat(this);
+            mSendMessageInfo.location.longitude = (long)AppInfo.getLon(this);
+        }else{
+            new AmapLocationUtil(this).start();
+        }
+        mSendMessageInfo.location_name = AppInfo.getLocationName(this);
         mAdapter = new SendImgsAdapter(this, datas);
         mSendBinding.imgList.setAdapter(mAdapter);
+        mSendBinding.location.setText(AppInfo.getLocationName(this));
     }
 
     @Subscribe
@@ -78,7 +88,9 @@ public class SendActivity extends BaseActivity {
                         @Override
                         public void clickItem(PoiItem poiItem) {
                             mSendMessageInfo.location_name = poiItem.getTitle();
-                            mSendBinding.setSendMessage(mSendMessageInfo);
+                            mSendBinding.location.setText(mSendMessageInfo.location_name);
+                            mSendMessageInfo.location.latitude = (long) poiItem.getLatLonPoint().getLatitude();
+                            mSendMessageInfo.location.longitude = (long) poiItem.getLatLonPoint().getLongitude();
                             dialog.dismiss();
                         }
                     }, new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)).show();

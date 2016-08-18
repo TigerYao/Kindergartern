@@ -52,7 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@color/s_color14"
+                android:layout_height="1dp"></View>
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
@@ -68,7 +72,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"></View>
+                android:background="@color/s_color14"
+                android:layout_height="1dp"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,6 +102,10 @@
                     toggle:onColor="@color/green_500"
                     toggle:spotColor="@color/white"></com.zcw.togglebutton.ToggleButton>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/s_color14"
+                android:layout_height="1dp"></View>
         </LinearLayout>
     </LinearLayout>
 </layout>

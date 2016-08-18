@@ -89,6 +89,7 @@ public class SendImgsAdapter extends BaseAdapter {
 
     public void setDatas(ArrayList<ImageInfo> datas) {
         this.datas = datas;
+        this.datas.remove(null);
         this.datas.add(null);
         notifyDataSetChanged();
     }

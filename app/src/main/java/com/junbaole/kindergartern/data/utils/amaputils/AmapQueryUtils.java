@@ -30,11 +30,12 @@ public class AmapQueryUtils implements PoiSearch.OnPoiSearchListener, WeatherSea
         poiSearch.searchPOIAsyn();
     }
     public void queryKeyWords(Context ctx) {
-        PoiSearch.Query query = new PoiSearch.Query(AppInfo.getLocationName(ctx), AppInfo.getCityCode(ctx));
+        PoiSearch.Query query = new PoiSearch.Query(AppInfo.getLocationName(ctx),"", AppInfo.getCityName(ctx));
         query.setPageNum(0);
-        Log.i("tag",AppInfo.getLocationName(ctx)+"??"+AppInfo.getCityCode(ctx));
         query.setPageSize(25);
         PoiSearch poiSearch = new PoiSearch(ctx, query);
+        if(AppInfo.latLonPoint!=null)
+        poiSearch.setBound(new PoiSearch.SearchBound(AppInfo.latLonPoint, 5000, true));
         poiSearch.setOnPoiSearchListener(this);
         poiSearch.searchPOIAsyn();
     }
@@ -48,6 +49,7 @@ public class AmapQueryUtils implements PoiSearch.OnPoiSearchListener, WeatherSea
 
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
+        Log.i("tag",poiResult.getPois().size()+"???"+i);
         LocationEvent event = new LocationEvent();
         event.locations = poiResult.getPois();
         EventBus.getDefault().post(event);

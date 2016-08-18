@@ -12,9 +12,9 @@ import java.util.UUID;
 public class SendMessageInfo implements Parcelable {
     public String access_token;
     public String content;
-    public ArrayList<ImageInfo> images;
-    public ArrayList<ImageInfo> imageList;
-    public Location location;
+    public ArrayList<ImageInfo> images = new ArrayList<>();
+    public ArrayList<ImageInfo> imageList = new ArrayList<>();
+    public Location location = new Location();
     public String location_name;
     public String shared_id;
     public String shared_type;

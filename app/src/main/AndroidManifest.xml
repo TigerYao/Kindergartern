@@ -96,7 +96,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="2e1214003988a42ebabf5b105f73aa94" />
-
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
         <service
             android:name=".presentation.server.UpLoadImgService"
             android:enabled="true"
