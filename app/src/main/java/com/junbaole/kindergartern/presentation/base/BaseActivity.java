@@ -18,16 +18,19 @@ import org.greenrobot.eventbus.Subscribe;
 public class BaseActivity extends AppCompatActivity {
 
     public ActionManager actionManager,secondActionManager;
-    public UserInfo userInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         actionManager = ActionManager.getInstance(this);
         secondActionManager = ActionManager.getSencondIntent(this);
-        userInfo = ((BaseApplication)getApplication()).getUserInfo();
+
     }
 
+    public UserInfo getUserInfo() {
+
+        return ((BaseApplication)getApplication()).getUserInfo();
+    }
 
     @Override
     protected void onDestroy() {

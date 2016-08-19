@@ -75,4 +75,19 @@ public class ImageInfo implements Parcelable {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "ImageInfo{" +
+                "uri=" + uri +
+                ", realpath='" + realpath + '\'' +
+                ", client_id='" + client_id + '\'' +
+                ", auth='" + auth + '\'' +
+                ", image_id='" + image_id + '\'' +
+                ", base_thumbnail_uri='" + base_thumbnail_uri + '\'' +
+                ", upload_path='" + upload_path + '\'' +
+                ", bucket='" + bucket + '\'' +
+                ", is_exit=" + is_exit +
+                ", id=" + id +
+                '}';
+    }
 }

@@ -15,7 +15,7 @@
                 android:id="@+id/searchBarContainer"
                 android:layout_width="fill_parent"
                 android:layout_height="48dp"
-                android:background="@android:drawable/edit_text"
+                android:background="@color/colorPrimaryDark"
                 android:scaleType="fitCenter">
 
                 <ImageButton

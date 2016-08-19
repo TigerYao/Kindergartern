@@ -1,6 +1,5 @@
 package com.junbaole.kindergartern.presentation.home;
 
-
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.utils.amaputils.AmapQueryUtils;
+import com.junbaole.kindergartern.data.utils.event.DataRefreshEvent;
 import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
 import com.junbaole.kindergartern.databinding.FragmentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
@@ -80,12 +80,13 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         homeBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new RecorderAdapter();
         homeBinding.swipeTarget.setAdapter(mAdapter);
-        new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable("宝宝日记", "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi).build();
+        new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable("宝宝日记", "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi)
+                .build();
         homeBinding.headerHome.setWeekday(getWeekDay());
         homeBinding.swipeToLoadLayout.setRefreshEnabled(false);
         homeBinding.swipeToLoadLayout.setOnLoadMoreListener(this);
@@ -97,13 +98,13 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
         super.onViewCreated(view, savedInstanceState);
         new AmapQueryUtils().queryWeather(mActivity);
         showDialog();
-        mActivity.secondActionManager.getCommonts(mActivity.userInfo.id, 0,false);
+        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mActivity = (BaseActivity) activity;
+        this.mActivity = (BaseActivity)activity;
     }
 
     @Subscribe
@@ -113,14 +114,22 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     }
 
     @Subscribe
-    public void onDataRefresh(DiaryEvent event) {
-        dismissDialog();
-        if(!event.isOk){
-            homeBinding.swipeToLoadLayout.setLoadingMore(false);
-        }
+    public void refresh(DataRefreshEvent event){
+        pageSize = 0;
+        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
     }
 
-    String weeks[] = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+    @Subscribe
+    public void onGetDataByUrl(DiaryEvent event) {
+        if(!event.isDiary&&event.diaryInfo!=null){
+            mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
+            pageSize += 1;
+        }
+        dismissDialog();
+        homeBinding.swipeToLoadLayout.setLoadingMore(false);
+    }
+
+    String weeks[] = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
 
     private String getWeekDay() {
         final Calendar c = Calendar.getInstance();
@@ -131,7 +140,6 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
 
     @Override
     public void onLoadMore() {
-        mActivity.secondActionManager.getCommonts(mActivity.userInfo.id, pageSize,false);
-        pageSize += 1;
+        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize, false);
     }
 }

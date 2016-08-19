@@ -1,6 +1,7 @@
 package com.junbaole.kindergartern.domain;
 
 import com.junbaole.kindergartern.data.model.BaseReponseModel;
+import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
@@ -46,7 +47,7 @@ public interface Action {
     Call<BaseReponseModel<ArrayList<ShooleInfo>>> getShooleList(@Query("province") String proviceName);
 
     @GET("v1.2/moments/friendsCircle")
-    Call<BaseReponseModel<String>> getFriendsCircle(@Query("moment_type") ArrayList<String> momentList, @Query("userId") String userId, @Query("page") int page, @Query("size") int size);
+    Call<BaseReponseModel<DiaryInfo>> getFriendsCircle(@Query("moment_type") ArrayList<String> momentList, @Query("user_id") String userId, @Query("page") int page, @Query("size") int size);
 
     @POST("v1.2/moments")
     Call<BaseReponseModel<SendMessageInfo>> sendMessage(@Body SendMessageInfo messageInfo);
@@ -64,7 +65,7 @@ public interface Action {
     Call<BaseReponseModel<SendMessageInfo>> sendDiarys(@Body SendMessageInfo sendMessageInfo);
 
     @GET("v1.2/diarys")
-    Call<BaseReponseModel<String>> getDiarys(@Query("moment_type") ArrayList<String> momentList, @Query("userId") String userId, @Query("page") int page, @Query("size") int size);
+    Call<BaseReponseModel<DiaryInfo>> getDiarys(@Query("moment_type") ArrayList<String> momentList, @Query("user_id") String userId, @Query("page") int page, @Query("size") int size);
 
     @PUT("v1.2/diarys/confirm/{diary_id}")
     Call<BaseReponseModel<String>> confirmDiary(@Path("diary_id") long diaryID);

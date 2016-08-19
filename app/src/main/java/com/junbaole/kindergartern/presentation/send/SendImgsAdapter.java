@@ -2,10 +2,7 @@ package com.junbaole.kindergartern.presentation.send;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
 
 import java.util.ArrayList;
@@ -28,6 +23,7 @@ public class SendImgsAdapter extends BaseAdapter {
 
     private ArrayList<ImageInfo> datas;
     public Context ctx;
+    public boolean isHome;
 
     public SendImgsAdapter(Context ctx, ArrayList<ImageInfo> datas) {
         if (datas == null) {
@@ -38,7 +34,6 @@ public class SendImgsAdapter extends BaseAdapter {
         this.ctx = ctx;
     }
 
-
     @Override
     public int getCount() {
         return datas.size();
@@ -46,8 +41,12 @@ public class SendImgsAdapter extends BaseAdapter {
 
     @Override
     public Uri getItem(int i) {
-        if (datas.get(i) != null)
-            return datas.get(i).getImgUri();
+        if (datas.get(i) != null) {
+            if (isHome)
+                return Uri.parse(datas.get(i).base_thumbnail_uri);
+            else
+                return datas.get(i).getImgUri();
+        }
         return null;
     }
 
@@ -71,7 +70,6 @@ public class SendImgsAdapter extends BaseAdapter {
         });
         return holder.itemView;
     }
-
 
     public void addImgUrl(ImageInfo imgPaths) {
         this.datas.add(0, imgPaths);
@@ -99,7 +97,7 @@ public class SendImgsAdapter extends BaseAdapter {
     }
 
     public SendImgsViewHolder onCreateViewHolder() {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.send_img_item, (ViewGroup) null, false);
+        View view = LayoutInflater.from(ctx).inflate(R.layout.send_img_item, (ViewGroup)null, false);
         return new SendImgsViewHolder(view);
     }
 
@@ -109,7 +107,7 @@ public class SendImgsAdapter extends BaseAdapter {
 
         public SendImgsViewHolder(final View itemView) {
             this.itemView = itemView;
-            draweeView = (ImageView) itemView.findViewById(R.id.my_image_view);
+            draweeView = (ImageView)itemView.findViewById(R.id.my_image_view);
 
         }
     }

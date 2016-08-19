@@ -20,45 +20,14 @@ public class SendMessageInfo implements Parcelable {
     public String shared_type;
     public String user_id = "2";
     public long id;
-    public boolean isDiray;
+    public boolean isDiray = false;
     public String uuid = UUID.randomUUID().toString();
 
-    public static class Location implements Parcelable {
-        public long latitude;
-        public long longitude;
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeLong(this.latitude);
-            dest.writeLong(this.longitude);
-        }
-
-        public Location() {
-        }
-
-        protected Location(Parcel in) {
-            this.latitude = in.readLong();
-            this.longitude = in.readLong();
-        }
-
-        public static final Creator<Location> CREATOR = new Creator<Location>() {
-            @Override
-            public Location createFromParcel(Parcel source) {
-                return new Location(source);
-            }
-
-            @Override
-            public Location[] newArray(int size) {
-                return new Location[size];
-            }
-        };
+    public String getLastImgId() {
+        int count = imageList.size();
+        return imageList.get(count-1).image_id;
     }
-
 
     @Override
     public int describeContents() {
@@ -110,4 +79,22 @@ public class SendMessageInfo implements Parcelable {
             return new SendMessageInfo[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "SendMessageInfo{" +
+                "access_token='" + access_token + '\'' +
+                ", content='" + content + '\'' +
+                ", images=" + images +
+                ", imageList=" + imageList +
+                ", location=" + location +
+                ", location_name='" + location_name + '\'' +
+                ", shared_id='" + shared_id + '\'' +
+                ", shared_type='" + shared_type + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", id=" + id +
+                ", isDiray=" + isDiray +
+                ", uuid='" + uuid + '\'' +
+                '}';
+    }
 }

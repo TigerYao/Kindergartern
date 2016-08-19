@@ -3,29 +3,25 @@ package com.junbaole.kindergartern.presentation.server;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
-import com.junbaole.kindergartern.data.model.ImageInfo;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
+import com.junbaole.kindergartern.data.utils.event.SendMsgEvent;
+import com.junbaole.kindergartern.data.utils.event.UploadImgEvent;
 import com.junbaole.kindergartern.data.utils.qiniu.QiNiuManager;
 import com.junbaole.kindergartern.domain.ActionManager;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.schedulers.Schedulers;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class UpLoadImgService extends Service {
 
-    private ArrayList<SendMessageInfo> messageQueues;
+    private Queue<SendMessageInfo> messageQueues;
 
-    public UpLoadImgService() {
-    }
+    public UpLoadImgService() {}
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,52 +32,50 @@ public class UpLoadImgService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        messageQueues = new ArrayList<>();
+        messageQueues = new LinkedList<>();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        SendMessageInfo messageInfo =intent.getParcelableExtra("sendMessage");
-        messageQueues.add(messageInfo);
-        if(o==null||messageQueues.isEmpty()){
-           uploardImg();
-        }
+
         return super.onStartCommand(intent, flags, startId);
     }
-    long  isCurrentId = -1;
-    Observable o;
+
+    @Subscribe
+    public void uploadImg(SendMsgEvent event) {
+        Log.i("qiniu",  event.toString()+"????");
+        SendMessageInfo messageInfo = event.sendMessageInfo;
+        if (messageInfo.imageList == null || messageInfo.imageList.size() == 0) {
+            ActionManager.getSencondIntent(getApplicationContext()).confirm(messageInfo.id, messageInfo.isDiray);
+        } else {
+            messageQueues.add(messageInfo);
+            uploardImg();
+
+        }
+    }
+
+    @Subscribe
+    public void handleMessage(UploadImgEvent msg) {
+        ActionManager.getSencondIntent(getApplicationContext()).confirm(msg.messageId, msg.isDiary);
+    }
+
     private void uploardImg() {
-         o= Observable.from(messageQueues);
-        o.flatMap(new Func1<SendMessageInfo, Observable<ImageInfo>>() {
-            @Override
-            public Observable<ImageInfo> call(SendMessageInfo messageInfo) {
+        SendMessageInfo sendMessageInfo = messageQueues.peek();
+        if(sendMessageInfo!=null) {
+            UploadImgEvent uploadImgEvent = new UploadImgEvent();
+            uploadImgEvent.messageId = sendMessageInfo.id;
+            uploadImgEvent.lastId = sendMessageInfo.getLastImgId();
+            uploadImgEvent.isDiary = sendMessageInfo.isDiray;
+            for (int i = 0; i < sendMessageInfo.imageList.size(); i++) {
+                QiNiuManager.getInstance().uploadSingleImg(sendMessageInfo.imageList.get(i), uploadImgEvent);
+            }
+        }
+    }
 
-                return Observable.from(messageInfo.imageList);
-            }
-
-        }, new Func2<SendMessageInfo, ImageInfo, Object[]>() {
-            @Override
-            public Object[] call(SendMessageInfo sendMessageInfo, ImageInfo imageInfo) {
-                try {
-                    QiNiuManager.getInstance().uploadSingleImg(imageInfo.client_id,imageInfo.auth);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                messageQueues.remove(sendMessageInfo);
-                return new Object[]{sendMessageInfo.id,sendMessageInfo.isDiray};
-            }
-        }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<Object[]>() {
-            @Override
-            public void call(Object[] objes) {
-                long id = (long) objes[0];
-                boolean isDiary = (boolean) objes[1];
-                if(id!=isCurrentId){
-                    ActionManager.getSencondIntent(getApplicationContext()).confirm(isCurrentId,isDiary);
-                    isCurrentId = id;
-                }
-            }
-        });
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

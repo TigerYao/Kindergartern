@@ -8,8 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.databinding.AdapterTextContentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
+import com.junbaole.kindergartern.presentation.send.SendImgsAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by liangrenwang on 16/6/21.
@@ -17,19 +21,36 @@ import com.junbaole.kindergartern.presentation.base.BaseActivity;
 public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.RecorderViewHolder> {
 
     private Context ctx;
+    private ArrayList<DiaryDetailInfo> detailInfoArrayList = new ArrayList<>();
 
     @Override
     public RecorderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_text_content_home,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_text_content_home, null);
         ctx = parent.getContext();
         return new RecorderViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(RecorderViewHolder holder, int position) {
-        holder.bindData();
+    public void setDetailInfoArrayList(ArrayList<DiaryDetailInfo> detailInfoArrayList) {
+        if (detailInfoArrayList == null) {
+            return;
+        }
+        if(this.detailInfoArrayList.size()>0){
+            this.detailInfoArrayList.clear();
+        }
+        this.detailInfoArrayList.addAll(detailInfoArrayList);
+        notifyDataSetChanged();
     }
 
+    public void addDetails(ArrayList<DiaryDetailInfo> detailInfoArrayList) {
+        if (detailInfoArrayList != null && detailInfoArrayList.size() > 0) {
+            this.detailInfoArrayList.addAll(detailInfoArrayList);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecorderViewHolder holder, int position) {
+        holder.bindData(getItem(position));
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -38,20 +59,37 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
 
     @Override
     public int getItemCount() {
-        return 8;
+        return detailInfoArrayList == null ? 0 : detailInfoArrayList.size();
+    }
+
+    public DiaryDetailInfo getItem(int position) {
+        if (position >= getItemCount()) {
+            return null;
+        }
+        return detailInfoArrayList.get(position);
     }
 
     class RecorderViewHolder extends RecyclerView.ViewHolder {
         AdapterTextContentHomeBinding homeBinding;
+
         public RecorderViewHolder(View itemView) {
             super(itemView);
             homeBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bindData(){
+        public void bindData(DiaryDetailInfo diaryDetailInfo) {
             HomeClickHandler homeClickHandler = new HomeClickHandler((BaseActivity)ctx);
             homeClickHandler.initPPW(ctx);
             homeBinding.setClick(homeClickHandler);
+            homeBinding.setDiaryInfo(diaryDetailInfo);
+            if(diaryDetailInfo.image_list!=null&&diaryDetailInfo.image_list.size()>0){
+                homeBinding.imgList.setVisibility(View.VISIBLE);
+                SendImgsAdapter adapter =new SendImgsAdapter(ctx,diaryDetailInfo.image_list);
+                adapter.isHome = true;
+                homeBinding.imgList.setAdapter(adapter);
+            }else{
+                homeBinding.imgList.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

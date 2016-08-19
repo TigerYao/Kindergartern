@@ -1,58 +1,58 @@
 package com.junbaole.kindergartern.data.utils.qiniu;
 
+import android.util.Log;
+
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.event.UploadImgEvent;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by liangrenwang on 16/6/1.
  */
 public class QiNiuManager {
-    private Lock lock = new ReentrantLock();// 锁对象
-    boolean isOk;
 
     public static final class LazyManagerHolder {
         public static final QiNiuManager instance = new QiNiuManager();
     }
 
-    UploadManager uploadManager;
+    Configuration configuration;
 
-    private QiNiuManager() {
-        Configuration configuration = new Configuration.Builder().connectTimeout(10).responseTimeout(60).build();
-        uploadManager = new UploadManager(configuration);
+    public QiNiuManager() {
+        configuration = new Configuration.Builder().connectTimeout(10).responseTimeout(60).build();
+
     }
 
     public static QiNiuManager getInstance() {
         return LazyManagerHolder.instance;
     }
 
+    public void uploadSingleImg(ImageInfo imageInfo, UploadImgEvent event) {
+        uploadSingleImg(event, imageInfo.client_id, imageInfo.image_id, imageInfo.auth);
+    }
 
-    public boolean uploadSingleImg(String imgPath, String token) throws InterruptedException {
 
-        synchronized (this) {
-            lock.lock();
-            uploadManager.put(imgPath, null, token, new UpCompletionHandler() {
-                @Override
-                public void complete(String key, ResponseInfo info, JSONObject response) {
-                    isOk = info.isOK();
-                    lock.unlock();
+
+    public void uploadSingleImg(final UploadImgEvent event, String imgPath, final String mkey, String token) {
+        UploadManager uploadManager = new UploadManager(configuration);
+        uploadManager.put(imgPath, mkey, token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject res) {
+                // res 包含hash、key等信息，具体字段取决于上传策略的设置。
+                Log.i("qiniu", key + "ddd " + info + ",\r\n "
+                        + res+"???"+mkey+"???"+event.lastId);
+                // 七牛返回的文件名
+                if (mkey.equals(event.lastId)) {
+                    EventBus.getDefault().post(event);
                 }
-            }, null);
-        }
-        return isOk;
+            }
+        }, null);
+
     }
 
-    private void uploadImg() {
-    }
-
-    private String getToken() {
-
-        return "yaohu";
-    }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.amap.api.services.core.PoiItem;
@@ -21,6 +22,7 @@ import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.junbaole.kindergartern.presentation.server.UpLoadImgService;
 import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -72,9 +74,10 @@ public class SendActivity extends BaseActivity {
 
     @Subscribe
     public void onGetMessageInfo(SendMessageInfo messageInfo) {
+        Log.i("message","ddd"+ messageInfo.toString());
         Intent intent = new Intent(this, UpLoadImgService.class);
-        intent.putExtra("sendMessage", messageInfo);
         startService(intent);
+        EventBus.getDefault().post(messageInfo);
         finish();
     }
 

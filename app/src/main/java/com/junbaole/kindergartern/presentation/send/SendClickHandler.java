@@ -41,6 +41,7 @@ public class SendClickHandler extends BaseTitleClickHandler{
     @Override
     public void onClickForgetPsw(View view) {
         SendMessageInfo sendMessageInfo = ((SendActivity)mActivity).getMessageInfo();
+        sendMessageInfo.images.remove(null);
         mActivity.secondActionManager.sendMessage(sendMessageInfo,false);
     }
 

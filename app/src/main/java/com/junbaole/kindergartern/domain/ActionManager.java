@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
@@ -12,6 +13,7 @@ import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
 import com.junbaole.kindergartern.data.utils.SharedPreferenceUtil;
+import com.junbaole.kindergartern.data.utils.event.DataRefreshEvent;
 import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
 import com.junbaole.kindergartern.network.RetrofitServer;
 
@@ -194,7 +196,7 @@ public class ActionManager {
         });
     }
 
-    public void sendMessage(SendMessageInfo sendMessageInfo, boolean isDiary) {
+    public void sendMessage(final SendMessageInfo sendMessageInfo, boolean isDiary) {
         CallBackListener callBackListener = new CallBackListener<SendMessageInfo>() {
             @Override
             public void onSuccess(SendMessageInfo messageInfo) {
@@ -212,11 +214,11 @@ public class ActionManager {
             secondAction.sendMessage(sendMessageInfo).enqueue(callBackListener);
     }
 
-    public void getCommonts(int userId, int page, boolean isDiary) {
-        CallBackListener callBackListener = new CallBackListener<String>() {
+    public void getCommonts(int userId, int page, final boolean isDiary) {
+        CallBackListener callBackListener = new CallBackListener<DiaryInfo>() {
             @Override
-            public void onSuccess(String s) {
-                EventBus.getDefault().post(new DiaryEvent(true));
+            public void onSuccess(DiaryInfo s) {
+                EventBus.getDefault().post(new DiaryEvent(true,isDiary,s));
             }
 
             @Override
@@ -278,7 +280,7 @@ public class ActionManager {
         CallBackListener<String> callBackListener = new CallBackListener<String>() {
             @Override
             public void onSuccess(String s) {
-
+                EventBus.getDefault().post(new DataRefreshEvent());
             }
 
             @Override
@@ -287,9 +289,9 @@ public class ActionManager {
             }
         };
         if (isDiary) {
-            secondAction.comfirm(id).enqueue(callBackListener);
-        } else
             secondAction.confirmDiary(id).enqueue(callBackListener);
+        } else
+            secondAction.comfirm(id).enqueue(callBackListener);
     }
 
 }
