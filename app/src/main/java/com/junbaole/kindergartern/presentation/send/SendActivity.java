@@ -15,6 +15,7 @@ import com.junbaole.kindergartern.data.utils.activity.AppInfo;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.data.utils.amaputils.AmapLocationUtil;
 import com.junbaole.kindergartern.data.utils.event.LocationEvent;
+import com.junbaole.kindergartern.data.utils.event.SendMsgEvent;
 import com.junbaole.kindergartern.databinding.ActivitySendBinding;
 import com.junbaole.kindergartern.presentation.adapter.ShooleListAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
@@ -77,7 +78,9 @@ public class SendActivity extends BaseActivity {
         Log.i("message","ddd"+ messageInfo.toString());
         Intent intent = new Intent(this, UpLoadImgService.class);
         startService(intent);
-        EventBus.getDefault().post(messageInfo);
+        SendMsgEvent sendMsgEvent = new SendMsgEvent();
+        sendMsgEvent.sendMessageInfo = messageInfo;
+        EventBus.getDefault().post(sendMsgEvent);
         finish();
     }
 
