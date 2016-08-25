@@ -33,7 +33,7 @@ public class QiNiuManager {
     }
 
     public void uploadSingleImg(ImageInfo imageInfo, UploadImgEvent event) {
-        uploadSingleImg(event, imageInfo.client_id, imageInfo.image_id, imageInfo.auth);
+        uploadSingleImg(event, imageInfo.client_id, imageInfo.upload_path, imageInfo.auth);
     }
 
 

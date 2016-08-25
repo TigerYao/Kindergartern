@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:layout_marginLeft="36dp"
+            android:layout_marginLeft="34dp"
             android:layout_marginTop="34dp"
             android:background="@mipmap/top_nar_touxiang"
             android:padding="4dp" />
@@ -74,7 +74,7 @@
             android:layout_width="1px"
             android:layout_height="32dp"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="65dp"
+            android:layout_marginLeft="64dp"
             android:background="@color/s_color15" />
     </FrameLayout>
 </layout>

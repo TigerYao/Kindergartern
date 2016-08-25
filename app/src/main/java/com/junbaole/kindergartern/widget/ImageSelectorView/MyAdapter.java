@@ -1,22 +1,30 @@
 package com.junbaole.kindergartern.widget.ImageSelectorView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bumptech.glide.Glide;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.utils.StringUtils;
-
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ConstantUtils;
+import com.junbaole.kindergartern.data.utils.StringUtils;
+import com.junbaole.kindergartern.presentation.base.BaseActivity;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class MyAdapter extends CommonAdapter<ImageInfo> {
 
@@ -33,11 +41,18 @@ public class MyAdapter extends CommonAdapter<ImageInfo> {
 
     @Override
     public void convert(final ViewHolder helper, final ImageInfo item) {
+        final ImageView mImageView = helper.getView(R.id.id_item_image);
         if (item == null || StringUtils.isBlank(item.client_id)) {
             helper.getView(R.id.id_item_check).setVisibility(View.GONE);
+            mImageView.setImageResource(R.mipmap.icon_xiangche_120);
+            mImageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getPhotoFromCamera();
+                }
+            });
             return;
         }
-        final ImageView mImageView = helper.getView(R.id.id_item_image);
         Glide.with(ctx).load(item.getImgUri()).into(mImageView);
         final CheckBox mSelect = helper.getView(R.id.id_item_check);
         mSelect.setVisibility(View.VISIBLE);
@@ -73,5 +88,31 @@ public class MyAdapter extends CommonAdapter<ImageInfo> {
             mImageView.setColorFilter(null);
         }
 
+    }
+
+    public File mCameraTempFile;
+
+    private void getPhotoFromCamera() {
+        try {
+            Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            mCameraTempFile = getAvatorPath(ctx);
+            if (mCameraTempFile == null) {
+                mCameraTempFile.createNewFile();
+            }
+            Uri uri = Uri.fromFile(mCameraTempFile);
+            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            ((BaseActivity)ctx).startActivityForResult(intentFromCapture, ConstantUtils.CAMERA_REQUEST_CODE);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(ctx, "打开相机失败,稍后重试", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected static File getAvatorPath(Context context) {
+        String status = Environment.getExternalStorageState();
+        if (!status.equals(Environment.MEDIA_MOUNTED))
+            return null;
+        return new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString() + ".tmp");
     }
 }

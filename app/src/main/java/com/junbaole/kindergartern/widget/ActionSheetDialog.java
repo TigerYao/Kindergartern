@@ -18,9 +18,7 @@ import com.junbaole.kindergartern.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by liuqiang on 10/23/15.
- */
+
 public class ActionSheetDialog {
     private Context context;
     private Dialog dialog;

@@ -1,47 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.detail.DiaryDetailClickHandler" />
+
+        <variable
+            name="diaryInfo"
+            type="com.junbaole.kindergartern.data.model.DiaryDetailInfo" />
+    </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/s_color11"
         tools:context="com.junbaole.kindergartern.presentation.detail.DiaryDetailActivity">
 
-        <include layout="@layout/titlebar_layout" />
-
-        <FrameLayout
-            android:id="@+id/display_imgs"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
-
+        <include
+            android:id="@+id/title_bar"
+            layout="@layout/titlebar_layout"
+            bind:clickHandler="@{clickHandler}" />
 
         <LinearLayout
             android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@color/trans"
+            android:gravity="center_vertical"
             android:padding="10dp">
 
             <TextView
                 android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:background="@drawable/main_share_guide_send_bg" />
+                android:background="@drawable/main_share_guide_send_bg"
+                android:gravity="center_vertical"
+                android:hint="评论..."
+                android:onClick="@{clickHandler.onClickComment}"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/s_color15"
+                android:textColorHint="@color/s_color15" />
 
             <ImageView
                 android:layout_width="45dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:scaleType="center"
+                android:src="@mipmap/icon_dianzan_pinglun" />
 
             <ImageView
                 android:layout_width="45dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_dianzan_x" />
         </LinearLayout>
-        <TextView
-            android:layout_above="@id/bottom"
+
+        <FrameLayout
+            android:id="@+id/display_imgs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="6"
-            />
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom"
+            android:layout_below="@id/title_bar"></FrameLayout>
+
+
     </RelativeLayout>
 </layout>

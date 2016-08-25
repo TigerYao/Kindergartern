@@ -22,7 +22,7 @@ public class BaseApplication extends Application{
     }
 
     public UserInfo getUserInfo() {
-        if(userInfo==null){
+        if(userInfo==null||userInfo.id==-1){
             userInfo = SharedPreferenceUtil.getUserInfo(this);
         }
         return userInfo;

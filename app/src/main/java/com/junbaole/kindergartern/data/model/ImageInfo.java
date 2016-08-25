@@ -11,6 +11,7 @@ public class ImageInfo implements Parcelable {
     public String auth;
     public String image_id;
     public String base_thumbnail_uri;
+    public String original_uri;
     public String upload_path;
     public String bucket;
     public boolean is_exit;

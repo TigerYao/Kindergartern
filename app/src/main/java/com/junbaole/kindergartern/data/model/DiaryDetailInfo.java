@@ -27,7 +27,7 @@ public class DiaryDetailInfo implements Parcelable {
 
     public int comment_num;
 
-    public ArrayList<Comments> comments ;
+    public ArrayList<CommentModel> comments ;
 
     public ArrayList<Moment_likes> moment_likes ;
 
@@ -65,7 +65,7 @@ public class DiaryDetailInfo implements Parcelable {
         this.image_list = in.createTypedArrayList(ImageInfo.CREATOR);
         this.like_num = in.readInt();
         this.comment_num = in.readInt();
-        this.comments = new ArrayList<Comments>();
+        this.comments = new ArrayList<CommentModel>();
         in.readList(this.comments, Comments.class.getClassLoader());
         this.moment_likes = new ArrayList<Moment_likes>();
         in.readList(this.moment_likes, Moment_likes.class.getClassLoader());

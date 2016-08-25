@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.JsonObject;
+import com.junbaole.kindergartern.data.model.CommentModel;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
@@ -294,4 +296,59 @@ public class ActionManager {
             secondAction.comfirm(id).enqueue(callBackListener);
     }
 
+    public void favorite(int commentId,String userid,String uuid){
+        secondAction.favorities(commentId,userid,uuid).enqueue(new CallBackListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+
+            }
+        });
+    }
+
+    public void unFavorite(int commentId,String userId){
+        secondAction.unFavorities(commentId,userId).enqueue(new CallBackListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+
+            }
+        });
+    }
+
+    public void judge(CommentModel commentModel){
+        secondAction.judgeComment(commentModel).enqueue(new CallBackListener<JsonObject>() {
+            @Override
+            public void onSuccess(JsonObject jsonObject) {
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+
+            }
+        });
+    }
+
+    public void deleteJudge(int commentid){
+        secondAction.deleteJudgeComment(commentid).enqueue(new CallBackListener<JsonObject>() {
+            @Override
+            public void onSuccess(JsonObject jsonObject) {
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+
+            }
+        });
+    }
 }

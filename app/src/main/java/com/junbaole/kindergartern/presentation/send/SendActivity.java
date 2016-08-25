@@ -60,6 +60,8 @@ public class SendActivity extends BaseActivity {
         mAdapter = new SendImgsAdapter(this, datas);
         mSendBinding.imgList.setAdapter(mAdapter);
         mSendBinding.location.setText(AppInfo.getLocationName(this));
+        Intent intent = new Intent(this, UpLoadImgService.class);
+        startService(intent);
     }
 
     @Subscribe
@@ -75,11 +77,9 @@ public class SendActivity extends BaseActivity {
 
     @Subscribe
     public void onGetMessageInfo(SendMessageInfo messageInfo) {
-        Log.i("message","ddd"+ messageInfo.toString());
-        Intent intent = new Intent(this, UpLoadImgService.class);
-        startService(intent);
         SendMsgEvent sendMsgEvent = new SendMsgEvent();
         sendMsgEvent.sendMessageInfo = messageInfo;
+        Log.i("message","ddd"+ messageInfo.toString());
         EventBus.getDefault().post(sendMsgEvent);
         finish();
     }

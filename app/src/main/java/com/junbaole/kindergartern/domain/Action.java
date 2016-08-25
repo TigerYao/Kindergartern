@@ -1,6 +1,8 @@
 package com.junbaole.kindergartern.domain;
 
+import com.google.gson.JsonObject;
 import com.junbaole.kindergartern.data.model.BaseReponseModel;
+import com.junbaole.kindergartern.data.model.CommentModel;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
@@ -77,7 +79,18 @@ public interface Action {
     Call<BaseReponseModel<String>> queryDiary(@Path("diary_id") String diaryId);
 
     @PUT("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<String>> updateDiary(@Path("diary_id") String diaryId,@Body SendMessageInfo sendMessageInfo);
+    Call<BaseReponseModel<String>> updateDiary(@Path("diary_id") String diaryId, @Body SendMessageInfo sendMessageInfo);
 
+    @POST("v1.2/moments/{momentid}/favorities")
+    Call<BaseReponseModel<String>> favorities(@Path("momentid") int momentid, @Query("userid") String userid, @Query("uuid") String uuid);
+
+    @DELETE("v1.2/moments/{momentid}/favorities")
+    Call<BaseReponseModel<String>> unFavorities(@Path("momentid") int momentid, @Query("userid") String userid);
+
+    @POST("v1.2/comments")
+    Call<BaseReponseModel<JsonObject>> judgeComment(@Body CommentModel commentModel);
+
+    @DELETE("v1.2/comments/{comment_id}")
+    Call<BaseReponseModel<JsonObject>> deleteJudgeComment(@Path("comment_id") int comment_id);
 
 }

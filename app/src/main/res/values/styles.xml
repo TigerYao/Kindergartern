@@ -37,8 +37,9 @@
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
+
     <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
-    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
+    <style name="ActionSheetDialogStyle" parent="Theme.AppCompat.Dialog">
 
         <!-- 背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -56,7 +57,6 @@
         <!-- Dialog进入及退出动画 -->
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
     </style>
-
     <!-- ActionSheet进出动画 -->
     <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>

@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("phoneNum", sendPhoneEvent.successMsg);
                 SkipActivityUtils.startActivity(this, loginBinding.emailSignInButton, "main_activity", intent);
+                finish();
             } else {
                 Toast.makeText(this, sendPhoneEvent.failMsg, Toast.LENGTH_LONG).show();
             }

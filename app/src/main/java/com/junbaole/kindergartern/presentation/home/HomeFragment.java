@@ -114,17 +114,21 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     }
 
     @Subscribe
-    public void refresh(DataRefreshEvent event){
+    public void refresh(DataRefreshEvent event) {
         pageSize = 0;
         mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
     }
 
     @Subscribe
     public void onGetDataByUrl(DiaryEvent event) {
-        if(!event.isDiary&&event.diaryInfo!=null){
-            mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
-            pageSize += 1;
-        }
+        if (!event.isDiary && event.diaryInfo != null)
+            if (event.diaryInfo._content != null && pageSize < event.diaryInfo._total_pages) {
+                if (pageSize > 0) {
+                    mAdapter.addDetails(event.diaryInfo._content);
+                } else
+                    mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
+                pageSize += 1;
+            }
         dismissDialog();
         homeBinding.swipeToLoadLayout.setLoadingMore(false);
     }

@@ -1,15 +1,5 @@
 package com.junbaole.kindergartern.presentation.photo;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.ImageInfo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -17,6 +7,16 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by donglua on 15/6/21.
@@ -31,6 +31,21 @@ public class PhotoPagerAdapter extends PagerAdapter {
         this.mGlide = glide;
     }
 
+    public Uri getImgUri(int position) {
+        if (paths == null || paths.get(position) == null) {
+            return null;
+        }
+        Uri uri = paths.get(position).getImgUri();
+        try {
+            if (uri == null || StringUtils.isBlank(uri.getPath())) {
+                uri = Uri.parse(paths.get(position).original_uri);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return uri;
+    }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final Context context = container.getContext();
@@ -38,8 +53,9 @@ public class PhotoPagerAdapter extends PagerAdapter {
                 .inflate(R.layout.photo_pager_item, container, false);
 
         final SimpleDraweeView imageView = (SimpleDraweeView)itemView.findViewById(R.id.iv_pager);
-        final Uri uri = paths.get(position).getImgUri();
-        imageView.setImageURI(uri);
+        final Uri uri = getImgUri(position);
+        if (uri != null)
+            imageView.setImageURI(uri);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,10 +1,10 @@
 package com.junbaole.kindergartern.presentation.photo;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,9 @@ import android.view.animation.DecelerateInterpolator;
 import com.bumptech.glide.Glide;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.databinding.PhotoPageFragmentBinding;
+import com.junbaole.kindergartern.presentation.base.BaseFragment;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -27,10 +30,12 @@ import java.util.List;
 /**
  * Created by donglua on 15/6/21.
  */
-public class ImagePagerFragment extends Fragment {
+public class ImagePagerFragment extends BaseFragment {
 
     public final static String ARG_PATH = "PATHS";
     public final static String ARG_CURRENT_ITEM = "ARG_CURRENT_ITEM";
+    public final static String MESSAGE = "message";
+    private int isVisibleTitlebar = View.VISIBLE;
 
     private ArrayList<ImageInfo> paths;
     private ViewPager mViewPager;
@@ -43,18 +48,20 @@ public class ImagePagerFragment extends Fragment {
     public final static String ARG_THUMBNAIL_WIDTH = "THUMBNAIL_WIDTH";
     public final static String ARG_THUMBNAIL_HEIGHT = "THUMBNAIL_HEIGHT";
     public final static String ARG_HAS_ANIM = "HAS_ANIM";
+    public final static String ARG_TITLE_VISIBLE = "title_visible";
 
     private int thumbnailTop = 0;
     private int thumbnailLeft = 0;
     private int thumbnailWidth = 0;
     private int thumbnailHeight = 0;
+    private String message = "";
 
     private boolean hasAnim = false;
 
     private final ColorMatrix colorizerMatrix = new ColorMatrix();
 
     private int currentItem = 0;
-
+    private PhotoPageFragmentBinding pageFragmentBinding;
 
     public static ImagePagerFragment newInstance(ArrayList<ImageInfo> paths, int currentItem) {
 
@@ -70,6 +77,20 @@ public class ImagePagerFragment extends Fragment {
         return f;
     }
 
+    public static ImagePagerFragment newInstance(String message, ArrayList<ImageInfo> paths, int currentItem, int titleVisible) {
+
+        ImagePagerFragment f = new ImagePagerFragment();
+
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(ARG_PATH, paths);
+        args.putInt(ARG_CURRENT_ITEM, currentItem);
+        args.putBoolean(ARG_HAS_ANIM, false);
+        args.putString(MESSAGE, message);
+        args.putInt(ARG_TITLE_VISIBLE, titleVisible);
+        f.setArguments(args);
+
+        return f;
+    }
 
     public static ImagePagerFragment newInstance(ArrayList<ImageInfo> paths, int currentItem, int[] screenLocation, int thumbnailWidth, int thumbnailHeight) {
 
@@ -84,7 +105,6 @@ public class ImagePagerFragment extends Fragment {
         return f;
     }
 
-
     public void setPhotos(List<ImageInfo> paths, int currentItem) {
         this.paths.clear();
         this.paths.addAll(paths);
@@ -93,7 +113,6 @@ public class ImagePagerFragment extends Fragment {
         mViewPager.setCurrentItem(currentItem);
         mViewPager.getAdapter().notifyDataSetChanged();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,24 +131,25 @@ public class ImagePagerFragment extends Fragment {
             thumbnailLeft = bundle.getInt(ARG_THUMBNAIL_LEFT);
             thumbnailWidth = bundle.getInt(ARG_THUMBNAIL_WIDTH);
             thumbnailHeight = bundle.getInt(ARG_THUMBNAIL_HEIGHT);
+            message = bundle.getString(MESSAGE);
+            isVisibleTitlebar = bundle.getInt(ARG_TITLE_VISIBLE);
         }
 
         mPagerAdapter = new PhotoPagerAdapter(Glide.with(this), paths);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.photo_page_fragment, container, false);
-
-        mViewPager = (ViewPager) rootView.findViewById(R.id.vp_photos);
+        pageFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.photo_page_fragment, container, false);
+        View rootView = pageFragmentBinding.getRoot();
+        mViewPager = (ViewPager)rootView.findViewById(R.id.vp_photos);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(currentItem);
         mViewPager.setOffscreenPageLimit(5);
-
+        pageFragmentBinding.setMessage(message);
         // Only run the animation if we're coming from the parent activity, not if
         // we're recreated automatically by the window manager (e.g., device rotation)
         if (savedInstanceState == null && hasAnim) {
@@ -154,7 +174,6 @@ public class ImagePagerFragment extends Fragment {
             });
         }
 
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -175,6 +194,11 @@ public class ImagePagerFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setTitleVisible();
+    }
 
     /**
      * The enter animation scales the picture in from its previous thumbnail
@@ -190,8 +214,8 @@ public class ImagePagerFragment extends Fragment {
         // size/location, from which we'll animate it back up
         ViewHelper.setPivotX(mViewPager, 0);
         ViewHelper.setPivotY(mViewPager, 0);
-        ViewHelper.setScaleX(mViewPager, (float) thumbnailWidth / mViewPager.getWidth());
-        ViewHelper.setScaleY(mViewPager, (float) thumbnailHeight / mViewPager.getHeight());
+        ViewHelper.setScaleX(mViewPager, (float)thumbnailWidth / mViewPager.getWidth());
+        ViewHelper.setScaleY(mViewPager, (float)thumbnailHeight / mViewPager.getHeight());
         ViewHelper.setTranslationX(mViewPager, thumbnailLeft);
         ViewHelper.setTranslationY(mViewPager, thumbnailTop);
 
@@ -218,14 +242,13 @@ public class ImagePagerFragment extends Fragment {
 
     }
 
-
     /**
      * The exit animation is basically a reverse of the enter animation, except that if
      * the orientation has changed we simply scale the picture back into the center of
      * the screen.
      *
      * @param endAction This action gets run after the animation completes (this is
-     *                  when we actually switch activities)
+     *            when we actually switch activities)
      */
     public void runExitAnimation(final Runnable endAction) {
 
@@ -240,14 +263,13 @@ public class ImagePagerFragment extends Fragment {
         ViewPropertyAnimator.animate(mViewPager)
                 .setDuration(duration)
                 .setInterpolator(new AccelerateInterpolator())
-                .scaleX((float) thumbnailWidth / mViewPager.getWidth())
-                .scaleY((float) thumbnailHeight / mViewPager.getHeight())
+                .scaleX((float)thumbnailWidth / mViewPager.getWidth())
+                .scaleY((float)thumbnailHeight / mViewPager.getHeight())
                 .translationX(thumbnailLeft)
                 .translationY(thumbnailTop)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
+                    public void onAnimationStart(Animator animation) {}
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -255,12 +277,10 @@ public class ImagePagerFragment extends Fragment {
                     }
 
                     @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
+                    public void onAnimationCancel(Animator animation) {}
 
                     @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
+                    public void onAnimationRepeat(Animator animation) {}
                 });
 
         // Fade out background
@@ -270,12 +290,10 @@ public class ImagePagerFragment extends Fragment {
 
         // Animate a color filter to take the image back to grayscale,
         // in parallel with the image scaling and moving into place.
-        ObjectAnimator colorizer =
-                ObjectAnimator.ofFloat(ImagePagerFragment.this, "saturation", 1, 0);
+        ObjectAnimator colorizer = ObjectAnimator.ofFloat(ImagePagerFragment.this, "saturation", 1, 0);
         colorizer.setDuration(duration);
         colorizer.start();
     }
-
 
     /**
      * This is called by the colorizing animator. It sets a saturation factor that is then
@@ -289,16 +307,13 @@ public class ImagePagerFragment extends Fragment {
         mViewPager.getBackground().setColorFilter(colorizerFilter);
     }
 
-
     public ViewPager getViewPager() {
         return mViewPager;
     }
 
-
     public ArrayList<ImageInfo> getPaths() {
         return paths;
     }
-
 
     public int getCurrentItem() {
         return mViewPager.getCurrentItem();
@@ -314,5 +329,13 @@ public class ImagePagerFragment extends Fragment {
         if (mViewPager != null) {
             mViewPager.setAdapter(null);
         }
+    }
+
+    public void setTitleBuilder(TitleBuilder titleBuilder) {
+        new TitleBuilder(pageFragmentBinding.titleBar).setTitleBuilder(titleBuilder);
+    }
+
+    public void setTitleVisible() {
+        pageFragmentBinding.titleBar.getRoot().setVisibility(isVisibleTitlebar);
     }
 }

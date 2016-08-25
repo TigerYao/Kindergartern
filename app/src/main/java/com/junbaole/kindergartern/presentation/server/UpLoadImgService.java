@@ -44,14 +44,12 @@ public class UpLoadImgService extends Service {
 
     @Subscribe
     public void uploadImg(SendMsgEvent event) {
-        Log.i("qiniu",  event.toString()+"????");
         SendMessageInfo messageInfo = event.sendMessageInfo;
         if (messageInfo.imageList == null || messageInfo.imageList.size() == 0) {
             ActionManager.getSencondIntent(getApplicationContext()).confirm(messageInfo.id, messageInfo.isDiray);
         } else {
             messageQueues.add(messageInfo);
             uploardImg();
-
         }
     }
 

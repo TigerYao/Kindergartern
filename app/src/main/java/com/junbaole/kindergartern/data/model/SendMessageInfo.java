@@ -26,7 +26,7 @@ public class SendMessageInfo implements Parcelable {
 
     public String getLastImgId() {
         int count = imageList.size();
-        return imageList.get(count-1).image_id;
+        return imageList.get(count-1).upload_path;
     }
 
     @Override

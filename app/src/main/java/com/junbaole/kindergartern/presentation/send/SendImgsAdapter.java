@@ -23,20 +23,29 @@ public class SendImgsAdapter extends BaseAdapter {
 
     private ArrayList<ImageInfo> datas;
     public Context ctx;
-    public boolean isHome;
+    private boolean isHome;
 
-    public SendImgsAdapter(Context ctx, ArrayList<ImageInfo> datas) {
+    public SendImgsAdapter(boolean isHome, Context ctx, ArrayList<ImageInfo> datas) {
         if (datas == null) {
             datas = new ArrayList<>();
         }
-        datas.add(null);
+        if (!isHome)
+            datas.add(null);
+        else {
+            datas.remove(null);
+        }
+        this.isHome = isHome;
         this.datas = datas;
         this.ctx = ctx;
     }
 
+    public SendImgsAdapter(Context ctx, ArrayList<ImageInfo> datas) {
+        this(false, ctx, datas);
+    }
+
     @Override
     public int getCount() {
-        return datas.size();
+        return isHome?Math.min(datas.size(),9):datas.size();
     }
 
     @Override
@@ -62,7 +71,7 @@ public class SendImgsAdapter extends BaseAdapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (position == getCount() - 1) {
+                if (position == getCount() - 1 && !isHome) {
                     Intent intent = new Intent(holder.itemView.getContext(), ImageSelectorActivity.class);
                     holder.itemView.getContext().startActivity(intent);
                 }
@@ -78,9 +87,11 @@ public class SendImgsAdapter extends BaseAdapter {
 
     public void addImgs(ArrayList<ImageInfo> imgs) {
         if (imgs != null && imgs.size() > 0) {
-            datas.remove(datas.size() - 1);
+            if (!isHome)
+                datas.remove(datas.size() - 1);
             datas.addAll(imgs);
-            datas.add(null);
+            if (!isHome)
+                datas.add(null);
             notifyDataSetChanged();
         }
     }
@@ -89,6 +100,13 @@ public class SendImgsAdapter extends BaseAdapter {
         this.datas = datas;
         this.datas.remove(null);
         this.datas.add(null);
+        notifyDataSetChanged();
+    }
+
+    public void setHomeDatas(ArrayList<ImageInfo> datas) {
+        this.datas = null;
+        datas.remove(null);
+        this.datas = datas;
         notifyDataSetChanged();
     }
 

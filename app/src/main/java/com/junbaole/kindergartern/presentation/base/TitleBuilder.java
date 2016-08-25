@@ -18,6 +18,10 @@ public class TitleBuilder {
         this.mTitlebarLayoutBinding = titlebarLayoutBinding;
     }
 
+    public void setTitleBuilder(TitleBuilder titleBuilder) {
+        mTitlebarLayoutBinding.setBuilder(titleBuilder);
+    }
+
     public TitleBuilder TitleBuilderLayout(boolean isLeftlayoutVisible, boolean isRightLayoutVisible) {
         this.isLeftlayoutVisible = isLeftlayoutVisible;
         this.isRightLayoutVisible = isRightLayoutVisible;
@@ -84,7 +88,7 @@ public class TitleBuilder {
     }
 
     private void setTextColor(TextView textView, int textColor) {
-        if (textColor>0)
+        if (textColor > 0)
             textView.setTextColor(mTitlebarLayoutBinding.getRoot().getResources().getColor(textColor));
     }
 }

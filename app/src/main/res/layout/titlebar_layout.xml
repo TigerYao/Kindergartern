@@ -71,8 +71,8 @@
 
             <ImageView
                 android:id="@+id/title_right_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="left|center_vertical"
                 android:minWidth="50dp"
                 android:onClick="@{clickHandler.onClickRightImg}"

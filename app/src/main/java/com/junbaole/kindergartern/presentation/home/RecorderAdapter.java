@@ -1,6 +1,7 @@
 package com.junbaole.kindergartern.presentation.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.databinding.AdapterTextContentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
+import com.junbaole.kindergartern.presentation.detail.DiaryDetailActivity;
 import com.junbaole.kindergartern.presentation.send.SendImgsAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         if (detailInfoArrayList == null) {
             return;
         }
-        if(this.detailInfoArrayList.size()>0){
+        if (this.detailInfoArrayList.size() > 0) {
             this.detailInfoArrayList.clear();
         }
         this.detailInfoArrayList.addAll(detailInfoArrayList);
@@ -77,19 +79,32 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
             homeBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bindData(DiaryDetailInfo diaryDetailInfo) {
+        public void bindData(final DiaryDetailInfo diaryDetailInfo) {
             HomeClickHandler homeClickHandler = new HomeClickHandler((BaseActivity)ctx);
             homeClickHandler.initPPW(ctx);
             homeBinding.setClick(homeClickHandler);
             homeBinding.setDiaryInfo(diaryDetailInfo);
-            if(diaryDetailInfo.image_list!=null&&diaryDetailInfo.image_list.size()>0){
+            itemView.setTag(diaryDetailInfo);
+
+            if (diaryDetailInfo.image_list != null && diaryDetailInfo.image_list.size() > 0) {
                 homeBinding.imgList.setVisibility(View.VISIBLE);
-                SendImgsAdapter adapter =new SendImgsAdapter(ctx,diaryDetailInfo.image_list);
-                adapter.isHome = true;
-                homeBinding.imgList.setAdapter(adapter);
-            }else{
-                homeBinding.imgList.setVisibility(View.INVISIBLE);
+                if (homeBinding.imgList.getAdapter() != null) {
+                    ((SendImgsAdapter)homeBinding.imgList.getAdapter()).setHomeDatas(diaryDetailInfo.image_list);
+                } else {
+                    SendImgsAdapter adapter = new SendImgsAdapter(true,ctx, diaryDetailInfo.image_list);
+                    homeBinding.imgList.setAdapter(adapter);
+                }
+            } else {
+                homeBinding.imgList.setVisibility(View.GONE);
             }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), DiaryDetailActivity.class);
+                    intent.putExtra("diaryDetailInfo", diaryDetailInfo);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
