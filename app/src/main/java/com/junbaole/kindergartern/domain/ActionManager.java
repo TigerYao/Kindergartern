@@ -300,12 +300,12 @@ public class ActionManager {
         secondAction.favorities(commentId,userid,uuid).enqueue(new CallBackListener<String>() {
             @Override
             public void onSuccess(String s) {
-
+                Toast.makeText(mCtx,"点赞成功",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }

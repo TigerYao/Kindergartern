@@ -4,6 +4,7 @@ package com.junbaole.kindergartern.presentation.home;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,9 +17,11 @@ import android.widget.PopupWindow;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.databinding.AdapterHomeHeartLayoutBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
+import com.junbaole.kindergartern.presentation.detail.DiaryDetailActivity;
 
 import java.util.UUID;
 
@@ -41,7 +44,17 @@ public class HomeClickHandler extends BaseTitleClickHandler {
         heartLayoutBinding.homeContentDianzan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ppW.dismiss();
                 mActivity.secondActionManager.favorite(diaryDetailInfo.id,mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
+            }
+        });
+        heartLayoutBinding.homeConentPinglun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ppW.dismiss();
+                Intent intent = new Intent(mActivity, DiaryDetailActivity.class);
+                intent.putExtra("diaryDetailInfo", diaryDetailInfo);
+                SkipActivityUtils.startActivity(mActivity,v,"",intent);
             }
         });
     }
