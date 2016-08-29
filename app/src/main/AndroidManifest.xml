@@ -107,6 +107,7 @@
         <activity
             android:name=".presentation.detail.DiaryDetailActivity"
             android:windowSoftInputMode="adjustResize|stateUnspecified" />
+        <activity android:name=".presentation.diary.DiaryActivity"></activity>
     </application>
 
 </manifest>

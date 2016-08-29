@@ -28,6 +28,7 @@
         <include
             android:id="@+id/header_home"
             layout="@layout/adapter_header_home"
+            bind:clickHandler="@{clickHandler}"
             bind:weatherInfo="@{weatherInfo}" />
 
         <com.junbaole.kindergartern.widget.ptr.PtrLayout xmlns:app="http://schemas.android.com/apk/res-auto"
