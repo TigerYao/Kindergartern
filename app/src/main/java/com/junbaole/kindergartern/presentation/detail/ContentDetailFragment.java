@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.databinding.FragmentContentDetailBinding;
+import com.junbaole.kindergartern.presentation.adapter.CommentsAdaper;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +34,7 @@ public class ContentDetailFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private DiaryDetailInfo mParam1;
     private String mParam2;
+    private CommentsAdaper mCommentsAdaper;
 
 
     public ContentDetailFragment() {
@@ -70,6 +74,7 @@ public class ContentDetailFragment extends BaseFragment {
         // Inflate the layout for this fragment
         mContentDetailBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_content_detail, container, false);
         mContentDetailBinding.setDiaryInfo(mParam1);
+        new TitleBuilder(mContentDetailBinding.titleBar).TitleBuilderLayout(true,true).TitleBuilderLeftItem(true,false).TitleBuilderRightItem(false,true).TitleBuilderLable("内容详情","","编辑").build();
         return mContentDetailBinding.getRoot();
     }
 
@@ -77,7 +82,11 @@ public class ContentDetailFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        if(mParam1.comment_num>0&&mParam1.comments!=null){
+            mCommentsAdaper = new CommentsAdaper(mParam1.comments);
+            mContentDetailBinding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
+            mContentDetailBinding.recycleview.setAdapter(mCommentsAdaper);
+        }
     }
 
     @Override

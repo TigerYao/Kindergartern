@@ -32,40 +32,8 @@ public class ImageInfo implements Parcelable {
         return realpath;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.uri, flags);
-        dest.writeString(this.realpath);
-        dest.writeString(this.client_id);
-        dest.writeString(this.auth);
-    }
-
     public ImageInfo() {
     }
-
-    protected ImageInfo(Parcel in) {
-        this.uri = in.readParcelable(Uri.class.getClassLoader());
-        this.realpath = in.readString();
-        this.client_id = in.readString();
-        this.auth = in.readString();
-    }
-
-    public static final Parcelable.Creator<ImageInfo> CREATOR = new Parcelable.Creator<ImageInfo>() {
-        @Override
-        public ImageInfo createFromParcel(Parcel source) {
-            return new ImageInfo(source);
-        }
-
-        @Override
-        public ImageInfo[] newArray(int size) {
-            return new ImageInfo[size];
-        }
-    };
 
     @Override
     public boolean equals(Object o) {
@@ -91,4 +59,50 @@ public class ImageInfo implements Parcelable {
                 ", id=" + id +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.uri, flags);
+        dest.writeString(this.realpath);
+        dest.writeString(this.client_id);
+        dest.writeString(this.auth);
+        dest.writeString(this.image_id);
+        dest.writeString(this.base_thumbnail_uri);
+        dest.writeString(this.original_uri);
+        dest.writeString(this.upload_path);
+        dest.writeString(this.bucket);
+        dest.writeByte(this.is_exit ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.id);
+    }
+
+    protected ImageInfo(Parcel in) {
+        this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.realpath = in.readString();
+        this.client_id = in.readString();
+        this.auth = in.readString();
+        this.image_id = in.readString();
+        this.base_thumbnail_uri = in.readString();
+        this.original_uri = in.readString();
+        this.upload_path = in.readString();
+        this.bucket = in.readString();
+        this.is_exit = in.readByte() != 0;
+        this.id = in.readInt();
+    }
+
+    public static final Creator<ImageInfo> CREATOR = new Creator<ImageInfo>() {
+        @Override
+        public ImageInfo createFromParcel(Parcel source) {
+            return new ImageInfo(source);
+        }
+
+        @Override
+        public ImageInfo[] newArray(int size) {
+            return new ImageInfo[size];
+        }
+    };
 }

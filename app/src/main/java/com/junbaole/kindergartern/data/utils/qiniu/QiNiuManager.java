@@ -12,10 +12,14 @@ import com.qiniu.android.storage.UploadManager;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by liangrenwang on 16/6/1.
  */
 public class QiNiuManager {
+
+    private AtomicInteger atomicInteger;
 
     public static final class LazyManagerHolder {
         public static final QiNiuManager instance = new QiNiuManager();
@@ -25,15 +29,16 @@ public class QiNiuManager {
 
     public QiNiuManager() {
         configuration = new Configuration.Builder().connectTimeout(10).responseTimeout(60).build();
-
+        atomicInteger = new AtomicInteger(0);
     }
 
     public static QiNiuManager getInstance() {
         return LazyManagerHolder.instance;
     }
 
-    public void uploadSingleImg(ImageInfo imageInfo, UploadImgEvent event) {
+    public void uploadSingleImg(ImageInfo imageInfo, UploadImgEvent event,int count) {
         uploadSingleImg(event, imageInfo.client_id, imageInfo.upload_path, imageInfo.auth);
+        atomicInteger.set(count);
     }
 
 
@@ -43,13 +48,13 @@ public class QiNiuManager {
         uploadManager.put(imgPath, mkey, token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject res) {
+               if(atomicInteger.decrementAndGet()==0){
+                   EventBus.getDefault().post(event);
+               }
                 // res 包含hash、key等信息，具体字段取决于上传策略的设置。
                 Log.i("qiniu", key + "ddd " + info + ",\r\n "
                         + res+"???"+mkey+"???"+event.lastId);
                 // 七牛返回的文件名
-                if (mkey.equals(event.lastId)) {
-                    EventBus.getDefault().post(event);
-                }
             }
         }, null);
 

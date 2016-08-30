@@ -29,7 +29,7 @@ public class DiaryDetailInfo implements Parcelable {
 
     public ArrayList<CommentModel> comments ;
 
-    public ArrayList<Moment_likes> moment_likes ;
+    public ArrayList<MomentLikes> moment_likes ;
 
 
     @Override
@@ -67,8 +67,8 @@ public class DiaryDetailInfo implements Parcelable {
         this.comment_num = in.readInt();
         this.comments = new ArrayList<CommentModel>();
         in.readList(this.comments, Comments.class.getClassLoader());
-        this.moment_likes = new ArrayList<Moment_likes>();
-        in.readList(this.moment_likes, Moment_likes.class.getClassLoader());
+        this.moment_likes = new ArrayList<MomentLikes>();
+        in.readList(this.moment_likes, MomentLikes.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<DiaryDetailInfo> CREATOR = new Parcelable.Creator<DiaryDetailInfo>() {

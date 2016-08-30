@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -77,19 +78,28 @@ public abstract class CommentDialog extends DialogFragment {
 
     DialogInterface.OnKeyListener mKeyListener = new DialogInterface.OnKeyListener() {
         public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-            return (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0);
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                dismiss();
+                return true;
+            }
+            return false;
         }
     };
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imm.showSoftInput(commentsBinding.sendComments,InputMethodManager.SHOW_FORCED);
+
     }
 
     @Override
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 200);
     }
 }

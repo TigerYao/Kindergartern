@@ -59,8 +59,11 @@ public class HomeClickHandler extends BaseTitleClickHandler {
         });
     }
 
+    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo) {
+        this.diaryDetailInfo = diaryDetailInfo;
+    }
+
     public void onClickHeart(View view) {
-        diaryDetailInfo = (DiaryDetailInfo) view.getTag();
         if (ppW.isShowing())
             ppW.dismiss();
         else

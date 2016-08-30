@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.RequestManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ScreenUtils;
 import com.junbaole.kindergartern.data.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class PhotoPagerAdapter extends PagerAdapter {
                 .inflate(R.layout.photo_pager_item, container, false);
 
         final SimpleDraweeView imageView = (SimpleDraweeView)itemView.findViewById(R.id.iv_pager);
+        int swidth = ScreenUtils.width - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,10,imageView.getResources().getDisplayMetrics());
+        imageView.setMaxWidth(swidth);
         final Uri uri = getImgUri(position);
         if (uri != null)
             imageView.setImageURI(uri);

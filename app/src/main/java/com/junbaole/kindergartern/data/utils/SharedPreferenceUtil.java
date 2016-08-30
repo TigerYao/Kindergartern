@@ -84,6 +84,7 @@ public class SharedPreferenceUtil {
         editor.putInt("user_id", userInfo.id);
         editor.putString("user_name", userInfo.name);
         editor.putString("user_mobile", userInfo.phoneNum);
+        editor.putString("token",userInfo.token);
         apply(editor);
     }
 
@@ -91,6 +92,8 @@ public class SharedPreferenceUtil {
         SharedPreferences sharedPreferences = ctx.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         UserInfo userInfo = new UserInfo();
         userInfo.id = sharedPreferences.getInt("user_id", -1);
+        userInfo.user_id = userInfo.id+"";
+        userInfo.token = sharedPreferences.getString("token",null);
         userInfo.name = sharedPreferences.getString("user_name", "");
         userInfo.phoneNum = sharedPreferences.getString("user_mobile", "");
         return userInfo;

@@ -297,9 +297,9 @@ public class ActionManager {
     }
 
     public void favorite(int commentId,String userid,String uuid){
-        secondAction.favorities(commentId,userid,uuid).enqueue(new CallBackListener<String>() {
+        secondAction.favorities(commentId,userid,uuid).enqueue(new CallBackListener<JsonObject>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(JsonObject s) {
                 Toast.makeText(mCtx,"点赞成功",Toast.LENGTH_LONG).show();
             }
 
@@ -328,12 +328,11 @@ public class ActionManager {
         secondAction.judgeComment(commentModel).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
-
             }
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }

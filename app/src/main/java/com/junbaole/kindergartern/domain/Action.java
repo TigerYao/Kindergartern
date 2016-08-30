@@ -82,7 +82,7 @@ public interface Action {
     Call<BaseReponseModel<String>> updateDiary(@Path("diary_id") String diaryId, @Body SendMessageInfo sendMessageInfo);
 
     @POST("v1.2/moments/{momentid}/favorities")
-    Call<BaseReponseModel<String>> favorities(@Path("momentid") int momentid, @Query("userid") String userid, @Query("uuid") String uuid);
+    Call<BaseReponseModel<JsonObject>> favorities(@Path("momentid") int momentid, @Query("userid") String userid, @Query("uuid") String uuid);
 
     @DELETE("v1.2/moments/{momentid}/favorities")
     Call<BaseReponseModel<String>> unFavorities(@Path("momentid") int momentid, @Query("userid") String userid);

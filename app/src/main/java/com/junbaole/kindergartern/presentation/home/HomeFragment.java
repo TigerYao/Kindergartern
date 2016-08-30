@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +45,8 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     private FragmentHomeBinding homeBinding;
     private BaseActivity mActivity;
     private RecorderAdapter mAdapter;
-    private int pageSize = 0;
+    private AtomicInteger pageSize = new AtomicInteger(0);
+    private int maxPage = 1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -115,19 +118,21 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
 
     @Subscribe
     public void refresh(DataRefreshEvent event) {
-        pageSize = 0;
+        pageSize.set(0);
         mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
     }
 
     @Subscribe
     public void onGetDataByUrl(DiaryEvent event) {
         if (!event.isDiary && event.diaryInfo != null)
-            if (event.diaryInfo._content != null && pageSize < event.diaryInfo._total_pages) {
-                if (pageSize > 0) {
+            if (event.diaryInfo._content != null) {
+                if (pageSize.getAndIncrement() > 0) {
                     mAdapter.addDetails(event.diaryInfo._content);
-                } else
+                } else {
+                    if (maxPage != event.diaryInfo._total_pages)
+                        maxPage = event.diaryInfo._total_pages;
                     mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
-                pageSize += 1;
+                }
             }
         dismissDialog();
         homeBinding.swipeToLoadLayout.setLoadingMore(false);
@@ -144,6 +149,10 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
 
     @Override
     public void onLoadMore() {
-        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize, false);
+        Log.i("home",pageSize.get()+"????"+maxPage);
+        if (pageSize.get() <= maxPage)
+            mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize.get(), false);
+        else
+            homeBinding.swipeToLoadLayout.setLoadingMore(false);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ScreenUtils;
 import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class SendImgsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return isHome?Math.min(datas.size(),9):datas.size();
+        return isHome ? Math.min(datas.size(), 9) : datas.size();
     }
 
     @Override
@@ -67,7 +68,10 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         final SendImgsViewHolder holder = onCreateViewHolder();
-        Glide.with(ctx).load(getItem(position)).into(holder.draweeView);
+        if (isHome) {
+            holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
+        }
+        Glide.with(ctx).load(getItem(position)).placeholder(R.mipmap.lt_icon_tupian).into(holder.draweeView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,8 +108,7 @@ public class SendImgsAdapter extends BaseAdapter {
     }
 
     public void setHomeDatas(ArrayList<ImageInfo> datas) {
-        this.datas = null;
-        datas.remove(null);
+        this.datas.clear();
         this.datas = datas;
         notifyDataSetChanged();
     }

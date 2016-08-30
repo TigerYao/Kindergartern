@@ -16,10 +16,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UpLoadImgService extends Service {
 
     private Queue<SendMessageInfo> messageQueues;
+    private AtomicBoolean isUploading;
 
     public UpLoadImgService() {}
 
@@ -34,6 +36,7 @@ public class UpLoadImgService extends Service {
         super.onCreate();
         messageQueues = new LinkedList<>();
         EventBus.getDefault().register(this);
+        isUploading = new AtomicBoolean(false);
     }
 
     @Override
@@ -49,25 +52,30 @@ public class UpLoadImgService extends Service {
             ActionManager.getSencondIntent(getApplicationContext()).confirm(messageInfo.id, messageInfo.isDiray);
         } else {
             messageQueues.add(messageInfo);
-            uploardImg();
+            if(isUploading.compareAndSet(false,true)){
+                uploardImg();
+            }
         }
     }
 
     @Subscribe
     public void handleMessage(UploadImgEvent msg) {
         ActionManager.getSencondIntent(getApplicationContext()).confirm(msg.messageId, msg.isDiary);
+        uploardImg();
     }
 
     private void uploardImg() {
-        SendMessageInfo sendMessageInfo = messageQueues.peek();
+        SendMessageInfo sendMessageInfo = messageQueues.poll();
         if(sendMessageInfo!=null) {
             UploadImgEvent uploadImgEvent = new UploadImgEvent();
             uploadImgEvent.messageId = sendMessageInfo.id;
             uploadImgEvent.lastId = sendMessageInfo.getLastImgId();
             uploadImgEvent.isDiary = sendMessageInfo.isDiray;
             for (int i = 0; i < sendMessageInfo.imageList.size(); i++) {
-                QiNiuManager.getInstance().uploadSingleImg(sendMessageInfo.imageList.get(i), uploadImgEvent);
+                QiNiuManager.getInstance().uploadSingleImg(sendMessageInfo.imageList.get(i), uploadImgEvent,sendMessageInfo.imageList.size());
             }
+        }else{
+            isUploading.compareAndSet(true,false);
         }
     }
 

@@ -3,6 +3,8 @@ package com.junbaole.kindergartern.presentation.detail;
 import android.content.Intent;
 import android.view.View;
 
+import com.junbaole.kindergartern.data.model.CommentModel;
+import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.utils.ActionsheetHelper;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
@@ -14,7 +16,7 @@ import com.junbaole.kindergartern.widget.CommentDialog;
  */
 public class DiaryDetailClickHandler extends BaseTitleClickHandler {
     ActionsheetHelper helper;
-
+    CommentModel commentModel;
     public DiaryDetailClickHandler(BaseActivity mActivity) {
         super(mActivity);
         helper = new ActionsheetHelper(mActivity, "", "下载原图", "转入日记", "编辑") {
@@ -23,8 +25,14 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
                 super.showDialog(obje);
             }
         };
+        commentModel = new CommentModel();
+
     }
 
+    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo){
+        commentModel.source_user_id =mActivity.getUserInfo().user_id;
+        commentModel.moment_id = diaryDetailInfo.id;
+    }
     @Override
     public void onClickReturn(View view) {
         super.onClickReturn(view);
@@ -33,13 +41,15 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
     @Override
     public void onClickRightImg(View view) {
         super.onClickRightImg(view);
-        helper.showDialog("nihao");
+        helper.showDialog("");
     }
 
     public void onClickComment(View view){
         CommentDialog commentDialog = new CommentDialog() {
             @Override
             public void onOk(String password) {
+                commentModel.content = password;
+                mActivity.secondActionManager.judge(commentModel);
             }
         };
         commentDialog.show(mActivity.getSupportFragmentManager(),"commentdialog");

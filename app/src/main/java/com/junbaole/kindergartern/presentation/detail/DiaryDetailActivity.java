@@ -36,7 +36,7 @@ public class DiaryDetailActivity extends BaseActivity {
         }else{
             dispalyNoImgs();
         }
-
+        clickHandler.setDiaryDetailInfo(diaryDetailInfo);
     }
 
     private void setTitle() {

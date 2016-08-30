@@ -17,7 +17,11 @@ public class UserInfo implements Parcelable {
     public String user_id;
     public String nick_name;
     public String avatar_uri;
+    public String token;
 
+
+    public UserInfo() {
+    }
 
     @Override
     public int describeContents() {
@@ -35,9 +39,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(this.user_id);
         dest.writeString(this.nick_name);
         dest.writeString(this.avatar_uri);
-    }
-
-    public UserInfo() {
+        dest.writeString(this.token);
     }
 
     protected UserInfo(Parcel in) {
@@ -50,9 +52,10 @@ public class UserInfo implements Parcelable {
         this.user_id = in.readString();
         this.nick_name = in.readString();
         this.avatar_uri = in.readString();
+        this.token = in.readString();
     }
 
-    public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
         @Override
         public UserInfo createFromParcel(Parcel source) {
             return new UserInfo(source);

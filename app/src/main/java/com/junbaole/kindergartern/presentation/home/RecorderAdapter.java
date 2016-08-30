@@ -47,6 +47,7 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         if (detailInfoArrayList != null && detailInfoArrayList.size() > 0) {
             this.detailInfoArrayList.addAll(detailInfoArrayList);
         }
+        notifyItemRangeInserted(getItemCount(),detailInfoArrayList.size());
     }
 
     @Override
@@ -82,6 +83,7 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         public void bindData(final DiaryDetailInfo diaryDetailInfo) {
             HomeClickHandler homeClickHandler = new HomeClickHandler((BaseActivity)ctx);
             homeClickHandler.initPPW(ctx);
+            homeClickHandler.setDiaryDetailInfo(diaryDetailInfo);
             homeBinding.setClick(homeClickHandler);
             homeBinding.setDiaryInfo(diaryDetailInfo);
             itemView.setTag(diaryDetailInfo);
