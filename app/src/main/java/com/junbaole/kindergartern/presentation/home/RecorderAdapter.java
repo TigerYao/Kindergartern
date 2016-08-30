@@ -24,6 +24,7 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
 
     private Context ctx;
     private ArrayList<DiaryDetailInfo> detailInfoArrayList = new ArrayList<>();
+    private boolean mIsDiary;
 
     @Override
     public RecorderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,13 +33,14 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         return new RecorderViewHolder(view);
     }
 
-    public void setDetailInfoArrayList(ArrayList<DiaryDetailInfo> detailInfoArrayList) {
+    public void setDetailInfoArrayList(ArrayList<DiaryDetailInfo> detailInfoArrayList,boolean isDiary) {
         if (detailInfoArrayList == null) {
             return;
         }
         if (this.detailInfoArrayList.size() > 0) {
             this.detailInfoArrayList.clear();
         }
+        this.mIsDiary = isDiary;
         this.detailInfoArrayList.addAll(detailInfoArrayList);
         notifyDataSetChanged();
     }
@@ -78,12 +80,16 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         public RecorderViewHolder(View itemView) {
             super(itemView);
             homeBinding = DataBindingUtil.bind(itemView);
+            if(mIsDiary){
+                homeBinding.homeContentDianzan.setVisibility(View.INVISIBLE);
+            }
         }
 
         public void bindData(final DiaryDetailInfo diaryDetailInfo) {
+            diaryDetailInfo.isDiary = mIsDiary;
             HomeClickHandler homeClickHandler = new HomeClickHandler((BaseActivity)ctx);
-            homeClickHandler.initPPW(ctx);
             homeClickHandler.setDiaryDetailInfo(diaryDetailInfo);
+            homeClickHandler.initPPW(ctx);
             homeBinding.setClick(homeClickHandler);
             homeBinding.setDiaryInfo(diaryDetailInfo);
             itemView.setTag(diaryDetailInfo);
@@ -104,6 +110,7 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), DiaryDetailActivity.class);
                     intent.putExtra("diaryDetailInfo", diaryDetailInfo);
+                    intent.putExtra("isDiary",mIsDiary);
                     itemView.getContext().startActivity(intent);
                 }
             });

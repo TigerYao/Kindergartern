@@ -31,6 +31,8 @@ public class DiaryDetailInfo implements Parcelable {
 
     public ArrayList<MomentLikes> moment_likes ;
 
+    public boolean isDiary;
+
 
     @Override
     public int describeContents() {

@@ -39,7 +39,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private boolean  isDairy = false;
     private String mParam2;
 
     private FragmentHomeBinding homeBinding;
@@ -57,15 +57,15 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param isDairy Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance(boolean isDairy, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putBoolean(ARG_PARAM1, isDairy);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
 
@@ -76,7 +76,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            isDairy = getArguments().getBoolean(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -88,11 +88,18 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
         homeBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new RecorderAdapter();
         homeBinding.swipeTarget.setAdapter(mAdapter);
-        new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable("宝宝日记", "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi)
+        String title = "宝宝日记";
+        if(isDairy){
+            title = "个人主页";
+        }
+        new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable(title, "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi)
                 .build();
         homeBinding.headerHome.setWeekday(getWeekDay());
         homeBinding.swipeToLoadLayout.setRefreshEnabled(false);
         homeBinding.swipeToLoadLayout.setOnLoadMoreListener(this);
+        if(isDairy){
+            homeBinding.headerHome.weatherLayout.setVisibility(View.GONE);
+        }
         return homeBinding.getRoot();
     }
 
@@ -101,7 +108,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
         super.onViewCreated(view, savedInstanceState);
         new AmapQueryUtils().queryWeather(mActivity);
         showDialog();
-        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
+        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, isDairy);
     }
 
     @Override
@@ -120,6 +127,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public void refresh(DataRefreshEvent event) {
         pageSize.set(0);
         mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
+
     }
 
     @Subscribe
@@ -131,7 +139,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
                 } else {
                     if (maxPage != event.diaryInfo._total_pages)
                         maxPage = event.diaryInfo._total_pages;
-                    mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
+                    mAdapter.setDetailInfoArrayList(event.diaryInfo._content,isDairy);
                 }
             }
         dismissDialog();
@@ -154,5 +162,6 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
             mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize.get(), false);
         else
             homeBinding.swipeToLoadLayout.setLoadingMore(false);
+
     }
 }

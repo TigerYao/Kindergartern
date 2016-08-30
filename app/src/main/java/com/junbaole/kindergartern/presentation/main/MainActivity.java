@@ -27,7 +27,7 @@ public class MainActivity extends BaseFragmentActivity {
 
     @Override
     protected BaseFragment getFirstFragment() {
-        return HomeFragment.newInstance("", "");
+        return HomeFragment.newInstance(false, "");
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.junbaole.kindergartern.databinding.AdapterHomeHeartLayoutBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
 import com.junbaole.kindergartern.presentation.detail.DiaryDetailActivity;
+import com.junbaole.kindergartern.presentation.diary.DiaryActivity;
 
 import java.util.UUID;
 
@@ -35,6 +36,10 @@ public class HomeClickHandler extends BaseTitleClickHandler {
         super(mActivity);
     }
 
+    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo) {
+        this.diaryDetailInfo = diaryDetailInfo;
+    }
+
     public void initPPW(Context ctx) {
         AdapterHomeHeartLayoutBinding heartLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(ctx), R.layout.adapter_home_heart_layout, (ViewGroup) null, false);
         ppW = new PopupWindow(heartLayoutBinding.getRoot(), ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -45,6 +50,7 @@ public class HomeClickHandler extends BaseTitleClickHandler {
             @Override
             public void onClick(View v) {
                 ppW.dismiss();
+                if(diaryDetailInfo!=null)
                 mActivity.secondActionManager.favorite(diaryDetailInfo.id,mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
             }
         });
@@ -59,14 +65,15 @@ public class HomeClickHandler extends BaseTitleClickHandler {
         });
     }
 
-    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo) {
-        this.diaryDetailInfo = diaryDetailInfo;
-    }
 
     public void onClickHeart(View view) {
         if (ppW.isShowing())
             ppW.dismiss();
         else
             ppW.showAsDropDown(view);
+    }
+
+    public void onClickHeader(View view){
+        SkipActivityUtils.startActivity(mActivity,view,"",new Intent(mActivity, DiaryActivity.class));
     }
 }
