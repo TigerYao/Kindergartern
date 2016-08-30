@@ -47,6 +47,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     private RecorderAdapter mAdapter;
     private AtomicInteger pageSize = new AtomicInteger(0);
     private int maxPage = 1;
+    private HomeClickHandler homeClickHandler;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,10 +85,12 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        homeClickHandler = new HomeClickHandler((BaseActivity) getActivity());
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         homeBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new RecorderAdapter();
         homeBinding.swipeTarget.setAdapter(mAdapter);
+        homeBinding.setClickHandler(homeClickHandler);
         String title = "宝宝日记";
         if(isDairy){
             title = "个人主页";
