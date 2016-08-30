@@ -45,7 +45,7 @@
             android:name=".presentation.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
-        <activity android:name=".presentation.launcher.LauncherActivity">
+        <activity android:name=".presentation.launcher.LauncherActivity" android:theme="@style/fullTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
