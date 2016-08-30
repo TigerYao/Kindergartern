@@ -93,15 +93,15 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
             homeBinding.setClick(homeClickHandler);
             homeBinding.setDiaryInfo(diaryDetailInfo);
             itemView.setTag(diaryDetailInfo);
-
             if (diaryDetailInfo.image_list != null && diaryDetailInfo.image_list.size() > 0) {
                 homeBinding.imgList.setVisibility(View.VISIBLE);
-                if (homeBinding.imgList.getAdapter() != null) {
-                    ((SendImgsAdapter)homeBinding.imgList.getAdapter()).setHomeDatas(diaryDetailInfo.image_list);
-                } else {
-                    SendImgsAdapter adapter = new SendImgsAdapter(true,ctx, diaryDetailInfo.image_list);
-                    homeBinding.imgList.setAdapter(adapter);
-                }
+                SendImgsAdapter adapter = new SendImgsAdapter(true,ctx, diaryDetailInfo.image_list);
+                homeBinding.imgList.setAdapter(adapter);
+//                if (homeBinding.imgList.getAdapter() != null) {
+//                    ((SendImgsAdapter)homeBinding.imgList.getAdapter()).setHomeDatas(diaryDetailInfo.image_list);
+//                } else {
+//
+//                }
             } else {
                 homeBinding.imgList.setVisibility(View.GONE);
             }

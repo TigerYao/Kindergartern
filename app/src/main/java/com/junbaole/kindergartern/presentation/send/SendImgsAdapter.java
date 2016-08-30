@@ -68,9 +68,7 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         final SendImgsViewHolder holder = onCreateViewHolder();
-        if (isHome) {
             holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
-        }
         Glide.with(ctx).load(getItem(position)).placeholder(R.mipmap.lt_icon_tupian).into(holder.draweeView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +106,6 @@ public class SendImgsAdapter extends BaseAdapter {
     }
 
     public void setHomeDatas(ArrayList<ImageInfo> datas) {
-        this.datas.clear();
         this.datas = datas;
         notifyDataSetChanged();
     }
