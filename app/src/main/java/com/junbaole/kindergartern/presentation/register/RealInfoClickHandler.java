@@ -97,11 +97,6 @@ public class RealInfoClickHandler extends BaseTitleClickHandler {
                 }).build();
     }
 
-//    public void showShoolList(final ArrayList<ShooleInfo> list) {
-//        new MaterialDialog.Builder(mActivity)
-//                .title("选择学校").adapter(new ShooleListAdapter(list),new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)).show();
-//    }
-
 }
 
 

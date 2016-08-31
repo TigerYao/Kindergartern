@@ -1,22 +1,15 @@
 package com.junbaole.kindergartern.widget.ImageSelectorView;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 
 import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
-import com.junbaole.kindergartern.presentation.send.DisplayImgsActivity;
-import com.junbaole.kindergartern.presentation.send.SendActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by TigerYao on 16/7/23.

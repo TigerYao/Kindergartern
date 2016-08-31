@@ -76,9 +76,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                sendPhoneEvent.successMsg = null;
-                sendPhoneEvent.failMsg = failReason;
-                EventBus.getDefault().post(sendPhoneEvent);
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -101,9 +99,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                sendPhoneEvent.successMsg = null;
-                sendPhoneEvent.successMsg = failReason;
-                EventBus.getDefault().post(sendPhoneEvent);
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -126,10 +122,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                sendPhoneEvent.failMsg = failReason;
-                sendPhoneEvent.isSuccess = true;
-                sendPhoneEvent.successMsg = null;
-                EventBus.getDefault().post(sendPhoneEvent);
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         };
         if (type == 1) {
@@ -159,9 +152,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                sendPhoneEvent.failMsg = failReason;
-                sendPhoneEvent.successMsg = null;
-                EventBus.getDefault().post(sendPhoneEvent);
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -244,7 +235,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -258,7 +249,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -272,7 +263,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -287,7 +278,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         };
         if (isDiary) {
@@ -319,7 +310,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -346,7 +337,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-
+                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
             }
         });
     }
