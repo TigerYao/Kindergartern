@@ -48,7 +48,12 @@ public class SendActivity extends BaseActivity {
         mSendBinding.setClickHandler(sendClickHandler);
         new TitleBuilder(mSendBinding.actionBarTitle).TitleBuilderLayout(true, true).TitleBuilderLeftItem(false, true).TitleBuilderRightItem(false, true).TitleBuilderLable("", "取消", "发送")
                 .TitleBuilderLableColor(0, 0, R.color.white).build();
-        mSendMessageInfo = new SendMessageInfo();
+        mSendMessageInfo = getIntent().getParcelableExtra("messageInfo");
+        if(mSendMessageInfo==null) {
+            mSendMessageInfo = new SendMessageInfo();
+        }else{
+            datas = mSendMessageInfo.images;
+        }
         mSendBinding.setSendMessage(mSendMessageInfo);
         if (AppInfo.latLonPoint != null) {
             mSendMessageInfo.location.latitude = (long)AppInfo.getLat(this);

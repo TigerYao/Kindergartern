@@ -53,12 +53,14 @@
                 android:layout_width="45dp"
                 android:layout_height="40dp"
                 android:scaleType="center"
+                android:onClick="@{clickHandler.onClickCommentBtn}"
                 android:src="@mipmap/icon_dianzan_pinglun" />
 
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="40dp"
                 android:scaleType="centerInside"
+                android:onClick="@{clickHandler.onClickLike}"
                 android:src="@mipmap/icon_dianzan_x" />
         </LinearLayout>
 

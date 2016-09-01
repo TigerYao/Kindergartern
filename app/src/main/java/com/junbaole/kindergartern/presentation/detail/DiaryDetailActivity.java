@@ -1,5 +1,6 @@
 package com.junbaole.kindergartern.presentation.detail;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -7,12 +8,15 @@ import android.widget.Toast;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.data.model.SendMessageInfo;
+import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.data.utils.event.ActionSheetEvent;
 import com.junbaole.kindergartern.databinding.ActivityDiaryDetailBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
 import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.junbaole.kindergartern.presentation.photo.ImagePagerFragment;
+import com.junbaole.kindergartern.presentation.send.SendActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -21,14 +25,15 @@ public class DiaryDetailActivity extends BaseActivity {
     private DiaryDetailInfo diaryDetailInfo;
     private ActivityDiaryDetailBinding diaryDetailBinding;
     private BaseFragment pagerFragment;
+    private DiaryDetailClickHandler clickHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         diaryDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_diary_detail);
-        DiaryDetailClickHandler clickHandler = new DiaryDetailClickHandler(this);
-        diaryDetailBinding.setClickHandler(clickHandler);
         diaryDetailInfo = getIntent().getParcelableExtra("diaryDetailInfo");
+        clickHandler = new DiaryDetailClickHandler(this,diaryDetailInfo);
+        diaryDetailBinding.setClickHandler(clickHandler);
         if (diaryDetailInfo != null && diaryDetailInfo.image_list.size() > 0) {
             diaryDetailBinding.setDiaryInfo(diaryDetailInfo);
             dispalyImgs();
@@ -38,6 +43,8 @@ public class DiaryDetailActivity extends BaseActivity {
         }
         clickHandler.setDiaryDetailInfo(diaryDetailInfo);
     }
+
+
 
     private void setTitle() {
         new TitleBuilder(diaryDetailBinding.titleBar).TitleBuilderLayout(true, true).TitleBuilderLeftItem(true, false).TitleBuilderRightItem(true, false).TitleBuilderImgReasours(R.mipmap.icon_fanhui,
@@ -49,9 +56,16 @@ public class DiaryDetailActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.display_imgs, pagerFragment).commit();
     }
     private void dispalyNoImgs() {
-        pagerFragment = ContentDetailFragment.newInstance(diaryDetailInfo,"");
+        pagerFragment = ContentDetailFragment.newInstance(diaryDetailInfo,false);
         getSupportFragmentManager().beginTransaction().replace(R.id.display_imgs, pagerFragment).commit();
         diaryDetailBinding.titleBar.getRoot().setVisibility(View.GONE);
+    }
+
+    protected void dispalyPinglun() {
+        pagerFragment = ContentDetailFragment.newInstance(diaryDetailInfo,true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.display_imgs, pagerFragment).commit();
+        diaryDetailBinding.titleBar.getRoot().setVisibility(View.GONE);
+        clickHandler.onClickComment(null);
     }
 
     @Subscribe
@@ -65,6 +79,9 @@ public class DiaryDetailActivity extends BaseActivity {
                 break;
             case "编辑":
                 Toast.makeText(this,event.style,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, SendActivity.class);
+                intent.putExtra("messageInfo",diaryDetailInfo.diaryInfoToSendMessage());
+                SkipActivityUtils.startActivity(this,null,"",intent);
                 break;
         }
     }

@@ -29,6 +29,18 @@ public class SendMessageInfo implements Parcelable {
         return imageList.get(count-1).upload_path;
     }
 
+
+    public SendMessageInfo DiaryInfoToSendMessage(DiaryDetailInfo diaryDetailInfo){
+        this.content = diaryDetailInfo.message;
+        this.images = diaryDetailInfo.image_list;
+        this.location = diaryDetailInfo.location;
+        this.location_name = diaryDetailInfo.location_name;
+        this.user_id = diaryDetailInfo.user.user_id;
+        this.isDiray = diaryDetailInfo.isDiary;
+        return this;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;

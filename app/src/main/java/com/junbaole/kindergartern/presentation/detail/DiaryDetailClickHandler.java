@@ -11,13 +11,16 @@ import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
 import com.junbaole.kindergartern.widget.CommentDialog;
 
+import java.util.UUID;
+
 /**
  * Created by yaohu on 16/8/24.
  */
 public class DiaryDetailClickHandler extends BaseTitleClickHandler {
     ActionsheetHelper helper;
     CommentModel commentModel;
-    public DiaryDetailClickHandler(BaseActivity mActivity) {
+    DiaryDetailInfo diaryDetailInfo;
+    public DiaryDetailClickHandler(BaseActivity mActivity,DiaryDetailInfo diaryDetailInfo) {
         super(mActivity);
         helper = new ActionsheetHelper(mActivity, "", "下载原图", "转入日记", "编辑") {
             @Override
@@ -26,6 +29,7 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
             }
         };
         commentModel = new CommentModel();
+        this.diaryDetailInfo = diaryDetailInfo;
 
     }
 
@@ -53,5 +57,14 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
             }
         };
         commentDialog.show(mActivity.getSupportFragmentManager(),"commentdialog");
+    }
+
+    public void onClickCommentBtn(View view){
+        ((DiaryDetailActivity)mActivity).dispalyPinglun();
+    }
+
+    public void onClickLike(View view){
+        mActivity.secondActionManager.favorite(diaryDetailInfo.id,mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
+
     }
 }

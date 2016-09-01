@@ -1,8 +1,14 @@
 package com.junbaole.kindergartern.presentation.detail;
 
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.databinding.FragmentContentDetailBinding;
+import com.junbaole.kindergartern.presentation.adapter.CommentsAdaper;
+import com.junbaole.kindergartern.presentation.base.BaseFragment;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
+
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,14 +16,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
-import com.junbaole.kindergartern.data.model.SendMessageInfo;
-import com.junbaole.kindergartern.databinding.FragmentContentDetailBinding;
-import com.junbaole.kindergartern.presentation.adapter.CommentsAdaper;
-import com.junbaole.kindergartern.presentation.base.BaseFragment;
-import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,9 +31,8 @@ public class ContentDetailFragment extends BaseFragment {
 
     // TODO: Rename and change types of parameters
     private DiaryDetailInfo mParam1;
-    private String mParam2;
+    private boolean mIsCommentView = false;
     private CommentsAdaper mCommentsAdaper;
-
 
     public ContentDetailFragment() {
         // Required empty public constructor
@@ -50,11 +47,11 @@ public class ContentDetailFragment extends BaseFragment {
      * @return A new instance of fragment ContentDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ContentDetailFragment newInstance(DiaryDetailInfo param1, String param2) {
+    public static ContentDetailFragment newInstance(DiaryDetailInfo param1, boolean isCommentView) {
         ContentDetailFragment fragment = new ContentDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putBoolean(ARG_PARAM2, isCommentView);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,25 +61,30 @@ public class ContentDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getParcelable(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mIsCommentView = getArguments().getBoolean(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mContentDetailBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_content_detail, container, false);
+        mContentDetailBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_content_detail, container, false);
         mContentDetailBinding.setDiaryInfo(mParam1);
-        new TitleBuilder(mContentDetailBinding.titleBar).TitleBuilderLayout(true,true).TitleBuilderLeftItem(true,false).TitleBuilderRightItem(false,true).TitleBuilderLable("内容详情","","编辑").build();
+        if (mIsCommentView) {
+            mContentDetailBinding.userinfoLayout.setVisibility(View.GONE);
+            new TitleBuilder(mContentDetailBinding.titleBar).TitleBuilderLayout(true, true).TitleBuilderLeftItem(true, false).TitleBuilderRightItem(false, false).TitleBuilderLable("评论", "", "")
+                    .build();
+        } else
+            new TitleBuilder(mContentDetailBinding.titleBar).TitleBuilderLayout(true, true).TitleBuilderLeftItem(true, false).TitleBuilderRightItem(false, true).TitleBuilderLable("内容详情", "", "编辑")
+                    .build();
         return mContentDetailBinding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(mParam1.comment_num>0&&mParam1.comments!=null){
+        if (mParam1.comment_num > 0 && mParam1.comments != null) {
             mCommentsAdaper = new CommentsAdaper(mParam1.comments);
             mContentDetailBinding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
             mContentDetailBinding.recycleview.setAdapter(mCommentsAdaper);
@@ -99,6 +101,5 @@ public class ContentDetailFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
     }
-
 
 }

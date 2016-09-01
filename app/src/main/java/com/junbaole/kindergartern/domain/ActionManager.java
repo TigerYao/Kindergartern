@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.JsonObject;
 import com.junbaole.kindergartern.data.model.CommentModel;
+import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
@@ -113,9 +114,9 @@ public class ActionManager {
         final SendPhoneEvent sendPhoneEvent = new SendPhoneEvent();
         sendPhoneEvent.type = 3;
 
-        CallBackListener<String> callBackListener = new CallBackListener<String>() {
+        CallBackListener<JsonObject> callBackListener = new CallBackListener<JsonObject>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(JsonObject s) {
                 sendPhoneEvent.successMsg = phoneNum;
                 EventBus.getDefault().post(sendPhoneEvent);
             }
@@ -227,9 +228,9 @@ public class ActionManager {
     }
 
     public void deleteDiary(String diaryId) {
-        secondAction.deletDiary(diaryId).enqueue(new CallBackListener<String>() {
+        secondAction.deletDiary(diaryId).enqueue(new CallBackListener<JsonObject>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(JsonObject s) {
 
             }
 
@@ -241,9 +242,9 @@ public class ActionManager {
     }
 
     public void queyDiary(String diaryId) {
-        secondAction.queryDiary(diaryId).enqueue(new CallBackListener<String>() {
+        secondAction.queryDiary(diaryId).enqueue(new CallBackListener<DiaryDetailInfo>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(DiaryDetailInfo s) {
                 //ToDo
             }
 
@@ -254,10 +255,10 @@ public class ActionManager {
         });
     }
 
-    public void updateDiary(String diaryId, SendMessageInfo sendMessageInfo) {
-        secondAction.updateDiary(diaryId, sendMessageInfo).enqueue(new CallBackListener<String>() {
+    public void updateDiary(int diaryId, SendMessageInfo sendMessageInfo) {
+        secondAction.updateDiary(diaryId, sendMessageInfo).enqueue(new CallBackListener<JsonObject>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(JsonObject s) {
 
             }
 

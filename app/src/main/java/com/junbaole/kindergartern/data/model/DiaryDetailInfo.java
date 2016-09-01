@@ -56,7 +56,17 @@ public class DiaryDetailInfo implements Parcelable {
 
     public DiaryDetailInfo() {
     }
-
+    public SendMessageInfo diaryInfoToSendMessage(){
+        SendMessageInfo messageInfo = new SendMessageInfo();
+        messageInfo.content = this.message;
+        messageInfo.images = this.image_list;
+        messageInfo.location = this.location;
+        messageInfo.location_name = this.location_name;
+        messageInfo.user_id = this.user.user_id;
+        messageInfo.isDiray = this.isDiary;
+        messageInfo.id = this.id;
+        return messageInfo;
+    }
     protected DiaryDetailInfo(Parcel in) {
         this.location = in.readParcelable(Location.class.getClassLoader());
         this.id = in.readInt();

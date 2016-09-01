@@ -1,1 +1,1 @@
-include ':app', ':sharelibrary', ':ToggleButtonLib'
+include ':app', ':sharelibrary', ':CoreSDK'

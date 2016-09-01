@@ -18,6 +18,7 @@
         <include android:id="@+id/title_bar" layout="@layout/titlebar_layout" />
 
        <RelativeLayout
+           android:id="@+id/userinfo_layout"
            android:layout_width="match_parent"
            android:padding="12dp"
            android:layout_height="wrap_content">

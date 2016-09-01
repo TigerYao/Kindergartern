@@ -3,6 +3,7 @@ package com.junbaole.kindergartern.domain;
 import com.google.gson.JsonObject;
 import com.junbaole.kindergartern.data.model.BaseReponseModel;
 import com.junbaole.kindergartern.data.model.CommentModel;
+import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
 import com.junbaole.kindergartern.data.model.SMSVO;
@@ -37,10 +38,10 @@ public interface Action {
     Call<BaseReponseModel<UserInfo>> login(@Body UserLoginVO userLoginVO);
 
     @POST("user/reg")
-    Call<BaseReponseModel<String>> registerApp(@Body SMSVO smsvo);
+    Call<BaseReponseModel<JsonObject>> registerApp(@Body SMSVO smsvo);
 
     @PUT("user/chwd")
-    Call<BaseReponseModel<String>> modifyPWD(@Body SMSVO smsvo);
+    Call<BaseReponseModel<JsonObject>> modifyPWD(@Body SMSVO smsvo);
 
     @PUT("auth/parent")
     Call<BaseReponseModel<String>> parentAuth(@Body ParentAuthVO parentAuthVO);
@@ -73,13 +74,13 @@ public interface Action {
     Call<BaseReponseModel<String>> confirmDiary(@Path("diary_id") long diaryID);
 
     @DELETE("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<String>> deletDiary(@Path("diary_id") String diaryId);
+    Call<BaseReponseModel<JsonObject>> deletDiary(@Path("diary_id") String diaryId);
 
     @GET("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<String>> queryDiary(@Path("diary_id") String diaryId);
+    Call<BaseReponseModel<DiaryDetailInfo>> queryDiary(@Path("diary_id") String diaryId);
 
     @PUT("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<String>> updateDiary(@Path("diary_id") String diaryId, @Body SendMessageInfo sendMessageInfo);
+    Call<BaseReponseModel<JsonObject>> updateDiary(@Path("diary_id") int diaryId, @Body SendMessageInfo sendMessageInfo);
 
     @POST("v1.2/moments/{momentid}/favorities")
     Call<BaseReponseModel<JsonObject>> favorities(@Path("momentid") int momentid, @Query("userid") String userid, @Query("uuid") String uuid);
