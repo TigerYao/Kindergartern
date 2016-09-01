@@ -46,8 +46,9 @@ public class CommentsAdaper extends RecyclerView.Adapter<CommentsAdaper.Comments
 
     @Override
     public void onBindViewHolder(CommentsViewHolder holder, int position) {
-
+        holder.bindData(commentModelArrayList.get(position));
     }
+
 
     @Override
     public int getItemCount() {
@@ -59,6 +60,9 @@ public class CommentsAdaper extends RecyclerView.Adapter<CommentsAdaper.Comments
         public CommentsViewHolder(View itemView) {
             super(itemView);
             commentsAdaperLayoutBinding = DataBindingUtil.bind(itemView);
+        }
+        public void bindData(CommentModel commentModel){
+            commentsAdaperLayoutBinding.setComment(commentModel);
         }
     }
 }

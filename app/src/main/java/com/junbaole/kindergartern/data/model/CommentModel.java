@@ -17,7 +17,12 @@ public class CommentModel implements Parcelable {
     public String target_user_id;
     public String type = "COMMENTS";
     public String uuid = UUID.randomUUID().toString();
-
+    public String id;
+    public String message;
+    public String time;
+    public String uri;
+    public UserInfo source_user;
+    public UserInfo target_user;
 
     @Override
     public int describeContents() {

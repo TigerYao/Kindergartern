@@ -29,13 +29,14 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
             }
         };
         commentModel = new CommentModel();
-        this.diaryDetailInfo = diaryDetailInfo;
-
+       setDiaryDetailInfo(diaryDetailInfo);
     }
 
     public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo){
+        this.diaryDetailInfo = diaryDetailInfo;
         commentModel.source_user_id =mActivity.getUserInfo().user_id;
         commentModel.moment_id = diaryDetailInfo.id;
+        commentModel.type = "COMMENTS";
     }
     @Override
     public void onClickReturn(View view) {

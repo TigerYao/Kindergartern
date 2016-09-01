@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/user_header"
-            android:text="@{comment.source_user_id}"
+            android:text="@{comment.source_user.nick_name}"
             android:textColor="@color/s_color2"
             android:textSize="12sp" />
 
@@ -45,7 +45,7 @@
             android:layout_below="@id/user_nickName"
             android:layout_toRightOf="@id/user_header"
             android:paddingTop="5dp"
-            android:text="@{comment.content}"
+            android:text="@{comment.message}"
             android:textColor="@color/s_color11"
             android:textSize="16sp" />
     </RelativeLayout>
