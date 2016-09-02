@@ -51,6 +51,7 @@ public class SendActivity extends BaseActivity {
         mSendMessageInfo = getIntent().getParcelableExtra("messageInfo");
         if(mSendMessageInfo==null) {
             mSendMessageInfo = new SendMessageInfo();
+            mSendMessageInfo.user_id = getUserInfo().user_id;
         }else{
             datas = mSendMessageInfo.images;
         }

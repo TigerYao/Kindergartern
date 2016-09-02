@@ -18,7 +18,7 @@ public class SendMessageInfo implements Parcelable {
     public String location_name;
     public String shared_id;
     public String shared_type;
-    public String user_id = "2";
+    public String user_id;
     public long id;
     public boolean isDiray = false;
     public String uuid = UUID.randomUUID().toString();
