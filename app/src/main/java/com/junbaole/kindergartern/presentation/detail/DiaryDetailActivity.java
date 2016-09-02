@@ -26,12 +26,14 @@ public class DiaryDetailActivity extends BaseActivity {
     private ActivityDiaryDetailBinding diaryDetailBinding;
     private BaseFragment pagerFragment;
     private DiaryDetailClickHandler clickHandler;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         diaryDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_diary_detail);
         diaryDetailInfo = getIntent().getParcelableExtra("diaryDetailInfo");
+        position = getIntent().getIntExtra("position",0);
         clickHandler = new DiaryDetailClickHandler(this,diaryDetailInfo);
         diaryDetailBinding.setClickHandler(clickHandler);
         if (diaryDetailInfo != null && diaryDetailInfo.image_list.size() > 0) {
@@ -52,7 +54,7 @@ public class DiaryDetailActivity extends BaseActivity {
     }
 
     private void dispalyImgs() {
-        pagerFragment = ImagePagerFragment.newInstance(diaryDetailInfo.message, diaryDetailInfo.image_list, 0,View.GONE);
+        pagerFragment = ImagePagerFragment.newInstance(diaryDetailInfo.message, diaryDetailInfo.image_list, position,View.GONE);
         getSupportFragmentManager().beginTransaction().replace(R.id.display_imgs, pagerFragment).commit();
     }
     private void dispalyNoImgs() {

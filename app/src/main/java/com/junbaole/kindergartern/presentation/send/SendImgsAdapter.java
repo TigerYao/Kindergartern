@@ -1,5 +1,13 @@
 package com.junbaole.kindergartern.presentation.send;
 
+import java.util.ArrayList;
+
+import com.bumptech.glide.Glide;
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ScreenUtils;
+import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,14 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.utils.ScreenUtils;
-import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
-
-import java.util.ArrayList;
 
 /**
  * Created by yaohu on 16/7/22.
@@ -74,15 +74,14 @@ public class SendImgsAdapter extends BaseAdapter {
             holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
             Glide.with(ctx).load(getItem(position)).placeholder(R.mipmap.lt_icon_tupian).into(holder.draweeView);
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (position == getCount() - 1 && !isHome) {
+        if (position == getCount() - 1 && !isHome)
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     Intent intent = new Intent(holder.itemView.getContext(), ImageSelectorActivity.class);
                     holder.itemView.getContext().startActivity(intent);
                 }
-            }
-        });
+            });
         return holder.itemView;
     }
 

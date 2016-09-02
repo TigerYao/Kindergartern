@@ -741,7 +741,11 @@ public class PtrLayout extends ViewGroup {
             }
             final int targetRight = targetLeft + targetView.getMeasuredWidth();
             final int targetBottom = targetTop + targetView.getMeasuredHeight();
-            targetView.layout(targetLeft, targetTop, targetRight, targetBottom);
+            try {
+                targetView.layout(targetLeft, targetTop, targetRight, targetBottom);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         // layout footer

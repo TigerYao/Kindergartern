@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class ContentDetailFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i("comments",mParam1.comment_num+"====ssss");
         if (mParam1.comment_num > 0 && mParam1.comments != null) {
             mCommentsAdaper = new CommentsAdaper(mParam1.comments);
             mContentDetailBinding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));

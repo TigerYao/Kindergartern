@@ -24,6 +24,9 @@ public class CommentModel implements Parcelable {
     public UserInfo source_user;
     public UserInfo target_user;
 
+    public CommentModel() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -39,9 +42,12 @@ public class CommentModel implements Parcelable {
         dest.writeString(this.target_user_id);
         dest.writeString(this.type);
         dest.writeString(this.uuid);
-    }
-
-    public CommentModel() {
+        dest.writeString(this.id);
+        dest.writeString(this.message);
+        dest.writeString(this.time);
+        dest.writeString(this.uri);
+        dest.writeParcelable(this.source_user, flags);
+        dest.writeParcelable(this.target_user, flags);
     }
 
     protected CommentModel(Parcel in) {
@@ -53,9 +59,15 @@ public class CommentModel implements Parcelable {
         this.target_user_id = in.readString();
         this.type = in.readString();
         this.uuid = in.readString();
+        this.id = in.readString();
+        this.message = in.readString();
+        this.time = in.readString();
+        this.uri = in.readString();
+        this.source_user = in.readParcelable(UserInfo.class.getClassLoader());
+        this.target_user = in.readParcelable(UserInfo.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<CommentModel> CREATOR = new Parcelable.Creator<CommentModel>() {
+    public static final Creator<CommentModel> CREATOR = new Creator<CommentModel>() {
         @Override
         public CommentModel createFromParcel(Parcel source) {
             return new CommentModel(source);

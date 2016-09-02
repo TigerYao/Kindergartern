@@ -1,5 +1,7 @@
 package com.junbaole.kindergartern.domain;
 
+import java.util.ArrayList;
+
 import com.google.gson.JsonObject;
 import com.junbaole.kindergartern.data.model.BaseReponseModel;
 import com.junbaole.kindergartern.data.model.CommentModel;
@@ -12,12 +14,11 @@ import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -88,6 +89,7 @@ public interface Action {
     @DELETE("v1.2/moments/{momentid}/favorities")
     Call<BaseReponseModel<String>> unFavorities(@Path("momentid") int momentid, @Query("userid") String userid);
 
+    @Headers("Content-Type: application/json")
     @POST("v1.2/comments")
     Call<BaseReponseModel<JsonObject>> judgeComment(@Body CommentModel commentModel);
 

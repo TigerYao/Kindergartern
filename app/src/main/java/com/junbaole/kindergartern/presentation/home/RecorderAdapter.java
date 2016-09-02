@@ -1,5 +1,6 @@
 package com.junbaole.kindergartern.presentation.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -7,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.databinding.AdapterTextContentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.detail.DiaryDetailActivity;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by liangrenwang on 16/6/21.
  */
-public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.RecorderViewHolder> {
+public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.RecorderViewHolder> implements AdapterView.OnItemClickListener{
 
     private Context ctx;
     private ArrayList<DiaryDetailInfo> detailInfoArrayList = new ArrayList<>();
@@ -97,11 +100,8 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
                 homeBinding.imgList.setVisibility(View.VISIBLE);
                 SendImgsAdapter adapter = new SendImgsAdapter(true,ctx, diaryDetailInfo.image_list);
                 homeBinding.imgList.setAdapter(adapter);
-//                if (homeBinding.imgList.getAdapter() != null) {
-//                    ((SendImgsAdapter)homeBinding.imgList.getAdapter()).setHomeDatas(diaryDetailInfo.image_list);
-//                } else {
-//
-//                }
+                homeBinding.imgList.setTag(diaryDetailInfo);
+                homeBinding.imgList.setOnItemClickListener(RecorderAdapter.this);
             } else {
                 homeBinding.imgList.setVisibility(View.GONE);
             }
@@ -115,5 +115,14 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
                 }
             });
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(view.getContext(), DiaryDetailActivity.class);
+        intent.putExtra("diaryDetailInfo", (DiaryDetailInfo)parent.getTag());
+        intent.putExtra("isDiary",mIsDiary);
+        intent.putExtra("position",position);
+        SkipActivityUtils.startActivity((Activity) ctx,view,"clickimg",intent);
     }
 }
