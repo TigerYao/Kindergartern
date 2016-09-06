@@ -26,7 +26,7 @@ public class SendImgsAdapter extends BaseAdapter {
     public Context ctx;
     private boolean isHome;
 
-    public SendImgsAdapter(boolean isHome, Context ctx, ArrayList<ImageInfo> datas) {
+    public SendImgsAdapter( boolean isHome, Context ctx, ArrayList<ImageInfo> datas) {
         if (datas == null) {
             datas = new ArrayList<>();
         }
@@ -40,7 +40,7 @@ public class SendImgsAdapter extends BaseAdapter {
         this.ctx = ctx;
     }
 
-    public SendImgsAdapter(Context ctx, ArrayList<ImageInfo> datas) {
+    public SendImgsAdapter( Context ctx, ArrayList<ImageInfo> datas) {
         this(false, ctx, datas);
     }
 
@@ -52,10 +52,7 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public Uri getItem(int i) {
         if (datas.get(i) != null) {
-            if (isHome)
-                return Uri.parse(datas.get(i).base_thumbnail_uri);
-            else
-                return datas.get(i).getImgUri();
+            return datas.get(i).getImgUri();
         }
         return null;
     }
@@ -68,10 +65,10 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         final SendImgsViewHolder holder = onCreateViewHolder();
+        holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
         if ((!isHome && position == getCount() - 1)) {
             holder.draweeView.setImageResource(R.mipmap.fasong_tianjia);
         } else {
-            holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
             Glide.with(ctx).load(getItem(position)).placeholder(R.mipmap.lt_icon_tupian).into(holder.draweeView);
         }
         if (position == getCount() - 1 && !isHome)

@@ -37,6 +37,7 @@ public class MyAdapter extends CommonAdapter<ImageInfo> {
     public MyAdapter(Context context, List<ImageInfo> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
         this.ctx = context;
+        mSelectedImage.clear();
     }
 
     @Override

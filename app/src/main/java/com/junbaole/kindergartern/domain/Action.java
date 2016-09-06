@@ -63,7 +63,7 @@ public interface Action {
     Call<BaseReponseModel<String>> deleteMessage(@Path("moment_id") long moment_id);
 
     @GET("v1.2/moments/{moment_id}")
-    Call<BaseReponseModel> findMessage(@Path("moment_id") long moment_id);
+    Call<BaseReponseModel<DiaryDetailInfo>> findMessage(@Path("moment_id") long moment_id);
 
     @POST("v1.2/diarys")
     Call<BaseReponseModel<SendMessageInfo>> sendDiarys(@Body SendMessageInfo sendMessageInfo);
@@ -90,7 +90,7 @@ public interface Action {
     Call<BaseReponseModel<String>> unFavorities(@Path("momentid") int momentid, @Query("userid") String userid);
 
     @Headers("Content-Type: application/json")
-    @POST("v1.2/comments")
+    @POST("v1.2/comments/")
     Call<BaseReponseModel<JsonObject>> judgeComment(@Body CommentModel commentModel);
 
     @DELETE("v1.2/comments/{comment_id}")

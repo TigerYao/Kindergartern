@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.junbaole.kindergartern.data.utils.StringUtils;
+
 public class ImageInfo implements Parcelable {
     private Uri uri;
     private String realpath;
@@ -25,6 +27,9 @@ public class ImageInfo implements Parcelable {
     }
 
     public Uri getImgUri() {
+        if(uri==null||StringUtils.isBlank(uri.getPath())){
+            return Uri.parse(base_thumbnail_uri);
+        }
         return uri;
     }
 

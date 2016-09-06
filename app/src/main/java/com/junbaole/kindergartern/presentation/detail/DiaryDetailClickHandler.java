@@ -1,17 +1,15 @@
 package com.junbaole.kindergartern.presentation.detail;
 
-import android.content.Intent;
-import android.view.View;
+import java.util.UUID;
 
 import com.junbaole.kindergartern.data.model.CommentModel;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.utils.ActionsheetHelper;
-import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
 import com.junbaole.kindergartern.widget.CommentDialog;
 
-import java.util.UUID;
+import android.view.View;
 
 /**
  * Created by yaohu on 16/8/24.
@@ -20,24 +18,32 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
     ActionsheetHelper helper;
     CommentModel commentModel;
     DiaryDetailInfo diaryDetailInfo;
-    public DiaryDetailClickHandler(BaseActivity mActivity,DiaryDetailInfo diaryDetailInfo) {
+    String[] dialogItems;
+
+    public DiaryDetailClickHandler(BaseActivity mActivity, DiaryDetailInfo diaryDetailInfo) {
         super(mActivity);
-        helper = new ActionsheetHelper(mActivity, "", "下载原图", "转入日记", "编辑") {
+        commentModel = new CommentModel();
+        setDiaryDetailInfo(diaryDetailInfo);
+        if (diaryDetailInfo.isDiary)
+            dialogItems = new String[] { "下载原图", "转入日记", "编辑" };
+        else
+            dialogItems = new String[] { "下载原图", "转入日记"};
+
+        helper = new ActionsheetHelper(mActivity, "", dialogItems) {
             @Override
             public void showDialog(Object obje) {
                 super.showDialog(obje);
             }
         };
-        commentModel = new CommentModel();
-       setDiaryDetailInfo(diaryDetailInfo);
     }
 
-    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo){
+    public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo) {
         this.diaryDetailInfo = diaryDetailInfo;
-        commentModel.source_user_id =mActivity.getUserInfo().user_id;
+        commentModel.source_user_id = mActivity.getUserInfo().user_id;
         commentModel.moment_id = diaryDetailInfo.id;
         commentModel.type = "COMMENTS";
     }
+
     @Override
     public void onClickReturn(View view) {
         super.onClickReturn(view);
@@ -49,7 +55,7 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
         helper.showDialog("");
     }
 
-    public void onClickComment(View view){
+    public void onClickComment(View view) {
         CommentDialog commentDialog = new CommentDialog() {
             @Override
             public void onOk(String password) {
@@ -57,15 +63,15 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
                 mActivity.secondActionManager.judge(commentModel);
             }
         };
-        commentDialog.show(mActivity.getSupportFragmentManager(),"commentdialog");
+        commentDialog.show(mActivity.getSupportFragmentManager(), "commentdialog");
     }
 
-    public void onClickCommentBtn(View view){
+    public void onClickCommentBtn(View view) {
         ((DiaryDetailActivity)mActivity).dispalyPinglun();
     }
 
-    public void onClickLike(View view){
-        mActivity.secondActionManager.favorite(diaryDetailInfo.id,mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
+    public void onClickLike(View view) {
+        mActivity.secondActionManager.favorite(diaryDetailInfo.id, mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
 
     }
 }

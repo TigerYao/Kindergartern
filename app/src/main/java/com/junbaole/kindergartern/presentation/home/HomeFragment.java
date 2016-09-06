@@ -95,14 +95,15 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
         if(isDairy){
             title = "个人主页";
         }
-        new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable(title, "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi)
-                .build();
+      TitleBuilder titleBuilder =  new TitleBuilder(homeBinding.titleBar).TitleBuilderLayout(false, true).TitleBuilderLable(title, "", "").TitleBuilderRightItem(true, false).TitleBuilderImgReasours(-1, R.mipmap.icon_xiaoxi);
         homeBinding.headerHome.setWeekday(getWeekDay());
         homeBinding.swipeToLoadLayout.setRefreshEnabled(false);
         homeBinding.swipeToLoadLayout.setOnLoadMoreListener(this);
         if(isDairy){
             homeBinding.headerHome.weatherLayout.setVisibility(View.GONE);
+            titleBuilder.TitleBuilderLayout(true,false).TitleBuilderLeftItem(true,false);
         }
+        titleBuilder.build();
         return homeBinding.getRoot();
     }
 
@@ -129,13 +130,13 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     @Subscribe
     public void refresh(DataRefreshEvent event) {
         pageSize.set(0);
-        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, false);
+        mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, 0, isDairy);
 
     }
 
     @Subscribe
     public void onGetDataByUrl(DiaryEvent event) {
-        if (!event.isDiary && event.diaryInfo != null)
+        if ( event.diaryInfo != null)
             if (event.diaryInfo._content != null) {
                 if (pageSize.getAndIncrement() > 0) {
                     mAdapter.addDetails(event.diaryInfo._content);
@@ -162,7 +163,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public void onLoadMore() {
         Log.i("home",pageSize.get()+"????"+maxPage);
         if (pageSize.get() <= maxPage)
-            mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize.get(), false);
+            mActivity.secondActionManager.getCommonts(mActivity.getUserInfo().id, pageSize.get(), isDairy);
         else
             homeBinding.swipeToLoadLayout.setLoadingMore(false);
 

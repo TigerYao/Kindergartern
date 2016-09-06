@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.junbaole.kindergartern.data.model.ImageInfo;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.data.utils.event.SendMsgEvent;
 import com.junbaole.kindergartern.data.utils.event.UploadImgEvent;
@@ -72,6 +73,10 @@ public class UpLoadImgService extends Service {
             uploadImgEvent.lastId = sendMessageInfo.getLastImgId();
             uploadImgEvent.isDiary = sendMessageInfo.isDiray;
             for (int i = 0; i < sendMessageInfo.imageList.size(); i++) {
+                ImageInfo imageInfo = sendMessageInfo.imageList.get(i);
+                if(imageInfo.is_exit){
+                    continue;
+                }
                 QiNiuManager.getInstance().uploadSingleImg(sendMessageInfo.imageList.get(i), uploadImgEvent,sendMessageInfo.imageList.size());
             }
         }else{

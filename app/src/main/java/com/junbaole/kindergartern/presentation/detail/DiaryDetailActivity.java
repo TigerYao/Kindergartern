@@ -77,8 +77,7 @@ public class DiaryDetailActivity extends BaseActivity {
                 Toast.makeText(this,event.style,Toast.LENGTH_LONG).show();
                 break;
             case "转入日记":
-
-                break;
+                diaryDetailInfo.isDiary = true;
             case "编辑":
                 Toast.makeText(this,event.style,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, SendActivity.class);

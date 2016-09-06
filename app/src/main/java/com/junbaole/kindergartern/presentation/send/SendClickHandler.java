@@ -33,10 +33,10 @@ public class SendClickHandler extends BaseTitleClickHandler {
     public void onClickForgetPsw(View view) {
         SendMessageInfo sendMessageInfo = ((SendActivity)mActivity).getMessageInfo();
         sendMessageInfo.images.remove(null);
-        if (sendMessageInfo.id > 0) {
+        if (sendMessageInfo.id > 0&&sendMessageInfo.isDiray) {
             mActivity.secondActionManager.updateDiary((int)sendMessageInfo.id,sendMessageInfo);
         } else
-            mActivity.secondActionManager.sendMessage(sendMessageInfo, false);
+            mActivity.secondActionManager.sendMessage(sendMessageInfo, sendMessageInfo.isDiray);
     }
 
 }
