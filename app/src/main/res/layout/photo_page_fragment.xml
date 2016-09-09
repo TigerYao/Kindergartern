@@ -22,10 +22,9 @@
             android:layout_below="@id/title_bar"
             android:background="@color/black" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/transparent_80"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
@@ -33,10 +32,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="@{message}"
+                android:maxHeight="300dp"
                 android:gravity="bottom"
+                android:background="@color/transparent_50"
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:layout_weight="1.0" />
-        </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 </layout>

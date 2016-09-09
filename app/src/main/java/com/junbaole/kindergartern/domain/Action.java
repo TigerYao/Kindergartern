@@ -63,7 +63,7 @@ public interface Action {
     Call<BaseReponseModel<String>> deleteMessage(@Path("moment_id") long moment_id);
 
     @GET("v1.2/moments/{moment_id}")
-    Call<BaseReponseModel<DiaryDetailInfo>> findMessage(@Path("moment_id") long moment_id);
+    Call<BaseReponseModel<DiaryDetailInfo>> findMessage(@Path("moment_id") int moment_id);
 
     @POST("v1.2/diarys")
     Call<BaseReponseModel<SendMessageInfo>> sendDiarys(@Body SendMessageInfo sendMessageInfo);
@@ -75,10 +75,10 @@ public interface Action {
     Call<BaseReponseModel<String>> confirmDiary(@Path("diary_id") long diaryID);
 
     @DELETE("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<JsonObject>> deletDiary(@Path("diary_id") String diaryId);
+    Call<BaseReponseModel<JsonObject>> deletDiary(@Path("diary_id") int diaryId);
 
     @GET("v1.2/diarys/{diary_id}")
-    Call<BaseReponseModel<DiaryDetailInfo>> queryDiary(@Path("diary_id") String diaryId);
+    Call<BaseReponseModel<DiaryDetailInfo>> queryDiary(@Path("diary_id") int diaryId);
 
     @PUT("v1.2/diarys/{diary_id}")
     Call<BaseReponseModel<JsonObject>> updateDiary(@Path("diary_id") int diaryId, @Body SendMessageInfo sendMessageInfo);

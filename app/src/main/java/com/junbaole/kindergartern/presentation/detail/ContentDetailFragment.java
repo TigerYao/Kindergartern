@@ -2,6 +2,7 @@ package com.junbaole.kindergartern.presentation.detail;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.data.utils.event.CommentEvent;
 import com.junbaole.kindergartern.databinding.FragmentContentDetailBinding;
 import com.junbaole.kindergartern.presentation.adapter.CommentsAdaper;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,6 +105,11 @@ public class ContentDetailFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Subscribe
+    public void judgeComm(CommentEvent event){
+
     }
 
 }

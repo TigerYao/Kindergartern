@@ -29,6 +29,10 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
     private ArrayList<DiaryDetailInfo> detailInfoArrayList = new ArrayList<>();
     private boolean mIsDiary;
 
+    public RecorderAdapter(boolean mIsDiary) {
+        this.mIsDiary = mIsDiary;
+    }
+
     @Override
     public RecorderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_text_content_home, null);
@@ -36,14 +40,13 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
         return new RecorderViewHolder(view);
     }
 
-    public void setDetailInfoArrayList(ArrayList<DiaryDetailInfo> detailInfoArrayList,boolean isDiary) {
+    public void setDetailInfoArrayList(ArrayList<DiaryDetailInfo> detailInfoArrayList) {
         if (detailInfoArrayList == null) {
             return;
         }
         if (this.detailInfoArrayList.size() > 0) {
             this.detailInfoArrayList.clear();
         }
-        this.mIsDiary = isDiary;
         this.detailInfoArrayList.addAll(detailInfoArrayList);
         notifyDataSetChanged();
     }
@@ -110,7 +113,6 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), DiaryDetailActivity.class);
                     intent.putExtra("diaryDetailInfo", diaryDetailInfo);
-                    intent.putExtra("isDiary",mIsDiary);
                     itemView.getContext().startActivity(intent);
                 }
             });

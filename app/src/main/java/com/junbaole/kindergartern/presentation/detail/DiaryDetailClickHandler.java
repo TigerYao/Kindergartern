@@ -60,7 +60,7 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
             @Override
             public void onOk(String password) {
                 commentModel.content = password;
-                mActivity.secondActionManager.judge(commentModel);
+                mActivity.secondActionManager.judge(commentModel,diaryDetailInfo.isDiary);
             }
         };
         commentDialog.show(mActivity.getSupportFragmentManager(), "commentdialog");
@@ -72,6 +72,9 @@ public class DiaryDetailClickHandler extends BaseTitleClickHandler {
 
     public void onClickLike(View view) {
         mActivity.secondActionManager.favorite(diaryDetailInfo.id, mActivity.getUserInfo().user_id, UUID.randomUUID().toString());
+    }
 
+    public void onClickDelete(View view){
+        mActivity.secondActionManager.deleteDiary(diaryDetailInfo.id);
     }
 }

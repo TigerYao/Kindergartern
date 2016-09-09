@@ -34,6 +34,20 @@ public class DiaryDetailInfo implements Parcelable {
     public boolean isDiary;
 
 
+    public DiaryDetailInfo() {
+    }
+    public SendMessageInfo diaryInfoToSendMessage(){
+        SendMessageInfo messageInfo = new SendMessageInfo();
+        messageInfo.content = this.message;
+        messageInfo.images = this.image_list;
+        messageInfo.location = this.location;
+        messageInfo.location_name = this.location_name;
+        messageInfo.user_id = this.user.user_id;
+        messageInfo.isDiray = this.isDiary;
+        messageInfo.id = this.id;
+        return messageInfo;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -50,23 +64,11 @@ public class DiaryDetailInfo implements Parcelable {
         dest.writeTypedList(this.image_list);
         dest.writeInt(this.like_num);
         dest.writeInt(this.comment_num);
-        dest.writeList(this.comments);
-        dest.writeList(this.moment_likes);
+        dest.writeTypedList(this.comments);
+        dest.writeTypedList(this.moment_likes);
+        dest.writeByte(this.isDiary ? (byte) 1 : (byte) 0);
     }
 
-    public DiaryDetailInfo() {
-    }
-    public SendMessageInfo diaryInfoToSendMessage(){
-        SendMessageInfo messageInfo = new SendMessageInfo();
-        messageInfo.content = this.message;
-        messageInfo.images = this.image_list;
-        messageInfo.location = this.location;
-        messageInfo.location_name = this.location_name;
-        messageInfo.user_id = this.user.user_id;
-        messageInfo.isDiray = this.isDiary;
-        messageInfo.id = this.id;
-        return messageInfo;
-    }
     protected DiaryDetailInfo(Parcel in) {
         this.location = in.readParcelable(Location.class.getClassLoader());
         this.id = in.readInt();
@@ -77,13 +79,12 @@ public class DiaryDetailInfo implements Parcelable {
         this.image_list = in.createTypedArrayList(ImageInfo.CREATOR);
         this.like_num = in.readInt();
         this.comment_num = in.readInt();
-        this.comments = new ArrayList<CommentModel>();
-        in.readList(this.comments, Comments.class.getClassLoader());
-        this.moment_likes = new ArrayList<MomentLikes>();
-        in.readList(this.moment_likes, MomentLikes.class.getClassLoader());
+        this.comments = in.createTypedArrayList(CommentModel.CREATOR);
+        this.moment_likes = in.createTypedArrayList(MomentLikes.CREATOR);
+        this.isDiary = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<DiaryDetailInfo> CREATOR = new Parcelable.Creator<DiaryDetailInfo>() {
+    public static final Creator<DiaryDetailInfo> CREATOR = new Creator<DiaryDetailInfo>() {
         @Override
         public DiaryDetailInfo createFromParcel(Parcel source) {
             return new DiaryDetailInfo(source);

@@ -32,8 +32,13 @@ import java.util.UUID;
 public class HomeClickHandler extends BaseTitleClickHandler {
     PopupWindow ppW;
     DiaryDetailInfo diaryDetailInfo;
+    boolean isDiary = false;
     public HomeClickHandler(BaseActivity mActivity) {
         super(mActivity);
+    }
+
+    public void setDiary(boolean diary) {
+        this.isDiary = diary;
     }
 
     public void setDiaryDetailInfo(DiaryDetailInfo diaryDetailInfo) {
@@ -74,6 +79,7 @@ public class HomeClickHandler extends BaseTitleClickHandler {
     }
 
     public void onClickHeader(View view){
+        if(!isDiary)
         SkipActivityUtils.startActivity(mActivity,view,"",new Intent(mActivity, DiaryActivity.class));
     }
 }

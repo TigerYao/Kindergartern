@@ -28,6 +28,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class SendActivity extends BaseActivity {
 
@@ -76,6 +77,7 @@ public class SendActivity extends BaseActivity {
         mSendBinding.toggle.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override
             public void onToggle(boolean on) {
+                Toast.makeText(getBaseContext(),on+"",Toast.LENGTH_LONG).show();
                 mSendMessageInfo.isDiray = on;
             }
         });

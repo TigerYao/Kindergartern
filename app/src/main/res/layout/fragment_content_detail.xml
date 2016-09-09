@@ -5,6 +5,9 @@
         <variable
             name="diaryInfo"
             type="com.junbaole.kindergartern.data.model.DiaryDetailInfo"/>
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.detail.DiaryDetailClickHandler"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -71,6 +74,7 @@
                android:layout_width="wrap_content"
                android:layout_below="@id/location"
                android:text="删除"
+               android:onClick="@{clickHandler.onClickDelete}"
                android:textSize="12sp"
                android:textColor="#52bc6d"
                android:paddingLeft="12dp"

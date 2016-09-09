@@ -1,8 +1,8 @@
 package com.junbaole.kindergartern.domain;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+import java.util.ArrayList;
+
+import org.greenrobot.eventbus.EventBus;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.JsonObject;
@@ -16,14 +16,14 @@ import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
 import com.junbaole.kindergartern.data.utils.SharedPreferenceUtil;
+import com.junbaole.kindergartern.data.utils.event.CommentEvent;
 import com.junbaole.kindergartern.data.utils.event.DataRefreshEvent;
 import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
 import com.junbaole.kindergartern.network.RetrofitServer;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
 
 /**
  * Created by TigerYao on 16/7/21.
@@ -77,7 +77,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -100,7 +100,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -123,7 +123,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         };
         if (type == 1) {
@@ -132,7 +132,6 @@ public class ActionManager {
             action.registerApp(smsvo).enqueue(callBackListener);
 
     }
-
 
     public void loginApp(final UserLoginVO loginVO) {
         final SendPhoneEvent sendPhoneEvent = new SendPhoneEvent();
@@ -146,14 +145,14 @@ public class ActionManager {
                 SharedPreferenceUtil.putUserInfo(mCtx, data);
                 if (data.asValid) {
                     new MaterialDialog.Builder(mCtx).content("你已经与宝贝的老师成为好友了，现在让我们一起关注宝贝在幼儿园的表现吧").show();
-//                    sendPhoneEvent.type = 6;
+                    // sendPhoneEvent.type = 6;
                 }
                 EventBus.getDefault().post(sendPhoneEvent);
             }
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -190,10 +189,11 @@ public class ActionManager {
         });
     }
 
-    public void sendMessage(final SendMessageInfo sendMessageInfo, boolean isDiary) {
+    public void sendMessage(final SendMessageInfo sendMessageInfo, final boolean isDiary) {
         CallBackListener callBackListener = new CallBackListener<SendMessageInfo>() {
             @Override
             public void onSuccess(SendMessageInfo messageInfo) {
+                messageInfo.isDiray = isDiary;
                 EventBus.getDefault().post(messageInfo);
             }
 
@@ -212,7 +212,7 @@ public class ActionManager {
         CallBackListener callBackListener = new CallBackListener<DiaryInfo>() {
             @Override
             public void onSuccess(DiaryInfo s) {
-                EventBus.getDefault().post(new DiaryEvent(true,isDiary,s));
+                EventBus.getDefault().post(new DiaryEvent(true, isDiary, s));
             }
 
             @Override
@@ -227,32 +227,37 @@ public class ActionManager {
             secondAction.getFriendsCircle(null, userId + "", page, 10).enqueue(callBackListener);
     }
 
-    public void deleteDiary(String diaryId) {
+    public void deleteDiary(int diaryId) {
         secondAction.deletDiary(diaryId).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject s) {
-
+                ((Activity)mCtx).finish();
             }
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void queyDiary(String diaryId) {
-        secondAction.queryDiary(diaryId).enqueue(new CallBackListener<DiaryDetailInfo>() {
+    public void queyDiary(int diaryId, boolean isDiary) {
+        CallBackListener callBackListener = new CallBackListener<DiaryDetailInfo>() {
             @Override
             public void onSuccess(DiaryDetailInfo s) {
-                //ToDo
+                // ToDo
+                EventBus.getDefault().post(new CommentEvent());
             }
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
-        });
+        };
+        if (isDiary)
+            secondAction.queryDiary(diaryId).enqueue(callBackListener);
+        else
+            secondAction.findMessage(diaryId).enqueue(callBackListener);
     }
 
     public void updateDiary(int diaryId, SendMessageInfo sendMessageInfo) {
@@ -264,11 +269,10 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
     public void confirm(long id, boolean isDiary) {
         CallBackListener<String> callBackListener = new CallBackListener<String>() {
@@ -279,7 +283,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         };
         if (isDiary) {
@@ -288,22 +292,22 @@ public class ActionManager {
             secondAction.comfirm(id).enqueue(callBackListener);
     }
 
-    public void favorite(int commentId,String userid,String uuid){
-        secondAction.favorities(commentId,userid,uuid).enqueue(new CallBackListener<JsonObject>() {
+    public void favorite(int commentId, String userid, String uuid) {
+        secondAction.favorities(commentId, userid, uuid).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject s) {
-                Toast.makeText(mCtx,"点赞成功",Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, "点赞成功", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void unFavorite(int commentId,String userId){
-        secondAction.unFavorities(commentId,userId).enqueue(new CallBackListener<String>() {
+    public void unFavorite(int commentId, String userId) {
+        secondAction.unFavorities(commentId, userId).enqueue(new CallBackListener<String>() {
             @Override
             public void onSuccess(String s) {
 
@@ -311,25 +315,26 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void judge(CommentModel commentModel){
+    public void judge(final CommentModel commentModel, final boolean isDiary) {
         secondAction.judgeComment(commentModel).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
+                queyDiary(commentModel.moment_id,isDiary);
             }
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void deleteJudge(int commentid){
+    public void deleteJudge(int commentid) {
         secondAction.deleteJudgeComment(commentid).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
@@ -338,7 +343,7 @@ public class ActionManager {
 
             @Override
             public void onFail(String failReason) {
-                Toast.makeText(mCtx,failReason,Toast.LENGTH_LONG).show();
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
             }
         });
     }

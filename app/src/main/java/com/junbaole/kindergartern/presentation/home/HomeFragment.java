@@ -86,9 +86,10 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         homeClickHandler = new HomeClickHandler((BaseActivity) getActivity());
+        homeClickHandler.setDiary(isDairy);
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         homeBinding.swipeTarget.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new RecorderAdapter();
+        mAdapter = new RecorderAdapter(isDairy);
         homeBinding.swipeTarget.setAdapter(mAdapter);
         homeBinding.setClickHandler(homeClickHandler);
         String title = "宝宝日记";
@@ -143,7 +144,7 @@ public class HomeFragment extends BaseFragment implements PtrLayout.OnLoadMoreLi
                 } else {
                     if (maxPage != event.diaryInfo._total_pages)
                         maxPage = event.diaryInfo._total_pages;
-                    mAdapter.setDetailInfoArrayList(event.diaryInfo._content,isDairy);
+                    mAdapter.setDetailInfoArrayList(event.diaryInfo._content);
                 }
             }
         dismissDialog();
