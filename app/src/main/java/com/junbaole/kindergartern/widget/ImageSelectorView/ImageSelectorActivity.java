@@ -45,14 +45,14 @@ public class ImageSelectorActivity extends BaseActivity {
         clickHandler = new SelectClickHandler(this);
         selectorBinding.setClickHandler(clickHandler);
         new TitleBuilder(selectorBinding.titleBar).TitleBuilderLable("选择照片", "", "取消").TitleBuilderLayout(true, true).TitleBuilderLeftItem(true, false).TitleBuilderRightItem(false, true).build();
-        initView();
+        initViews();
         getImgs();
     }
 
     /**
      * 初始化View
      */
-    private void initView() {
+    private void initViews() {
         mGirdView = (GridView)findViewById(R.id.id_gridView);
     }
 

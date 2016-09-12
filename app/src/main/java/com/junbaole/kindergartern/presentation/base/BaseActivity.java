@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         actionManager = ActionManager.getInstance(this);
         secondActionManager = ActionManager.getSencondIntent(this);
-
+        init();
     }
 
     public UserInfo getUserInfo() {
@@ -44,23 +44,34 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         } else if (obje.type == 6) {
             new MaterialDialog.Builder(this).content("你已经与宝贝的老师成为好友了，现在让我们一起关注宝贝在幼儿园的表现吧").show();
-//            .negativeText("确定").positiveText("取消").callback(new MaterialDialog.ButtonCallback() {
-//                @Override
-//                public void onNegative(MaterialDialog dialog) {
-//                    super.onNegative(dialog);
-//                    Intent intent = new Intent(getBaseContext(), RealInfoActivity.class);
-//                    intent.putExtra("phone_num", obje.successMsg);
-//                    SkipActivityUtils.startActivity(BaseActivity.this, null, "", intent);
-//                    dialog.dismiss();
-//                }
-//
-//                @Override
-//                public void onPositive(MaterialDialog dialog) {
-//                    super.onPositive(dialog);
-//                    dialog.dismiss();
-//                }
-//            }).show();
         }
+    }
+
+    /**
+     * 绑定控件id
+     */
+    protected  void initControl(){};
+
+    /**
+     * 初始化控件
+     */
+    protected  void initView(){};
+
+    /**
+     * 初始化数据
+     */
+    protected  void initData(){};
+
+    /**
+     * 设置监听
+     */
+    protected  void setListener(){};
+
+    private void init(){
+        initControl();
+        initView();
+        initData();
+        setListener();
     }
 
 }

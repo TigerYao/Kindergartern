@@ -97,6 +97,10 @@
             android:name=".presentation.detail.DiaryDetailActivity"
             android:windowSoftInputMode="adjustResize|stateUnspecified" />
         <activity android:name=".presentation.diary.DiaryActivity"></activity>
+        <activity android:name=".presentation.contact.GroupListActivity"/>
+        <activity android:name=".presentation.contact.NewFriendsListActivity"/>
+        <activity android:name=".presentation.contact.PublishUserListActivity"/>
+        <activity android:name=".presentation.contact.SearchActivity"/>
     </application>
 
 </manifest>

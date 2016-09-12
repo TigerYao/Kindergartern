@@ -96,4 +96,9 @@ public interface Action {
     @DELETE("v1.2/comments/{comment_id}")
     Call<BaseReponseModel<JsonObject>> deleteJudgeComment(@Path("comment_id") int comment_id);
 
+    @GET("user/rel/{userId}")
+    Call<BaseReponseModel<ArrayList<UserInfo>>> getFriendsByUserId(@Path("userId") int userId);
+
+    @POST("/user/addUserRel")
+    Call<BaseReponseModel<JsonObject>> addFriend(@Body long userId,@Body long otherUserId);
 }

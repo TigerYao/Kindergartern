@@ -347,4 +347,33 @@ public class ActionManager {
             }
         });
     }
+
+    public void getFriendsList(int userid){
+        action.getFriendsByUserId(userid).enqueue(new CallBackListener<ArrayList<UserInfo>>() {
+            @Override
+            public void onSuccess(ArrayList<UserInfo> userInfo) {
+                EventBus.getDefault().post(userInfo);
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void addFriend(long userId,long otherUserid){
+        action.addFriend(userId,otherUserid).enqueue(new CallBackListener<JsonObject>() {
+            @Override
+            public void onSuccess(JsonObject jsonObject) {
+                Toast.makeText(mCtx, "请求发送成功", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
