@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/layout/title.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/layout/title.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/layout/view_line_controller.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/layout/view_line_controller.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/layout/chat_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/layout/chat_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/layout/dialog_video_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/layout/dialog_video_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/layout/voice_sending.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/layout/voice_sending.xml"
+    }
+]

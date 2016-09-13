@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/microphone4.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/microphone4.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_right.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_right.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/microphone1.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/microphone1.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_voice.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_voice.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_expression_hover.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_expression_hover.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/btn_video.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/btn_video.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_voice_hover.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_voice_hover.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/btn_video_hover.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/btn_video_hover.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_keyboard.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_keyboard.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/microphone2.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/microphone2.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_more.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_more.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/microphone5.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/microphone5.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_more_hover.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_more_hover.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_keyboard_hover.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_keyboard_hover.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_expression.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/ic_expression.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable-xhdpi-v4/microphone3.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable-xhdpi/microphone3.png"
+    }
+]

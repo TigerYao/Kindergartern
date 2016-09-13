@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/btn_send.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/btn_send.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/ic_add_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/ic_add_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/ic_voice_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/ic_voice_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/ic_keyboard_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/ic_keyboard_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/animation_voice.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/animation_voice.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/btn_video_record.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/btn_video_record.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/btn_voice_normal.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/btn_voice_normal.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/style_recorder_progress.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/style_recorder_progress.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/ic_return.png",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/ic_return.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/ic_face_input.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/ic_face_input.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/bg_inputbox.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/bg_inputbox.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/btn_voice_pressed.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/btn_voice_pressed.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHot/CoreSDK/build/intermediates/res/merged/debug/drawable/bg_voice_sending.xml",
+        "source": "/Users/yaohu/Documents/ShareHot/CoreSDK/res/drawable/bg_voice_sending.xml"
+    }
+]

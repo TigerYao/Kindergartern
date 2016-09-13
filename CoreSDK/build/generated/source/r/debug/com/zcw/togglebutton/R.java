@@ -13,7 +13,15 @@ public final class R {
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
          */
-        public static int animate=0x7f010005;
+        public static int animate=0x7f01000f;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int backText=0x7f010007;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -23,38 +31,417 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int borderWidths=0x7f010000;
+        public static int borderWidths=0x7f01000a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int canBack=0x7f010006;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int canNav=0x7f010003;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int content=0x7f010001;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int isBottom=0x7f010002;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
          */
-        public static int isDefaultOn=0x7f010006;
+        public static int isDefaultOn=0x7f010010;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int isSwitch=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int moreImg=0x7f010008;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int moreText=0x7f010009;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int name=0x7f010000;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int offBorderColor=0x7f010001;
+        public static int offBorderColor=0x7f01000b;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int offColor=0x7f010002;
+        public static int offColor=0x7f01000c;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int onColor=0x7f010003;
+        public static int onColor=0x7f01000d;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int spotColor=0x7f010004;
+        public static int spotColor=0x7f01000e;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int titleText=0x7f010005;
+    }
+    public static final class color {
+        public static int background=0x7f040000;
+        public static int background_gray1=0x7f040001;
+        public static int background_gray2=0x7f040002;
+        public static int background_gray3=0x7f040003;
+        public static int background_gray4=0x7f040004;
+        public static int black=0x7f040005;
+        public static int btn_blue=0x7f040006;
+        public static int btn_blue_hover=0x7f040007;
+        public static int btn_red=0x7f040008;
+        public static int btn_red_hover=0x7f040009;
+        public static int btn_text=0x7f04000a;
+        public static int btn_text_hover=0x7f04000b;
+        public static int colorAccent=0x7f04000c;
+        public static int colorMask=0x7f04000d;
+        public static int colorPrimary=0x7f04000e;
+        public static int colorPrimaryDark=0x7f04000f;
+        public static int line=0x7f040010;
+        public static int line_btn=0x7f040011;
+        public static int panel_black=0x7f040012;
+        public static int text_blue1=0x7f040013;
+        public static int text_blue2=0x7f040014;
+        public static int text_gray1=0x7f040015;
+        public static int text_gray2=0x7f040016;
+        public static int transparent=0x7f040017;
+        public static int white=0x7f040018;
+    }
+    public static final class drawable {
+        public static int animation_voice=0x7f020000;
+        public static int bg_inputbox=0x7f020001;
+        public static int bg_voice_sending=0x7f020002;
+        public static int btn_send=0x7f020003;
+        public static int btn_video=0x7f020004;
+        public static int btn_video_hover=0x7f020005;
+        public static int btn_video_record=0x7f020006;
+        public static int btn_voice_normal=0x7f020007;
+        public static int btn_voice_pressed=0x7f020008;
+        public static int ic_add_input=0x7f020009;
+        public static int ic_expression=0x7f02000a;
+        public static int ic_expression_hover=0x7f02000b;
+        public static int ic_face_input=0x7f02000c;
+        public static int ic_file=0x7f02000d;
+        public static int ic_image=0x7f02000e;
+        public static int ic_keyboard=0x7f02000f;
+        public static int ic_keyboard_hover=0x7f020010;
+        public static int ic_keyboard_input=0x7f020011;
+        public static int ic_more=0x7f020012;
+        public static int ic_more_hover=0x7f020013;
+        public static int ic_photography=0x7f020014;
+        public static int ic_return=0x7f020015;
+        public static int ic_right=0x7f020016;
+        public static int ic_video=0x7f020017;
+        public static int ic_voice=0x7f020018;
+        public static int ic_voice_hover=0x7f020019;
+        public static int ic_voice_input=0x7f02001a;
+        public static int microphone1=0x7f02001b;
+        public static int microphone2=0x7f02001c;
+        public static int microphone3=0x7f02001d;
+        public static int microphone4=0x7f02001e;
+        public static int microphone5=0x7f02001f;
+        public static int send=0x7f020020;
+        public static int send_hover=0x7f020021;
+        public static int style_recorder_progress=0x7f020022;
+    }
+    public static final class id {
+        public static int bottomLine=0x7f07001e;
+        public static int btnEmoticon=0x7f070005;
+        public static int btnSwitch=0x7f07001d;
+        public static int btn_add=0x7f070006;
+        public static int btn_file=0x7f07000c;
+        public static int btn_image=0x7f070009;
+        public static int btn_keyboard=0x7f070001;
+        public static int btn_more=0x7f070016;
+        public static int btn_photo=0x7f07000a;
+        public static int btn_record=0x7f070011;
+        public static int btn_send=0x7f070007;
+        public static int btn_video=0x7f07000b;
+        public static int btn_voice=0x7f070000;
+        public static int camera_preview=0x7f070010;
+        public static int content=0x7f07001b;
+        public static int contentText=0x7f07001a;
+        public static int emoticonPanel=0x7f07000d;
+        public static int img_back=0x7f070013;
+        public static int img_more=0x7f070017;
+        public static int input=0x7f070004;
+        public static int microphone=0x7f07001f;
+        public static int morePanel=0x7f070008;
+        public static int name=0x7f070019;
+        public static int progress_left=0x7f07000e;
+        public static int progress_right=0x7f07000f;
+        public static int rightArrow=0x7f07001c;
+        public static int text_panel=0x7f070003;
+        public static int title=0x7f070015;
+        public static int title_back=0x7f070012;
+        public static int txt_back=0x7f070014;
+        public static int txt_more=0x7f070018;
+        public static int voice_panel=0x7f070002;
+    }
+    public static final class layout {
+        public static int chat_input=0x7f030000;
+        public static int dialog_video_input=0x7f030001;
+        public static int title=0x7f030002;
+        public static int view_line_controller=0x7f030003;
+        public static int voice_sending=0x7f030004;
+    }
+    public static final class string {
+        public static int app_name=0x7f050000;
+        public static int cancel=0x7f050001;
+        public static int chat_audio_too_short=0x7f050002;
+        public static int chat_del=0x7f050003;
+        public static int chat_file=0x7f050004;
+        public static int chat_file_not_exist=0x7f050005;
+        public static int chat_file_too_large=0x7f050006;
+        public static int chat_image=0x7f050007;
+        public static int chat_image_preview_load_err=0x7f050008;
+        public static int chat_image_preview_ori=0x7f050009;
+        public static int chat_image_preview_send=0x7f05000a;
+        public static int chat_image_preview_title=0x7f05000b;
+        public static int chat_photo=0x7f05000c;
+        public static int chat_press_talk=0x7f05000d;
+        public static int chat_release_send=0x7f05000e;
+        public static int chat_resend=0x7f05000f;
+        public static int chat_save=0x7f050010;
+        public static int chat_up_finger=0x7f050011;
+        public static int chat_video=0x7f050012;
+        public static int chat_video_too_short=0x7f050013;
+        public static int confirm=0x7f050014;
+    }
+    public static final class style {
+        public static int maskDialog=0x7f060000;
     }
     public static final class styleable {
+        /** Attributes that can be used with a LineControllerView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #LineControllerView_canNav com.zcw.togglebutton:canNav}</code></td><td></td></tr>
+           <tr><td><code>{@link #LineControllerView_content com.zcw.togglebutton:content}</code></td><td></td></tr>
+           <tr><td><code>{@link #LineControllerView_isBottom com.zcw.togglebutton:isBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #LineControllerView_isSwitch com.zcw.togglebutton:isSwitch}</code></td><td></td></tr>
+           <tr><td><code>{@link #LineControllerView_name com.zcw.togglebutton:name}</code></td><td></td></tr>
+           </table>
+           @see #LineControllerView_canNav
+           @see #LineControllerView_content
+           @see #LineControllerView_isBottom
+           @see #LineControllerView_isSwitch
+           @see #LineControllerView_name
+         */
+        public static final int[] LineControllerView = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#canNav}
+          attribute's value can be found in the {@link #LineControllerView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:canNav
+        */
+        public static int LineControllerView_canNav = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#content}
+          attribute's value can be found in the {@link #LineControllerView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:content
+        */
+        public static int LineControllerView_content = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#isBottom}
+          attribute's value can be found in the {@link #LineControllerView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:isBottom
+        */
+        public static int LineControllerView_isBottom = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#isSwitch}
+          attribute's value can be found in the {@link #LineControllerView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:isSwitch
+        */
+        public static int LineControllerView_isSwitch = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#name}
+          attribute's value can be found in the {@link #LineControllerView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:name
+        */
+        public static int LineControllerView_name = 0;
+        /** Attributes that can be used with a TemplateTitle.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TemplateTitle_backText com.zcw.togglebutton:backText}</code></td><td></td></tr>
+           <tr><td><code>{@link #TemplateTitle_canBack com.zcw.togglebutton:canBack}</code></td><td></td></tr>
+           <tr><td><code>{@link #TemplateTitle_moreImg com.zcw.togglebutton:moreImg}</code></td><td></td></tr>
+           <tr><td><code>{@link #TemplateTitle_moreText com.zcw.togglebutton:moreText}</code></td><td></td></tr>
+           <tr><td><code>{@link #TemplateTitle_titleText com.zcw.togglebutton:titleText}</code></td><td></td></tr>
+           </table>
+           @see #TemplateTitle_backText
+           @see #TemplateTitle_canBack
+           @see #TemplateTitle_moreImg
+           @see #TemplateTitle_moreText
+           @see #TemplateTitle_titleText
+         */
+        public static final int[] TemplateTitle = {
+            0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008,
+            0x7f010009
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#backText}
+          attribute's value can be found in the {@link #TemplateTitle} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:backText
+        */
+        public static int TemplateTitle_backText = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#canBack}
+          attribute's value can be found in the {@link #TemplateTitle} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:canBack
+        */
+        public static int TemplateTitle_canBack = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#moreImg}
+          attribute's value can be found in the {@link #TemplateTitle} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.zcw.togglebutton:moreImg
+        */
+        public static int TemplateTitle_moreImg = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#moreText}
+          attribute's value can be found in the {@link #TemplateTitle} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:moreText
+        */
+        public static int TemplateTitle_moreText = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#titleText}
+          attribute's value can be found in the {@link #TemplateTitle} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.zcw.togglebutton:titleText
+        */
+        public static int TemplateTitle_titleText = 0;
         /** Attributes that can be used with a ToggleButton.
            <p>Includes the following attributes:</p>
            <table>
@@ -78,8 +465,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #ToggleButton_spotColor
          */
         public static final int[] ToggleButton = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
-            0x7f010004, 0x7f010005, 0x7f010006
+            0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d,
+            0x7f01000e, 0x7f01000f, 0x7f010010
         };
         /**
           <p>This symbol is the offset where the {@link com.zcw.togglebutton.R.attr#animate}
