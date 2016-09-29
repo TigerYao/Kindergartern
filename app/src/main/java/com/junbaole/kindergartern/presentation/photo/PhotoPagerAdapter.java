@@ -1,5 +1,15 @@
 package com.junbaole.kindergartern.presentation.photo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ScreenUtils;
+import com.junbaole.kindergartern.data.utils.StringUtils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -8,17 +18,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.utils.ScreenUtils;
-import com.junbaole.kindergartern.data.utils.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.ImageView;
 
 /**
  * Created by donglua on 15/6/21.
@@ -54,12 +54,13 @@ public class PhotoPagerAdapter extends PagerAdapter {
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.photo_pager_item, container, false);
 
-        final SimpleDraweeView imageView = (SimpleDraweeView)itemView.findViewById(R.id.iv_pager);
-        int swidth = ScreenUtils.width - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,10,imageView.getResources().getDisplayMetrics());
+        final ImageView imageView = (ImageView)itemView.findViewById(R.id.iv_pager);
+        int swidth = ScreenUtils.width - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, imageView.getResources().getDisplayMetrics());
         imageView.setMaxWidth(swidth);
         final Uri uri = getImgUri(position);
-        if (uri != null)
-            imageView.setImageURI(uri);
+        if (uri != null){
+            Glide.with(context).load(uri).into(imageView);
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,1 +1,1 @@
-include ':app', ':sharelibrary', ':CoreSDK'
+include ':app', ':CoreSDK'

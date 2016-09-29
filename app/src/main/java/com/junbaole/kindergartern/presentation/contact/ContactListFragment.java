@@ -6,12 +6,17 @@ import org.greenrobot.eventbus.Subscribe;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.UserInfo;
+import com.junbaole.kindergartern.data.utils.chatutil.ChatUtil;
+import com.junbaole.kindergartern.databinding.FragmentContactListBinding;
+import com.junbaole.kindergartern.databinding.LayoutHeadSearchBinding;
 import com.junbaole.kindergartern.presentation.adapter.ContactAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
-import com.junbaole.kindergartern.widget.SideBar;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +25,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -42,11 +46,10 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
     private String mParam2;
 
     private BaseActivity ctx;
-    private View layout, layout_head;
-    private ListView lvContact;
-    private SideBar indexBar;
+    private View  layout_head;
     private TextView mDialogText;
     private WindowManager mWindowManager;
+    private FragmentContactListBinding contentDetailBinding;
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -82,32 +85,23 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        if (layout == null) {
-            ctx = (BaseActivity)this.getActivity();
-            layout = ctx.getLayoutInflater().inflate(R.layout.fragment_contact_list,
-                    null);
-            mWindowManager = (WindowManager)ctx
-                    .getSystemService(Context.WINDOW_SERVICE);
-            initViews();
-            initData();
-            setOnListener();
-        } else {
-            ViewGroup parent = (ViewGroup)layout.getParent();
-            if (parent != null) {
-                parent.removeView(layout);
-            }
-        }
-        return layout;
+        ctx = (BaseActivity)this.getActivity();
+        contentDetailBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_contact_list, null, false);
+        mWindowManager = (WindowManager)ctx
+                .getSystemService(Context.WINDOW_SERVICE);
+        initViews();
+        initData();
+        setOnListener();
+        new TitleBuilder(contentDetailBinding.titlebar).TitleBuilderLayout(false, false).TitleBuilderLable("通讯录", "", "").build();
+        return contentDetailBinding.getRoot();
     }
 
     private void initViews() {
-        lvContact = (ListView)layout.findViewById(R.id.lvContact);
 
         mDialogText = (TextView)LayoutInflater.from(getActivity()).inflate(
                 R.layout.list_position, null);
         mDialogText.setVisibility(View.INVISIBLE);
-        indexBar = (SideBar)layout.findViewById(R.id.sideBar);
-        indexBar.setListView(lvContact);
+        contentDetailBinding.sideBar.setListView(contentDetailBinding.lvContact);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION,
@@ -115,10 +109,11 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
                         | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
         mWindowManager.addView(mDialogText, lp);
-        indexBar.setTextView(mDialogText);
+        contentDetailBinding.sideBar.setTextView(mDialogText);
         layout_head = ctx.getLayoutInflater().inflate(
                 R.layout.layout_head_friend, null);
-        lvContact.addHeaderView(layout_head);
+        contentDetailBinding.lvContact.addHeaderView(layout_head);
+
 
     }
 
@@ -140,28 +135,22 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private void setOnListener() {
-        lvContact.setOnItemClickListener(this);
+        contentDetailBinding.lvContact.setOnItemClickListener(this);
         layout_head.findViewById(R.id.layout_addfriend)
                 .setOnClickListener(this);
         layout_head.findViewById(R.id.layout_search).setOnClickListener(this);
-        layout_head.findViewById(R.id.layout_group).setOnClickListener(this);
-        layout_head.findViewById(R.id.layout_public).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_search:// 搜索好友及公众号
+                ctx.startActivity(new Intent(ctx,SearchActivity.class));
                 // Utils.start_Activity(getActivity(), SearchActivity.class);
                 break;
             case R.id.layout_addfriend:// 添加好友
+                ctx.startActivity(new Intent(ctx,NewFriendsListActivity.class));
                 // Utils.start_Activity(getActivity(), NewFriendsListActivity.class);
-                break;
-            case R.id.layout_group:// 群聊
-                // Utils.start_Activity(getActivity(), GroupListActivity.class);
-                break;
-            case R.id.layout_public:// 公众号
-                // Utils.start_Activity(getActivity(), PublishUserListActivity.class);
                 break;
             default:
                 break;
@@ -175,8 +164,8 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
 
     @Subscribe
     public void getFriendList(ArrayList<UserInfo> userInfos) {
-        lvContact.setAdapter(new ContactAdapter(getActivity(),
-                userInfos));
+        contentDetailBinding.lvContact.setAdapter(new ContactAdapter(getActivity(),
+                userInfos,true));
     }
 
 }

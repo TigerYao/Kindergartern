@@ -100,5 +100,8 @@ public interface Action {
     Call<BaseReponseModel<ArrayList<UserInfo>>> getFriendsByUserId(@Path("userId") int userId);
 
     @POST("/user/addUserRel")
-    Call<BaseReponseModel<JsonObject>> addFriend(@Body long userId,@Body long otherUserId);
+    Call<BaseReponseModel<JsonObject>> addFriend(@Body String params);
+
+    @GET("user/{mobile}")
+    Call<BaseReponseModel<UserInfo>>queryByPhone(@Path("mobile") String mobile);
 }

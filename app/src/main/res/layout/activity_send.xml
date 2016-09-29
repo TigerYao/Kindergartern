@@ -13,7 +13,6 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:toggle="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,11 +51,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <View
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:background="@color/s_color14"
-                android:layout_height="1dp"></View>
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/s_color14"></View>
+
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
@@ -72,8 +73,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="@color/s_color14"
-                android:layout_height="1dp"></View>
+                android:layout_height="1dp"
+                android:background="@color/s_color14"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,20 +94,18 @@
                     android:padding="12dp"
                     android:text="@string/send_msg_open_tip" />
 
-                <com.zcw.togglebutton.ToggleButton
+                <com.tencent.qcloud.ui.SlipButton
                     android:id="@+id/toggle"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    toggle:borderWidths="1px"
-                    toggle:offBorderColor="@color/black_20"
-                    toggle:offColor="@color/light_blue_500"
-                    toggle:onColor="@color/green_500"
-                    toggle:spotColor="@color/white"></com.zcw.togglebutton.ToggleButton>
+                    android:layout_width="48dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_height="22dp"></com.tencent.qcloud.ui.SlipButton>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:background="@color/s_color14"
-                android:layout_height="1dp"></View>
+                android:layout_height="1dp"
+                android:background="@color/s_color14"></View>
         </LinearLayout>
     </LinearLayout>
 </layout>

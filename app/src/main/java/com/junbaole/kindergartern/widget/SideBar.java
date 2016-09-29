@@ -68,7 +68,8 @@ public class SideBar extends View {
             if (sectionIndexter == null) {
                 HeaderViewListAdapter ha = (HeaderViewListAdapter)list
                         .getAdapter();
-                sectionIndexter = (SectionIndexer)ha.getWrappedAdapter();
+                if (ha != null)
+                    sectionIndexter = (SectionIndexer)ha.getWrappedAdapter();
             }
             int position = sectionIndexter.getPositionForSection(l[idx]);
             if (position == -1) {
@@ -83,7 +84,7 @@ public class SideBar extends View {
 
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(getResources().getColor(R.color.s_color14));
+        paint.setColor(getResources().getColor(R.color.s_color13));
         paint.setTextSize(textsize);
         // paint.setTextSize(20);
         // paint.setColor(0xff595c61);

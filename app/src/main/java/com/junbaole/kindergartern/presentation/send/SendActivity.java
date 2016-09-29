@@ -21,7 +21,6 @@ import com.junbaole.kindergartern.presentation.base.BaseActivity;
 import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.junbaole.kindergartern.presentation.server.UpLoadImgService;
 import com.junbaole.kindergartern.widget.ImageSelectorView.ImageSelectorActivity;
-import com.zcw.togglebutton.ToggleButton;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -30,6 +29,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.tencent.qcloud.ui.SlipButton;
+import com.tencent.qcloud.ui.SlipButton.OnChangedListener;
 public class SendActivity extends BaseActivity {
 
     ActivitySendBinding mSendBinding;
@@ -70,15 +71,15 @@ public class SendActivity extends BaseActivity {
         mSendBinding.location.setText(AppInfo.getLocationName(this));
         Intent intent = new Intent(this, UpLoadImgService.class);
         startService(intent);
-        if (mSendMessageInfo.isDiray)
-            mSendBinding.toggle.setToggleOn(true);
-        else
-            mSendBinding.toggle.setToggleOff();
-        mSendBinding.toggle.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+        if (mSendMessageInfo.isDiray) {
+            mSendBinding.toggle.setChecked(true);
+        }else
+            mSendBinding.toggle.setChecked(false);
+        mSendBinding.toggle.setOnChangedListener(new OnChangedListener(){
+
             @Override
-            public void onToggle(boolean on) {
-                Toast.makeText(getBaseContext(),on+"",Toast.LENGTH_LONG).show();
-                mSendMessageInfo.isDiray = on;
+            public void onChanged(SlipButton view, boolean checkState) {
+                mSendMessageInfo.isDiray = checkState;
             }
         });
     }

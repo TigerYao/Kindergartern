@@ -9,9 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
 import com.bumptech.glide.Glide;
 import com.junbaole.kindergartern.R;
@@ -19,10 +16,6 @@ import com.junbaole.kindergartern.data.model.ImageInfo;
 import com.junbaole.kindergartern.databinding.PhotoPageFragmentBinding;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
 import com.junbaole.kindergartern.presentation.base.TitleBuilder;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,30 +143,6 @@ public class ImagePagerFragment extends BaseFragment {
         mViewPager.setCurrentItem(currentItem);
         mViewPager.setOffscreenPageLimit(5);
         pageFragmentBinding.setMessage(message);
-        // Only run the animation if we're coming from the parent activity, not if
-        // we're recreated automatically by the window manager (e.g., device rotation)
-        if (savedInstanceState == null && hasAnim) {
-            ViewTreeObserver observer = mViewPager.getViewTreeObserver();
-            observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-
-                    mViewPager.getViewTreeObserver().removeOnPreDrawListener(this);
-
-                    // Figure out where the thumbnail and full size versions are, relative
-                    // to the screen and each other
-                    int[] screenLocation = new int[2];
-                    mViewPager.getLocationOnScreen(screenLocation);
-                    thumbnailLeft = thumbnailLeft - screenLocation[0];
-                    thumbnailTop = thumbnailTop - screenLocation[1];
-
-                    runEnterAnimation();
-
-                    return true;
-                }
-            });
-        }
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -200,100 +169,6 @@ public class ImagePagerFragment extends BaseFragment {
         setTitleVisible();
     }
 
-    /**
-     * The enter animation scales the picture in from its previous thumbnail
-     * size/location, colorizing it in parallel. In parallel, the background of the
-     * activity is fading in. When the pictue is in place, the text description
-     * drops down.
-     */
-    private void runEnterAnimation() {
-        final long duration = ANIM_DURATION;
-
-        // Set starting values for properties we're going to animate. These
-        // values scale and position the full size version down to the thumbnail
-        // size/location, from which we'll animate it back up
-        ViewHelper.setPivotX(mViewPager, 0);
-        ViewHelper.setPivotY(mViewPager, 0);
-        ViewHelper.setScaleX(mViewPager, (float)thumbnailWidth / mViewPager.getWidth());
-        ViewHelper.setScaleY(mViewPager, (float)thumbnailHeight / mViewPager.getHeight());
-        ViewHelper.setTranslationX(mViewPager, thumbnailLeft);
-        ViewHelper.setTranslationY(mViewPager, thumbnailTop);
-
-        // Animate scale and translation to go from thumbnail to full size
-        ViewPropertyAnimator.animate(mViewPager)
-                .setDuration(duration)
-                .scaleX(1)
-                .scaleY(1)
-                .translationX(0)
-                .translationY(0)
-                .setInterpolator(new DecelerateInterpolator());
-
-        // Fade in the black background
-        ObjectAnimator bgAnim = ObjectAnimator.ofInt(mViewPager.getBackground(), "alpha", 0, 255);
-        bgAnim.setDuration(duration);
-        bgAnim.start();
-
-        // Animate a color filter to take the image from grayscale to full color.
-        // This happens in parallel with the image scaling and moving into place.
-        ObjectAnimator colorizer = ObjectAnimator.ofFloat(ImagePagerFragment.this,
-                "saturation", 0, 1);
-        colorizer.setDuration(duration);
-        colorizer.start();
-
-    }
-
-    /**
-     * The exit animation is basically a reverse of the enter animation, except that if
-     * the orientation has changed we simply scale the picture back into the center of
-     * the screen.
-     *
-     * @param endAction This action gets run after the animation completes (this is
-     *            when we actually switch activities)
-     */
-    public void runExitAnimation(final Runnable endAction) {
-
-        if (!getArguments().getBoolean(ARG_HAS_ANIM, false) || !hasAnim) {
-            endAction.run();
-            return;
-        }
-
-        final long duration = ANIM_DURATION;
-
-        // Animate image back to thumbnail size/location
-        ViewPropertyAnimator.animate(mViewPager)
-                .setDuration(duration)
-                .setInterpolator(new AccelerateInterpolator())
-                .scaleX((float)thumbnailWidth / mViewPager.getWidth())
-                .scaleY((float)thumbnailHeight / mViewPager.getHeight())
-                .translationX(thumbnailLeft)
-                .translationY(thumbnailTop)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {}
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        endAction.run();
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {}
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {}
-                });
-
-        // Fade out background
-        ObjectAnimator bgAnim = ObjectAnimator.ofInt(mViewPager.getBackground(), "alpha", 0);
-        bgAnim.setDuration(duration);
-        bgAnim.start();
-
-        // Animate a color filter to take the image back to grayscale,
-        // in parallel with the image scaling and moving into place.
-        ObjectAnimator colorizer = ObjectAnimator.ofFloat(ImagePagerFragment.this, "saturation", 1, 0);
-        colorizer.setDuration(duration);
-        colorizer.start();
-    }
 
     /**
      * This is called by the colorizing animator. It sets a saturation factor that is then

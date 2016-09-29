@@ -16,9 +16,11 @@ import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
 import com.junbaole.kindergartern.data.utils.SharedPreferenceUtil;
+import com.junbaole.kindergartern.data.utils.chatutil.ChatUtil;
 import com.junbaole.kindergartern.data.utils.event.CommentEvent;
 import com.junbaole.kindergartern.data.utils.event.DataRefreshEvent;
 import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
+import com.junbaole.kindergartern.data.utils.event.UserInfoEvent;
 import com.junbaole.kindergartern.network.RetrofitServer;
 
 import android.app.Activity;
@@ -147,6 +149,7 @@ public class ActionManager {
                     new MaterialDialog.Builder(mCtx).content("你已经与宝贝的老师成为好友了，现在让我们一起关注宝贝在幼儿园的表现吧").show();
                     // sendPhoneEvent.type = 6;
                 }
+                ChatUtil.loginQCloud(data.phoneNum,data.token);
                 EventBus.getDefault().post(sendPhoneEvent);
             }
 
@@ -352,6 +355,7 @@ public class ActionManager {
         action.getFriendsByUserId(userid).enqueue(new CallBackListener<ArrayList<UserInfo>>() {
             @Override
             public void onSuccess(ArrayList<UserInfo> userInfo) {
+                if(userInfo!=null)
                 EventBus.getDefault().post(userInfo);
             }
 
@@ -363,10 +367,33 @@ public class ActionManager {
     }
 
     public void addFriend(long userId,long otherUserid){
-        action.addFriend(userId,otherUserid).enqueue(new CallBackListener<JsonObject>() {
+        String json = "{\"userId\":" +
+                userId+",\"otherUserid\":" +
+                otherUserid+"}";
+        action.addFriend(json).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 Toast.makeText(mCtx, "请求发送成功", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void queryByPhone(String phoneNum){
+        action.queryByPhone(phoneNum).enqueue(new CallBackListener<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo info) {
+                if(info!=null){
+                    UserInfoEvent userInfoEvent = new UserInfoEvent();
+                    userInfoEvent.userInfo = info;
+                    EventBus.getDefault().post(userInfoEvent);
+                }else
+                    onFail("没有数据");
 
             }
 

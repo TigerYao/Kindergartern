@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="datainfo"
+            type="com.junbaole.kindergartern.data.model.DiscoverModel"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tab_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{datainfo.title}"
+            android:textColor="@color/s_color11"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tab_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tab_name"
+            android:text="@{datainfo.description}"
+            android:textColor="@color/s_color12"
+            android:paddingRight="10dp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/tab_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tab_description"
+            android:src="@mipmap/icon_shangcheng" />
+    </RelativeLayout>
+</layout>

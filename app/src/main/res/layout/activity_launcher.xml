@@ -9,14 +9,12 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:background="@mipmap/bg"
-        android:padding="10dp"
-        tools:context="com.junbaole.kindergartern.presentation.launcher.LauncherActivity">
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="80dp"

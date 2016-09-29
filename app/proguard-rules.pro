@@ -38,6 +38,15 @@
     -keep class com.amap.api.mapcore2d.**{*;}
 
     #导航
-
+#IMSDK
     -keep class com.amap.api.navi.**{*;}
     -keep class com.autonavi.**{*;}
+
+    -keep class com.tencent.**{*;}
+    -dontwarn com.tencent.**
+
+    -keep class tencent.**{*;}
+    -dontwarn tencent.**
+
+    -keep class qalsdk.**{*;}
+    -dontwarn qalsdk.**

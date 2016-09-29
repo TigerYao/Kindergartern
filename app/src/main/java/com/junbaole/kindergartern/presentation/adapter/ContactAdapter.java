@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,25 @@ import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.presentation.comment.PingYinUtil;
 import com.junbaole.kindergartern.presentation.comment.PinyinComparator;
 import com.junbaole.kindergartern.presentation.comment.ViewHolder;
+import com.junbaole.kindergartern.presentation.contact.ContactInfoActivity;
 
 
 public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private Context mContext;
 	private List<UserInfo> UserInfoInfos;// 好友信息
+	private boolean isShowTipe = true;
 
-	public ContactAdapter(Context mContext, List<UserInfo> UserInfoInfos) {
+	public ContactAdapter(Context mContext, List<UserInfo> UserInfoInfos,boolean showTipe) {
 		this.mContext = mContext;
 		this.UserInfoInfos = UserInfoInfos;
 		// 排序(实现了中英文混排)
+		setShowTipe(showTipe);
+		if(isShowTipe)
 		Collections.sort(UserInfoInfos, new PinyinComparator());
+	}
+
+	private void setShowTipe(boolean showTipe) {
+		this.isShowTipe = showTipe;
 	}
 
 	@Override
@@ -47,7 +56,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		UserInfo UserInfo = UserInfoInfos.get(position);
+		final UserInfo userInfo = UserInfoInfos.get(position);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.contact_item, null);
@@ -58,25 +67,33 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		TextView tvCatalog = ViewHolder.get(convertView,
 				R.id.contactitem_catalog);
 		TextView tvNick = ViewHolder.get(convertView, R.id.contactitem_nick);
-		String catalog = PingYinUtil.converterToFirstSpell(UserInfo.name)
+		String catalog = PingYinUtil.converterToFirstSpell(userInfo.name)
 				.substring(0, 1);
-		if (position == 0) {
+		if (position == 0&&isShowTipe) {
 			tvCatalog.setVisibility(View.VISIBLE);
 			tvCatalog.setText(catalog);
-		} else {
+		} else if(position>0) {
 			UserInfo NextUserInfo = UserInfoInfos.get(position - 1);
 			String lastCatalog = PingYinUtil.converterToFirstSpell(
 					NextUserInfo.name).substring(0, 1);
 			if (catalog.equals(lastCatalog)) {
 				tvCatalog.setVisibility(View.GONE);
-			} else {
+			} else if(isShowTipe){
 				tvCatalog.setVisibility(View.VISIBLE);
 				tvCatalog.setText(catalog);
 			}
 		}
 
 		ivAvatar.setImageResource(R.mipmap.top_nar_touxiang);
-		tvNick.setText(UserInfo.name);
+		tvNick.setText(userInfo.name);
+		convertView.findViewById(R.id.contactitem_layout).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, ContactInfoActivity.class);
+				intent.putExtra("userInfo",userInfo);
+				mContext.startActivity(intent);
+			}
+		});
 		return convertView;
 	}
 

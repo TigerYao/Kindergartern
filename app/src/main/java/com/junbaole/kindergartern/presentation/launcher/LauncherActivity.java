@@ -1,12 +1,12 @@
 package com.junbaole.kindergartern.presentation.launcher;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.databinding.ActivityLauncherBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
+
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class LauncherActivity extends AppCompatActivity {
 

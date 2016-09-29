@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/layout-ldrtl-v17/md_listitem_singlechoice.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout-ldrtl-v17/md_listitem_singlechoice.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/layout-ldrtl-v17/md_listitem_multichoice.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout-ldrtl-v17/md_listitem_multichoice.xml"
+    }
+]

@@ -17,13 +17,16 @@ public class LauncherClickHandler {
 
     public void onClickRegister(View view) {
         SkipActivityUtils.startActivity(launcherActivity,view,"register",new Intent(launcherActivity, RegisterActivity.class));
+        launcherActivity.finish();
     }
 
     public void onClickLogin(View view) {
         SkipActivityUtils.startActivity(launcherActivity,view,"login",new Intent(launcherActivity, LoginActivity.class));
+        launcherActivity.finish();
     }
 
     public void onClickVister(View view) {
         SkipActivityUtils.startActivity(launcherActivity,view,"",new Intent(launcherActivity, MainActivity.class));
+        launcherActivity.finish();
     }
 }

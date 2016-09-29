@@ -7,6 +7,7 @@ import com.junbaole.kindergartern.presentation.base.BaseFragment;
 import com.junbaole.kindergartern.presentation.base.BaseFragmentActivity;
 import com.junbaole.kindergartern.presentation.contact.ContactListFragment;
 import com.junbaole.kindergartern.presentation.home.HomeFragment;
+import com.junbaole.kindergartern.presentation.newstabs.SomeTabsFragment;
 import com.junbaole.kindergartern.presentation.personal.PersonalFragment;
 
 import android.databinding.DataBindingUtil;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseFragmentActivity {
                         addFragment(getFirstFragment());
                         break;
                     case R.id.tab2:
+                        addFragment(SomeTabsFragment.newInstance("",""));
                         break;
                     case R.id.tab4:
                         addFragment(ContactListFragment.newInstance("", ""));

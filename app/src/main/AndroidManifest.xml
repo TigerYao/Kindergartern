@@ -10,14 +10,22 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".presentation.base.BaseApplication"
@@ -50,37 +58,37 @@
         <activity android:name=".presentation.register.SchoolAddressActivity" />
         <activity android:name=".widget.ImageSelectorView.ImageSelectorActivity" />
         <activity android:name=".presentation.send.SendActivity" />
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+        <!--<activity-->
+            <!--android:name="com.mob.tools.MobUIShell"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
 
-            <!-- QQ和QQ空间分享 QQ登录的回调必须要配置的 -->
-            <intent-filter>
-                <data android:scheme="tencent100371282" />
+            <!--&lt;!&ndash; QQ和QQ空间分享 QQ登录的回调必须要配置的 &ndash;&gt;-->
+            <!--<intent-filter>-->
+                <!--<data android:scheme="tencent100371282" />-->
 
-                <action android:name="android.intent.action.VIEW" />
+                <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
 
-            <!-- 新浪微博客户端分享回调必须配置 -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+            <!--&lt;!&ndash; 新浪微博客户端分享回调必须配置 &ndash;&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!-- 微信分享回调 -->
-        <activity
-            android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!--&lt;!&ndash; 微信分享回调 &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:exported="true"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -92,29 +100,26 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".presentation.LocationActivity" />
         <activity
             android:name=".presentation.detail.DiaryDetailActivity"
             android:windowSoftInputMode="adjustResize|stateUnspecified" />
-        <activity android:name=".presentation.diary.DiaryActivity"></activity>
-        <activity android:name=".presentation.contact.GroupListActivity"/>
-        <activity android:name=".presentation.contact.NewFriendsListActivity"/>
-        <activity android:name=".presentation.contact.PublishUserListActivity"/>
-        <activity android:name=".presentation.contact.SearchActivity"/>
+        <activity android:name=".presentation.diary.DiaryActivity" />
+        <activity android:name=".presentation.contact.GroupListActivity" />
+        <activity android:name=".presentation.contact.NewFriendsListActivity" />
+        <activity android:name=".presentation.contact.PublishUserListActivity" />
+        <activity android:name=".presentation.contact.SearchActivity" />
 
-        <!--  消息收发service -->
+        <!--&lt;!&ndash;消息收发service&ndash;&gt;-->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
-            android:process=":QALSERVICE" >
-        </service>
-        <!--  消息收发辅助service -->
+            android:process=":QALSERVICE"></service>
+        <!--消息收发辅助service-->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE" >
-        </service>
-        <!--  离线消息广播接收器 -->
+            android:process=":QALSERVICE"></service>
+        <!--&lt;!&ndash;离线消息广播接收器&ndash;&gt;-->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
@@ -122,9 +127,10 @@
                 <action android:name="com.tencent.qalsdk.broadcast.qal" />
             </intent-filter>
         </receiver>
-        <!--  系统消息广播接收器 -->
+        <!--&lt;!&ndash;系统消息广播接收器&ndash;&gt;-->
         <receiver
-            android:name="com.tencent.qalsdk.core.NetConnInfoCenter"  android:process=":QALSERVICE">
+            android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
+            android:process=":QALSERVICE">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -138,6 +144,7 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
+        <activity android:name=".presentation.contact.ContactInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -9,5 +9,5 @@ public class ConstantUtils {
 
     public static final int CAMERA_REQUEST_CODE = 1002;
     public static final int RESULT_REQUEST_CODE = 1003;
-
+    
 }

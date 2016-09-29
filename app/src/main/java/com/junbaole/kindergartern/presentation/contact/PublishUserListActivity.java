@@ -58,7 +58,7 @@ public class PublishUserListActivity extends BaseActivity implements
 		View layout_head = getLayoutInflater().inflate(
 				R.layout.layout_head_search, null);
 		lvContact.addHeaderView(layout_head);
-		lvContact.setAdapter(new ContactAdapter(this, null));
+		lvContact.setAdapter(new ContactAdapter(this, null,false));
 	}
 
 	@Override
