@@ -12,12 +12,12 @@
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_seekbar_track_material.xml"
     },
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_btn_borderless_material.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_btn_borderless_material.xml"
-    },
-    {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_ratingbar_material.xml",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_btn_borderless_material.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_btn_borderless_material.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/btn_voice_normal.xml",
@@ -36,12 +36,12 @@
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_btn_radio_material.xml"
     },
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_item_background_holo_light.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_item_background_holo_light.xml"
-    },
-    {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_ic_clear_material.xml",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_item_background_holo_light.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_item_background_holo_light.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/drawable/abc_text_cursor_material.xml",

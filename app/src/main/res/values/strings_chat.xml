@@ -286,21 +286,11 @@
     <string name="friendship_handle_reject">拒绝</string>
     <string name="friendship_handle_word">附加信息</string>
 
-    <!-- about activity -->
-    <string name="about_title">关于</string>
-    <string name="about_imsdk">IMSDK版本</string>
-    <string name="about_qalsdk">QAL版本</string>
-    <string name="about_tlssdk">TLS版本</string>
-    <string name="about_env">网络环境</string>
-    <string name="about_log">日志等级</string>
-    <string name="about_env_normal">正式环境</string>
-    <string name="about_env_test">测试环境</string>
-    <string name="about_set_effect">设置成功，杀进程重启后生效</string>
-
     <!-- message notify activity -->
     <string name="message_notify_title">消息提醒</string>
     <string name="message_notify_push">离线消息推送</string>
     <string name="message_notify_c2c_music">自定义C2C消息推送声音</string>
     <string name="message_notify_group_music">自定义群消息推送声音</string>
 
+    <string name="pic_description">温馨提示：此照片作为校园教师管理用，\n建议使用正面免冠照</string>
 </resources>

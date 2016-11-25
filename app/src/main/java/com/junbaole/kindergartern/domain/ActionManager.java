@@ -1,22 +1,30 @@
 package com.junbaole.kindergartern.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.greenrobot.eventbus.EventBus;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.JsonObject;
+import com.junbaole.kindergartern.data.model.BaseReponseModel;
 import com.junbaole.kindergartern.data.model.CommentModel;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
+import com.junbaole.kindergartern.data.model.LevelHistoryModel;
+import com.junbaole.kindergartern.data.model.NewFriendModle;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
+import com.junbaole.kindergartern.data.model.PersonalLevelModel;
 import com.junbaole.kindergartern.data.model.SMSVO;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
+import com.junbaole.kindergartern.data.utils.JsonUtils;
 import com.junbaole.kindergartern.data.utils.SharedPreferenceUtil;
 import com.junbaole.kindergartern.data.utils.chatutil.ChatUtil;
+import com.junbaole.kindergartern.data.utils.event.CofirmFriendShipEvent;
 import com.junbaole.kindergartern.data.utils.event.CommentEvent;
 import com.junbaole.kindergartern.data.utils.event.DataRefreshEvent;
 import com.junbaole.kindergartern.data.utils.event.DiaryEvent;
@@ -149,7 +157,7 @@ public class ActionManager {
                     new MaterialDialog.Builder(mCtx).content("你已经与宝贝的老师成为好友了，现在让我们一起关注宝贝在幼儿园的表现吧").show();
                     // sendPhoneEvent.type = 6;
                 }
-                ChatUtil.loginQCloud(data.phoneNum,data.token);
+                ChatUtil.loginQCloud(data.phoneNum, data.token);
                 EventBus.getDefault().post(sendPhoneEvent);
             }
 
@@ -327,7 +335,7 @@ public class ActionManager {
         secondAction.judgeComment(commentModel).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
-                queyDiary(commentModel.moment_id,isDiary);
+                queyDiary(commentModel.moment_id, isDiary);
             }
 
             @Override
@@ -351,12 +359,12 @@ public class ActionManager {
         });
     }
 
-    public void getFriendsList(int userid){
+    public void getFriendsList(int userid) {
         action.getFriendsByUserId(userid).enqueue(new CallBackListener<ArrayList<UserInfo>>() {
             @Override
             public void onSuccess(ArrayList<UserInfo> userInfo) {
-                if(userInfo!=null)
-                EventBus.getDefault().post(userInfo);
+                if (userInfo != null)
+                    EventBus.getDefault().post(userInfo);
             }
 
             @Override
@@ -366,11 +374,11 @@ public class ActionManager {
         });
     }
 
-    public void addFriend(long userId,long otherUserid){
-        String json = "{\"userId\":" +
-                userId+",\"otherUserid\":" +
-                otherUserid+"}";
-        action.addFriend(json).enqueue(new CallBackListener<JsonObject>() {
+    public void addFriend(long userId, long otherUserid) {
+        Map<String, Long> map = new HashMap();
+        map.put("userId", userId);
+        map.put("otherUserId", otherUserid);
+        action.addFriend(map).enqueue(new CallBackListener<JsonObject>() {
             @Override
             public void onSuccess(JsonObject jsonObject) {
                 Toast.makeText(mCtx, "请求发送成功", Toast.LENGTH_LONG).show();
@@ -384,17 +392,79 @@ public class ActionManager {
         });
     }
 
-    public void queryByPhone(String phoneNum){
+    public void queryByPhone(String phoneNum) {
         action.queryByPhone(phoneNum).enqueue(new CallBackListener<UserInfo>() {
             @Override
             public void onSuccess(UserInfo info) {
-                if(info!=null){
+                if (info != null) {
                     UserInfoEvent userInfoEvent = new UserInfoEvent();
                     userInfoEvent.userInfo = info;
                     EventBus.getDefault().post(userInfoEvent);
-                }else
+                } else
                     onFail("没有数据");
 
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void getNewFriendsList() {
+        action.getNewFriends(SharedPreferenceUtil.getUserInfo(mCtx).id).enqueue(new CallBackListener<NewFriendModle>() {
+            @Override
+            public void onSuccess(NewFriendModle newFriendInfos) {
+                EventBus.getDefault().post(newFriendInfos);
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void acceptShip(long friendId) {
+        Map<String, Long> queryMap = new HashMap<>();
+        queryMap.put("userId", (long)SharedPreferenceUtil.getUserInfo(mCtx).id);
+        queryMap.put("otherUserId", friendId);
+        action.confirmRelationship(queryMap).enqueue(new CallBackListener<String>() {
+            @Override
+            public void onSuccess(String stringBaseReponseModel) {
+//                if (Boolean.getBoolean(JsonUtils.getString(stringBaseReponseModel,"data","false")))
+                    EventBus.getDefault().post(new CofirmFriendShipEvent());
+//                else
+//                    onFail("确认失败,稍后重试!");
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void getLevels(){
+        action.getMyLevel(SharedPreferenceUtil.getUserInfo(mCtx).id).enqueue(new CallBackListener<PersonalLevelModel>() {
+            @Override
+            public void onSuccess(PersonalLevelModel personalLevelModel) {
+                EventBus.getDefault().post(personalLevelModel);
+            }
+
+            @Override
+            public void onFail(String failReason) {
+                Toast.makeText(mCtx, failReason, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void getLevelHistory(){
+        action.getLevelHistory(SharedPreferenceUtil.getUserInfo(mCtx).id).enqueue(new CallBackListener<LevelHistoryModel>() {
+            @Override
+            public void onSuccess(LevelHistoryModel levelHistoryModel) {
+                EventBus.getDefault().post(levelHistoryModel);
             }
 
             @Override

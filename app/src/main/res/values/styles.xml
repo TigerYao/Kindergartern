@@ -109,4 +109,9 @@
         <item name="android:paddingRight">7dip</item>
         <item name="android:paddingTop">2dip</item>
     </style>
+    <style name="BabyStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/s_color13</item>
+        <item name="android:padding">12dp</item>
+    </style>
 </resources>

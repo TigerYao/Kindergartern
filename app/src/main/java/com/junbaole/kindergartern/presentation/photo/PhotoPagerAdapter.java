@@ -27,10 +27,15 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     private List<ImageInfo> paths = new ArrayList<>();
     private RequestManager mGlide;
+    private ImagePagerFragment.onDismissListener mOnDismissListener;
 
     public PhotoPagerAdapter(RequestManager glide, List<ImageInfo> paths) {
         this.paths = paths;
         this.mGlide = glide;
+    }
+
+    public void setmOnDismissListener(ImagePagerFragment.onDismissListener dismissListener) {
+        this.mOnDismissListener = dismissListener;
     }
 
     public Uri getImgUri(int position) {
@@ -69,6 +74,9 @@ public class PhotoPagerAdapter extends PagerAdapter {
                         ((Activity)context).onBackPressed();
                     }
                 }
+//                if(mOnDismissListener!=null){
+//                    mOnDismissListener.onDismiss();
+//                }
             }
         });
 

@@ -4,6 +4,7 @@ import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.databinding.FragmentSomeTabsBinding;
 import com.junbaole.kindergartern.presentation.adapter.DiscoverAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseFragment;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 import com.junbaole.kindergartern.widget.recycleview.DividerGridItemDecoration;
 
 import android.content.Context;
@@ -87,5 +88,6 @@ public class SomeTabsFragment extends BaseFragment {
         someTabsBinding.recycleview.setLayoutManager(new GridLayoutManager(getContext(),2));
         someTabsBinding.recycleview.addItemDecoration(new DividerGridItemDecoration(getContext()));
         someTabsBinding.recycleview.setAdapter(new DiscoverAdapter());
+        new TitleBuilder(someTabsBinding.titleBar).TitleBuilderLable("发现","","").build();
     }
 }

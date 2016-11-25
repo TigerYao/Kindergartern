@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.personal.BabyClickHandler"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/baby_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/baby_name"
+            style="@style/BabyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/baby_img" />
+
+        <TextView
+            android:id="@+id/baby_address"
+            style="@style/BabyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/baby_img" />
+
+        <TextView
+            android:id="@+id/baby_school"
+            style="@style/BabyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/baby_img" />
+
+        <TextView
+            android:id="@+id/baby_birthday"
+            style="@style/BabyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/baby_img" />
+
+        <TextView
+            android:id="@+id/baby_ID"
+            style="@style/BabyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/baby_img" />
+    </RelativeLayout>
+</layout>

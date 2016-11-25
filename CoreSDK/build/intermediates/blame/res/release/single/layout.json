@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_stub_colorchooser_grid.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/commons/0.9.0.1/res/layout/md_stub_colorchooser_grid.xml"
-    },
-    {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_action_menu_item_layout.xml",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_stub_colorchooser_grid.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/commons/0.9.0.1/res/layout/md_stub_colorchooser_grid.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_dialog_title_material.xml",
@@ -16,20 +16,20 @@
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout/md_stub_titleframe.xml"
     },
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_dialog_progress_indeterminate.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout/md_dialog_progress_indeterminate.xml"
-    },
-    {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_list_menu_item_layout.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_layout.xml"
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_stub_progress.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout/md_stub_progress.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_action_menu_layout.xml",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_menu_layout.xml"
     },
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_stub_progress.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout/md_stub_progress.xml"
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/md_dialog_progress_indeterminate.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/layout/md_dialog_progress_indeterminate.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/release/layout/abc_search_view.xml",

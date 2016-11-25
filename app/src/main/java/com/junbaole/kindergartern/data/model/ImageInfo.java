@@ -1,10 +1,10 @@
 package com.junbaole.kindergartern.data.model;
 
+import com.junbaole.kindergartern.data.utils.StringUtils;
+
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.junbaole.kindergartern.data.utils.StringUtils;
 
 public class ImageInfo implements Parcelable {
     private Uri uri;
@@ -18,6 +18,7 @@ public class ImageInfo implements Parcelable {
     public String bucket;
     public boolean is_exit;
     public int id;
+
     public void setUri(Uri uri) {
         this.uri = uri;
     }
@@ -27,8 +28,11 @@ public class ImageInfo implements Parcelable {
     }
 
     public Uri getImgUri() {
-        if(uri==null||StringUtils.isBlank(uri.getPath())){
-            return Uri.parse(base_thumbnail_uri);
+        if (uri == null || StringUtils.isBlank(uri.getPath())) {
+            if (!StringUtils.isBlank(base_thumbnail_uri))
+                return Uri.parse(base_thumbnail_uri);
+            else if(client_id!=null)
+                return Uri.parse(client_id);
         }
         return uri;
     }
@@ -37,13 +41,12 @@ public class ImageInfo implements Parcelable {
         return realpath;
     }
 
-    public ImageInfo() {
-    }
+    public ImageInfo() {}
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof ImageInfo) {
-            ImageInfo imageInfo = (ImageInfo) o;
+        if (o instanceof ImageInfo) {
+            ImageInfo imageInfo = (ImageInfo)o;
             return imageInfo.client_id.equals(this.client_id);
         }
         return false;
@@ -81,7 +84,7 @@ public class ImageInfo implements Parcelable {
         dest.writeString(this.original_uri);
         dest.writeString(this.upload_path);
         dest.writeString(this.bucket);
-        dest.writeByte(this.is_exit ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.is_exit ? (byte)1 : (byte)0);
         dest.writeInt(this.id);
     }
 

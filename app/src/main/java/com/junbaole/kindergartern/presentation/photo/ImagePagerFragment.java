@@ -33,6 +33,7 @@ public class ImagePagerFragment extends BaseFragment {
     private ArrayList<ImageInfo> paths;
     private ViewPager mViewPager;
     private PhotoPagerAdapter mPagerAdapter;
+    private onDismissListener mOnDismissListener;
 
     public final static long ANIM_DURATION = 200L;
 
@@ -68,6 +69,12 @@ public class ImagePagerFragment extends BaseFragment {
         f.setArguments(args);
 
         return f;
+    }
+
+    public void setmOnDismissListener(onDismissListener dismissListener) {
+        this.mOnDismissListener = dismissListener;
+        if(mPagerAdapter!=null)
+            mPagerAdapter.setmOnDismissListener(dismissListener);
     }
 
     public static ImagePagerFragment newInstance(String message, ArrayList<ImageInfo> paths, int currentItem, int titleVisible) {
@@ -195,6 +202,11 @@ public class ImagePagerFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -212,5 +224,12 @@ public class ImagePagerFragment extends BaseFragment {
 
     public void setTitleVisible() {
         pageFragmentBinding.titleBar.getRoot().setVisibility(isVisibleTitlebar);
+    }
+
+    public void switchPage(int position){
+        mViewPager.setCurrentItem(position,true);
+    }
+    public interface  onDismissListener{
+        void onDismiss();
     }
 }

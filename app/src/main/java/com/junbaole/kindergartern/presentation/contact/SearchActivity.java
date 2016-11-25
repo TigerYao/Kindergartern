@@ -6,6 +6,8 @@ import com.junbaole.kindergartern.data.utils.event.UserInfoEvent;
 import com.junbaole.kindergartern.databinding.ActivitySearchGroupBinding;
 import com.junbaole.kindergartern.presentation.adapter.ContactAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
+import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class SearchActivity extends BaseActivity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         searchGroupBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_group);
         super.onCreate(savedInstanceState);
+        searchGroupBinding.titleBar.setClickHandler(new BaseTitleClickHandler(this));
+        new TitleBuilder(searchGroupBinding.titleBar).TitleBuilderLayout(true,false).TitleBuilderLeftItem(true,false).TitleBuilderLable("搜索","","").build();
         searchGroupBinding.search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

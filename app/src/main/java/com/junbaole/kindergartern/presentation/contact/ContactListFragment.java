@@ -113,7 +113,7 @@ public class ContactListFragment extends BaseFragment implements AdapterView.OnI
         layout_head = ctx.getLayoutInflater().inflate(
                 R.layout.layout_head_friend, null);
         contentDetailBinding.lvContact.addHeaderView(layout_head);
-
+        ChatUtil.getFriendList();
 
     }
 

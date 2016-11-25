@@ -58,37 +58,42 @@
         <activity android:name=".presentation.register.SchoolAddressActivity" />
         <activity android:name=".widget.ImageSelectorView.ImageSelectorActivity" />
         <activity android:name=".presentation.send.SendActivity" />
-        <!--<activity-->
-            <!--android:name="com.mob.tools.MobUIShell"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+        <!-- <activity -->
+        <!-- android:name="com.mob.tools.MobUIShell" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:windowSoftInputMode="stateHidden|adjustResize"> -->
 
-            <!--&lt;!&ndash; QQ和QQ空间分享 QQ登录的回调必须要配置的 &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<data android:scheme="tencent100371282" />-->
 
-                <!--<action android:name="android.intent.action.VIEW" />-->
+        <!-- &lt;!&ndash; QQ和QQ空间分享 QQ登录的回调必须要配置的 &ndash;&gt; -->
+        <!-- <intent-filter> -->
+        <!-- <data android:scheme="tencent100371282" /> -->
 
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
 
-            <!--&lt;!&ndash; 新浪微博客户端分享回调必须配置 &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
+        <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--&lt;!&ndash; 微信分享回调 &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:exported="true"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+
+        <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+
+
+        <!-- &lt;!&ndash; 新浪微博客户端分享回调必须配置 &ndash;&gt; -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" /> -->
+
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- &lt;!&ndash; 微信分享回调 &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name="cn.sharesdk.demo.wxapi.WXEntryActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <!-- android:exported="true" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -109,17 +114,17 @@
         <activity android:name=".presentation.contact.PublishUserListActivity" />
         <activity android:name=".presentation.contact.SearchActivity" />
 
-        <!--&lt;!&ndash;消息收发service&ndash;&gt;-->
+        <!-- &lt;!&ndash;消息收发service&ndash;&gt; -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
-            android:process=":QALSERVICE"></service>
-        <!--消息收发辅助service-->
+            android:process=":QALSERVICE" />
+        <!-- 消息收发辅助service -->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE"></service>
-        <!--&lt;!&ndash;离线消息广播接收器&ndash;&gt;-->
+            android:process=":QALSERVICE" />
+        <!-- &lt;!&ndash;离线消息广播接收器&ndash;&gt; -->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
@@ -127,7 +132,7 @@
                 <action android:name="com.tencent.qalsdk.broadcast.qal" />
             </intent-filter>
         </receiver>
-        <!--&lt;!&ndash;系统消息广播接收器&ndash;&gt;-->
+        <!-- &lt;!&ndash;系统消息广播接收器&ndash;&gt; -->
         <receiver
             android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
             android:process=":QALSERVICE">
@@ -144,7 +149,16 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-        <activity android:name=".presentation.contact.ContactInfoActivity"></activity>
+
+        <activity android:name=".presentation.contact.ContactInfoActivity" />
+        <activity android:name=".presentation.photo.ImagePreviewActivity" />
+        <activity android:name=".presentation.chat.ChatActivity" />
+        <activity android:name=".presentation.personal.MyBabyActivity" />
+        <activity android:name=".presentation.personal.MyPageActivity" />
+        <activity android:name=".presentation.personal.AutherActivity" />
+        <activity android:name=".presentation.personal.SysSettingsActivity" />
+        <activity android:name=".presentation.personal.AddBabyActivity" />
+        <activity android:name=".presentation.personal.MyLevelActivity"></activity>
     </application>
 
 </manifest>

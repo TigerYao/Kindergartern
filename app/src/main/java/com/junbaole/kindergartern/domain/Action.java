@@ -1,18 +1,23 @@
 package com.junbaole.kindergartern.domain;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.junbaole.kindergartern.data.model.BaseReponseModel;
 import com.junbaole.kindergartern.data.model.CommentModel;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
 import com.junbaole.kindergartern.data.model.DiaryInfo;
+import com.junbaole.kindergartern.data.model.LevelHistoryModel;
+import com.junbaole.kindergartern.data.model.NewFriendModle;
 import com.junbaole.kindergartern.data.model.ParentAuthVO;
+import com.junbaole.kindergartern.data.model.PersonalLevelModel;
 import com.junbaole.kindergartern.data.model.SMSVO;
 import com.junbaole.kindergartern.data.model.SendMessageInfo;
 import com.junbaole.kindergartern.data.model.ShooleInfo;
 import com.junbaole.kindergartern.data.model.UserInfo;
 import com.junbaole.kindergartern.data.model.UserLoginVO;
+import com.junbaole.kindergartern.data.utils.ObjectUtils;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,6 +28,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by liangrenwang on 16/6/22.
@@ -100,8 +106,20 @@ public interface Action {
     Call<BaseReponseModel<ArrayList<UserInfo>>> getFriendsByUserId(@Path("userId") int userId);
 
     @POST("/user/addUserRel")
-    Call<BaseReponseModel<JsonObject>> addFriend(@Body String params);
+    Call<BaseReponseModel<JsonObject>> addFriend(@QueryMap Map<String, Long> options);
 
     @GET("user/{mobile}")
     Call<BaseReponseModel<UserInfo>>queryByPhone(@Path("mobile") String mobile);
+
+    @GET("user/addHis/{userId}")
+    Call<BaseReponseModel<NewFriendModle>> getNewFriends(@Path("userId")long userid);
+
+    @POST("user/comfirmUserRel")
+    Call<BaseReponseModel<String>> confirmRelationship(@QueryMap Map<String,Long> options);
+
+    @GET("points/level")
+    Call<BaseReponseModel<PersonalLevelModel>> getMyLevel(@Query("user_id")long userid);
+
+    @GET("points/user")
+    Call<BaseReponseModel<LevelHistoryModel>>getLevelHistory(@Query("user_id")long userId);
 }

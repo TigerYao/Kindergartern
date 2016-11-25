@@ -1,33 +1,41 @@
 package com.junbaole.kindergartern.presentation.contact;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.NewFriendModle;
+import com.junbaole.kindergartern.data.utils.event.CofirmFriendShipEvent;
+import com.junbaole.kindergartern.databinding.ActivityListviewBinding;
 import com.junbaole.kindergartern.presentation.adapter.NewFriendsAdapter;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
+import com.junbaole.kindergartern.presentation.base.BaseTitleClickHandler;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ListView;
 
 //新朋友
-public class NewFriendsListActivity extends BaseActivity implements
-        OnClickListener {
-    private ListView mlistview;
-    private View layout_head;
+public class NewFriendsListActivity extends BaseActivity {
+//    private View layout_head;
+    private NewFriendsAdapter mAdapter;
+    private ActivityListviewBinding listviewBinding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_listview);
+        listviewBinding = DataBindingUtil.setContentView(this,R.layout.activity_listview);
         super.onCreate(savedInstanceState);
+        listviewBinding.layoutTitle.setClickHandler(new BaseTitleClickHandler(this));
+        new TitleBuilder(listviewBinding.layoutTitle).TitleBuilderLayout(true,false).TitleBuilderLeftItem(true,false).TitleBuilderLable("新朋友","","").build();
+        actionManager.getNewFriendsList();
     }
 
     @Override
     protected void initControl() {
-        mlistview = (ListView)findViewById(R.id.listview);
-        layout_head = getLayoutInflater().inflate(
-                R.layout.layout_head_newfriend, null);
-        mlistview.addHeaderView(layout_head);
-        mlistview.setAdapter(new NewFriendsAdapter(this));
+//        layout_head = getLayoutInflater().inflate(
+//                R.layout.layout_head_newfriend, null);
+//        listviewBinding.listview.addHeaderView(layout_head);
+        mAdapter = new NewFriendsAdapter(this);
+        listviewBinding.listview.setAdapter(mAdapter);
     }
 
     @Override
@@ -40,35 +48,16 @@ public class NewFriendsListActivity extends BaseActivity implements
 
     @Override
     protected void setListener() {
-        layout_head.findViewById(R.id.txt_search).setOnClickListener(this);
-        layout_head.findViewById(R.id.txt_tel).setOnClickListener(this);
-        layout_head.findViewById(R.id.txt_qq).setOnClickListener(this);
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            // case R.id.img_back:
-            // Utils.finish(NewFriendsListActivity.this);
-            // break;
-            // case R.id.txt_right:
-            // Utils.start_Activity(this, PublicActivity.class,
-            // new BasicNameValuePair(Constants.NAME, "添加朋友"));
-            // break;
-            case R.id.txt_search:
-                // Utils.start_Activity(this, PublicActivity.class,
-                // new BasicNameValuePair(Constants.NAME, "搜索"));
-                break;
-            case R.id.txt_tel:
-                // Utils.start_Activity(this, AddFromContactActivity.class);
-                break;
-            case R.id.txt_qq:
-                // Utils.start_Activity(this, PublicActivity.class,
-                // new BasicNameValuePair(Constants.NAME, "添加QQ好友"));
-                break;
-            default:
-                break;
-        }
+    @Subscribe
+    public void onGetListEvent(NewFriendModle infos){
+        mAdapter.setNewFriendInfos(infos.content);
+    }
+
+    @Subscribe
+    public void CofirmFriendShipEvent(CofirmFriendShipEvent event){
+     actionManager.getNewFriendsList();
     }
 }

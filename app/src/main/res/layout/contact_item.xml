@@ -9,7 +9,6 @@
         style="@style/MMListCatalog"
         android:background="@color/s_color14"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:paddingRight="5.0dip" />
 
     <LinearLayout

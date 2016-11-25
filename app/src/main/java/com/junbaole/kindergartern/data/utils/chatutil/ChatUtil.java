@@ -225,7 +225,7 @@ public class ChatUtil implements TIMMessageListener{
         });
     }
 
-    public void getFriendList(){
+    public static void getFriendList(){
         //获取好友列表
         TIMFriendshipManager.getInstance().getFriendList(new TIMValueCallBack<List<TIMUserProfile>>(){
             @Override

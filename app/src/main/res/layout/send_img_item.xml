@@ -5,13 +5,13 @@
     android:paddingTop="5dp"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.junbaole.kindergartern.widget.SquareImageView
         android:id="@+id/my_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
         android:padding="1dp"
-        android:src="@mipmap/lt_icon_tupian"
+        android:src="@mipmap/fasong_tianjia"
         android:background="@color/s_color14"
         />
 

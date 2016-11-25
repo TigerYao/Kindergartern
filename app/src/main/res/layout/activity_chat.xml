@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.chat.util.ui.TemplateTitle
+    <com.tencent.qcloud.ui.TemplateTitle
         android:id="@+id/chat_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         app:canBack="true" />
-    <com.chat.util.ui.ChatInput
+    <com.junbaole.kindergartern.widget.chat.ChatInput
         android:id="@+id/input_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_below="@id/chat_title">
 
     </ListView>
-    <com.chat.util.ui.VoiceSendingView
+    <com.junbaole.kindergartern.widget.chat.VoiceSendingView
         android:id="@+id/voice_sending"
         android:layout_width="130dp"
         android:layout_height="130dp"

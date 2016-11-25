@@ -1,5 +1,16 @@
 package com.junbaole.kindergartern.widget.ImageSelectorView;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.junbaole.kindergartern.R;
+import com.junbaole.kindergartern.data.model.ImageInfo;
+import com.junbaole.kindergartern.data.utils.ConstantUtils;
+import com.junbaole.kindergartern.databinding.ActivitySelectorBinding;
+import com.junbaole.kindergartern.presentation.base.BaseActivity;
+import com.junbaole.kindergartern.presentation.base.TitleBuilder;
+import com.junbaole.kindergartern.presentation.photo.ImagePagerFragment;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,23 +23,12 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.junbaole.kindergartern.R;
-import com.junbaole.kindergartern.data.model.ImageInfo;
-import com.junbaole.kindergartern.data.utils.ConstantUtils;
-import com.junbaole.kindergartern.databinding.ActivitySelectorBinding;
-import com.junbaole.kindergartern.presentation.base.BaseActivity;
-import com.junbaole.kindergartern.presentation.base.TitleBuilder;
-import com.junbaole.kindergartern.presentation.photo.ImagePagerFragment;
-
-import java.io.File;
-import java.util.ArrayList;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class ImageSelectorActivity extends BaseActivity {
+public class ImageSelectorActivity extends BaseActivity implements ImagePagerFragment.onDismissListener {
     private GridView mGirdView;
     protected MyAdapter mAdapter;
     ActivitySelectorBinding selectorBinding;
@@ -112,10 +112,15 @@ public class ImageSelectorActivity extends BaseActivity {
                 .subscribe(subscribers);
     }
 
+    ImagePagerFragment imagePagerFragment;
     public void scranPics(int postion) {
         selectorBinding.displayImgs.setVisibility(View.VISIBLE);
-        ImagePagerFragment imagePagerFragment = ImagePagerFragment.newInstance(mImgUrls, postion);
-        getSupportFragmentManager().beginTransaction().replace(R.id.display_imgs, imagePagerFragment).commit();
+        if(imagePagerFragment == null) {
+            imagePagerFragment = ImagePagerFragment.newInstance(mImgUrls, postion);
+            getSupportFragmentManager().beginTransaction().add(R.id.display_imgs, imagePagerFragment).show(imagePagerFragment).commit();
+        }else{
+            imagePagerFragment.switchPage(postion);
+        }
     }
 
     @Override
@@ -137,7 +142,7 @@ public class ImageSelectorActivity extends BaseActivity {
                         image.setUri(photoUri);
                         image.setRealpath(mCropTempFile.getAbsolutePath());
                         image.client_id = mCropTempFile.getAbsolutePath();
-                        imgsPath.add(1,image);
+                        imgsPath.add(1, image);
                         mAdapter.notifyDataSetChanged();
                         Uri localUri = Uri.fromFile(mCropTempFile);
                         Intent localIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);
@@ -179,4 +184,17 @@ public class ImageSelectorActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onDismiss() {
+//        selectorBinding.displayImgs.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectorBinding.displayImgs.getVisibility() == View.VISIBLE) {
+            selectorBinding.displayImgs.setVisibility(View.GONE);
+        } else
+            super.onBackPressed();
+
+    }
 }

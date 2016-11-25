@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_search_api_material.xml",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_ic_search_api_material.xml"
-    },
-    {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable/md_selector_dark.xml",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.0.1/res/drawable/md_selector_dark.xml"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_search_api_material.xml",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_ic_search_api_material.xml"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable/md_transparent.xml",

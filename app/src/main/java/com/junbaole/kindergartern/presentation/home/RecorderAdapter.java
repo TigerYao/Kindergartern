@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 
 import com.junbaole.kindergartern.R;
 import com.junbaole.kindergartern.data.model.DiaryDetailInfo;
+import com.junbaole.kindergartern.data.utils.ScreenUtils;
 import com.junbaole.kindergartern.data.utils.activity.SkipActivityUtils;
 import com.junbaole.kindergartern.databinding.AdapterTextContentHomeBinding;
 import com.junbaole.kindergartern.presentation.base.BaseActivity;
@@ -105,6 +106,12 @@ public class RecorderAdapter extends RecyclerView.Adapter<RecorderAdapter.Record
                 homeBinding.imgList.setAdapter(adapter);
                 homeBinding.imgList.setTag(diaryDetailInfo);
                 homeBinding.imgList.setOnItemClickListener(RecorderAdapter.this);
+                if(adapter.getCount()<4){
+                    homeBinding.imgList.getLayoutParams().height = (ScreenUtils.width / 4);
+                }else if(adapter.getCount()<7){
+                    homeBinding.imgList.getLayoutParams().height = (ScreenUtils.width / 4)*2;
+                }else
+                    homeBinding.imgList.getLayoutParams().height = (ScreenUtils.width / 4)*3;
             } else {
                 homeBinding.imgList.setVisibility(View.GONE);
             }

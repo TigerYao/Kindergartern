@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="com.junbaole.kindergartern.presentation.personal.BabyClickHandler" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:onClick="@{clickHandler.onClickOpenCamera}"
+            android:src="@mipmap/icon_xiangche_120" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawablePadding="12dp"
+            android:drawableTop="@mipmap/icon_tianjia_big"
+            android:gravity="center"
+            android:onClick="@{clickHandler.onClickAddBaby}"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="添加宝贝" />
+    </LinearLayout>
+</layout>

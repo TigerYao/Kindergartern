@@ -65,7 +65,7 @@ public class SendImgsAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         final SendImgsViewHolder holder = onCreateViewHolder();
-        holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
+//        holder.draweeView.getLayoutParams().height = holder.draweeView.getLayoutParams().width = (ScreenUtils.width / 5);
         if ((!isHome && position == getCount() - 1)) {
             holder.draweeView.setImageResource(R.mipmap.fasong_tianjia);
         } else {

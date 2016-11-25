@@ -133,9 +133,4 @@ public class TemplateTitle extends RelativeLayout {
         }
     }
 
-
-
-
-
-
 }

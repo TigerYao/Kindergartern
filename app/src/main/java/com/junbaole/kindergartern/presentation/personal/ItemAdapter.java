@@ -19,6 +19,7 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<String> items;
+    private int[] imgIds = {R.mipmap.icon_mybaby,R.mipmap.camera_lv,R.mipmap.icon_shiming,R.mipmap.icon_shezhi_me};
     private OnItemClickListener itemClickListener;
 
     public ItemAdapter(List<String> items) {
@@ -38,7 +39,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.onBindData(getItem(position));
+        holder.onBindData(position);
     }
 
     public String getItem(int postion) {
@@ -60,8 +61,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         }
 
-        public void onBindData(String title) {
-            itemLayoutBinding.setTitle(title);
+        public void onBindData(int position) {
+            itemLayoutBinding.setTitle(getItem(position));
+            itemLayoutBinding.icon.setImageResource(imgIds[position]);
             itemLayoutBinding.setClickHandler(new ClickHandler(getLayoutPosition()));
         }
     }

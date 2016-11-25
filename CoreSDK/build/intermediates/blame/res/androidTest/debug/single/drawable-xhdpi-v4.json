@@ -60,12 +60,12 @@
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/microphone2.png"
     },
     {
-        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png",
-        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
-    },
-    {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/btn_video.png",
         "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/btn_video.png"
+    },
+    {
+        "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png",
+        "source": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-xhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
         "merged": "/Users/yaohu/Documents/ShareHots/CoreSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/ic_expression.png",
